@@ -51,37 +51,7 @@
     ],
     "variants": {
       "claude": {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/cp261.glb",
-        "maker": "Claude · Anthropic",
-        "revision": "r6 · veřejná verze",
-        "credit": "Geometrie pochází z veřejné říjnové rekonstrukce Kulové. Vydání této varianty uvádí autora Claude. Přesný identifikátor modelu u exportu chybí.",
-        "scope": "Místní pilot obsahuje také samostatně doloženou revizi r7m.",
-        "sha256": "e63fa4b586b4b233dd5bb9df282e6a2a746289e33f3bee946dc43c75ca8c090c",
-        "bytes": 89524,
-        "textureSwatches": {}
-      },
-      "gpt": {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/models/cp261_v10.glb",
-        "revision": "v10",
-        "maker": "GPT-6 Astra · Codex",
-        "credit": "Geometrická a texturovaná řada v6–v10 vznikla v GPT-6 Astra (gpt-6-astra). V10 má vstup v první ose. Zaměření z roku 1965 prokazuje druhou osu zleva.",
-        "scope": "Srovnávací revize se známou chybou polohy vstupu. Střed dveří je v modelu asi o 1,86 m vlevo vůči opravené variantě Claude.",
-        "sha256": "15db1ff532444830c990aa87d423d2d293f13e1eaee78ed8d7aa16efeac3b7e3",
-        "bytes": 17787648,
-        "textureSwatches": {
-          "GENERATED_REVEAL": "#7b705d",
-          "GENERATED_TIMBER": "#4a392e",
-          "SOURCE_FRONT_PROTECTED": "#6a6356",
-          "SOURCE_DOOR_WITHOUT_PHOTO_STEPS": "#382921",
-          "SOURCE_PANES_ONLY": "#303434",
-          "GENERATED_PLASTER": "#71644e",
-          "GENERATED_ROOF": "#6f4c37",
-          "SOURCE_PAINTED_WINDOW_TIMBER": "#c0c2c4"
-        }
-      }
-    },
-    "pilotVersions": {
-      "claude": {
+        "url": "modely/261-claude-r7m.glb",
         "revision": "r7m",
         "maker": "Claude Opus 5.5",
         "credit": "Claude Fable 5.1 založil model s rozměry odvozenými od GPT. Claude Opus 5.5 (claude-opus-5-5) přepracoval geometrii, přesunul dveře do druhé osy a upravil UV.",
@@ -91,6 +61,7 @@
         "textureSwatches": {}
       },
       "gpt": {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/models/cp261_v10.glb",
         "revision": "v10",
         "maker": "GPT-6 Astra · Codex",
         "credit": "Geometrická a texturovaná řada v6–v10 vznikla v GPT-6 Astra (gpt-6-astra). V10 má vstup v první ose. Zaměření z roku 1965 prokazuje druhou osu zleva.",
@@ -161,39 +132,7 @@
     ],
     "variants": {
       "claude": {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/cp262.glb",
-        "maker": "Claude · Anthropic",
-        "revision": "r7 · veřejná verze",
-        "credit": "Geometrie pochází z veřejné říjnové rekonstrukce Kulové. Vydání této varianty uvádí autora Claude. Přesný identifikátor modelu u exportu chybí.",
-        "scope": "Místní pilot obsahuje také samostatně doloženou revizi r7m.",
-        "sha256": "4d8ad3147b0a35bfea4f9bf70ec4509848aeef883bb420923286a4c2e1acbfce",
-        "bytes": 454812,
-        "textureSwatches": {}
-      },
-      "gpt": {
-        "revision": "cp262_v2 · místní GLB",
-        "maker": "GPT-6.1 Sol · Codex",
-        "credit": "Geometrie předaná z Claude r7 (Fable 5.1, revize Opus 5.5). GPT-6.1 Sol (gpt-6.1-sol) zpracoval materiály a textury nad 128 převzatými sítěmi.",
-        "scope": "Veřejná mapa zobrazuje půdorys. Podrobnou GPT revizi připojíte z disku ve volbě Místní modely.",
-        "sha256": "3caba205cdb8898b429e47bc0c1ec20da4bd6c01e99b3bc713fc112260f86bd5",
-        "bytes": 7356052,
-        "textureSwatches": {
-          "262_clean_wall_PROVISIONAL": "#cfb996",
-          "262_source_feature_chart_PROVISIONAL": "#9b8868",
-          "262_source_dark_window_PROVISIONAL": "#2c2e2e",
-          "262_own_worn_return_PROVISIONAL": "#b6966a",
-          "262_own_plaster_PROVISIONAL": "#d8c6a9",
-          "262_roof_PROVISIONAL": "#83553f",
-          "262_weathered_metal_PROVISIONAL": "#b6966b",
-          "262_soffit_wood_PROVISIONAL": "#52463f",
-          "262_weathered_chimney_PROVISIONAL": "#d8c6a9"
-        },
-        "url": null
-      }
-    },
-    "parcel1937": "152",
-    "pilotVersions": {
-      "claude": {
+        "url": "modely/262-claude-r7m.glb",
         "revision": "r7m",
         "maker": "Claude Opus 5.5",
         "credit": "Geometrii založil Claude Fable 5.1. Revizi r7 a UV r7m vytvořil Claude Opus 5.5 (claude-opus-5-5). Kolorování podkladu řídil GPT-5.5, rektifikaci FRONTu GPT-5.6 Sol. Oba použili editor OpenAI ImageGen.",
@@ -205,6 +144,7 @@
         }
       },
       "gpt": {
+        "url": "modely/262-gpt-v2.glb",
         "revision": "cp262_v2",
         "maker": "GPT-6.1 Sol · Codex",
         "credit": "Geometrie předaná z Claude r7 (Fable 5.1, revize Opus 5.5). GPT-6.1 Sol (gpt-6.1-sol) zpracoval materiály a textury nad 128 převzatými sítěmi.",
@@ -223,7 +163,8 @@
           "262_weathered_chimney_PROVISIONAL": "#d8c6a9"
         }
       }
-    }
+    },
+    "parcel1937": "152"
   },
   "267": {
     "id": 14,
@@ -290,41 +231,7 @@
     ],
     "variants": {
       "claude": {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/cp267.glb",
-        "maker": "Claude · Anthropic",
-        "revision": "r5 · veřejná verze",
-        "credit": "Geometrie pochází z veřejné říjnové rekonstrukce Kulové. Vydání této varianty uvádí autora Claude. Přesný identifikátor modelu u exportu chybí.",
-        "scope": "Místní pilot obsahuje také samostatně doloženou revizi r7.",
-        "sha256": "a2423d9904b8c0d3092739cbe9c423e44b298b5b8d8a3430be1f245ac2bb9988",
-        "bytes": 153072,
-        "textureSwatches": {}
-      },
-      "gpt": {
-        "revision": "G8 v3 · místní GLB",
-        "maker": "GPT-6.1 Sol · Codex",
-        "credit": "GPT-6.1 Sol (gpt-6.1-sol) přepracoval geometrii a registrované textury nad Claude r7. Listopadová předávka Claude obsahuje tentýž soubor G8 v3.",
-        "scope": "Veřejná mapa zobrazuje půdorys. Podrobnou GPT revizi připojíte z disku ve volbě Místní modely.",
-        "sha256": "7e8b381c13aa518cf1e099074ac17ee49f90f9f36f29808a8843d61a939a23f2",
-        "bytes": 5454512,
-        "textureSwatches": {
-          "267_Kulova_PHOTO_REGISTERED_RECONSTRUCTED": "#7a756c",
-          "267_Minoritska_HYPOTHESIS": "#989186",
-          "267_hidden_plaster_PROVISIONAL": "#999387",
-          "267_return_own_2D_PROVISIONAL": "#9a9387",
-          "267_unique_window_fills_PROVISIONAL": "#6e6961",
-          "267_PHOTO_RELIEF_FRONT_RECONSTRUCTED": "#34322e",
-          "267_structured_trim_PROVISIONAL": "#9a9387",
-          "267_roof_PROVISIONAL": "#83553f",
-          "267_timber_soffit_PROVISIONAL": "#4f443d"
-        },
-        "url": null
-      }
-    },
-    "parcel1937": "170",
-    "trueBearing": 158.5,
-    "gridBearing": 166.86,
-    "pilotVersions": {
-      "claude": {
+        "url": "modely/267-claude-r7.glb",
         "revision": "r7",
         "maker": "Claude Opus 5.5",
         "credit": "Výchozí geometrie Claude Fable 5.1, revize r7 Claude Opus 5.5 (claude-opus-5-5). Samostatný předchůdce revize G8.",
@@ -334,6 +241,7 @@
         "textureSwatches": {}
       },
       "gpt": {
+        "url": "modely/267-gpt-g8-v3.glb",
         "revision": "G8 v3",
         "maker": "GPT-6.1 Sol · Codex",
         "credit": "GPT-6.1 Sol (gpt-6.1-sol) přepracoval geometrii a registrované textury nad Claude r7. Listopadová předávka Claude obsahuje tentýž soubor G8 v3.",
@@ -352,6 +260,9 @@
           "267_timber_soffit_PROVISIONAL": "#4f443d"
         }
       }
-    }
+    },
+    "parcel1937": "170",
+    "trueBearing": 158.5,
+    "gridBearing": 166.86
   }
 }

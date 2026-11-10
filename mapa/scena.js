@@ -139,7 +139,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   }
   function status() {
     const key=cp+'-'+layer, item=pilots[cp].models[layer];
-    const s=injectedStatus || (view==='facade' && usingDetails ? (!houses[cp].variants[layer].url ? 'Zobrazen je půdorys. Pro detail této revize vyberte její GLB v části Místní modely.' : failures.has(key) ? 'Model se nepodařilo načíst. Znovu otevřete vrstvu.' : item ? 'Kliknutím na doložené průčelí otevřete původní fotografii.' : 'Načítám model domu…') : view==='prostor'?(land?.status()==='error'?'3D povrchy se nepodařilo načíst. Otevřete mapu na ortofotu.':'Kliknutím na cestu, trávník nebo uliční prvek otevřete jeho pramen.'):view==='trees'?(treeMode==='off'?'Vrstva stromů je skrytá.':'Kliknutím na strom otevřete jeho letecký pramen.'):view==='street'?'Označený dům přiblížíte kliknutím.':'Tažení otáčí pohled. Kolečkem nebo dvěma prsty změníte měřítko.');
+    const s=injectedStatus || (view==='facade' && usingDetails ? (failures.has(key) ? 'Model se nepodařilo načíst. Znovu otevřete vrstvu.' : item ? 'Kliknutím na doložené průčelí otevřete původní fotografii.' : 'Načítám model domu…') : view==='prostor'?(land?.status()==='error'?'3D povrchy se nepodařilo načíst. Otevřete mapu na ortofotu.':'Kliknutím na cestu, trávník nebo uliční prvek otevřete jeho pramen.'):view==='trees'?(treeMode==='off'?'Vrstva stromů je skrytá.':'Kliknutím na strom otevřete jeho letecký pramen.'):view==='street'?'Označený dům přiblížíte kliknutím.':'Tažení otáčí pohled. Kolečkem nebo dvěma prsty změníte měřítko.');
     if(s!==lastStatus){message(s);lastStatus=s}
   }
   function registerMaterials(model,swatches) {
@@ -173,12 +173,10 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   }
   async function loadModel(code,key) {
     const data=houses[code], p=pilots[code], token=code+'-'+key;
-    if(!data.variants[key].url || p.models[key] || pending.has(token) || failures.has(token)) return;
+    if(p.models[key] || pending.has(token) || failures.has(token)) return;
     pending.set(token,true);
     try {
-      const requested=data.variants[key].url;
-      const file=await loader.loadAsync(requested);
-      if(data.variants[key].url!==requested) return;
+      const file=await loader.loadAsync(data.variants[key].url);
       const group=new T.Group();
       group.position.copy(p.anchor);
       group.rotation.y=rad(data.yaw);
@@ -401,18 +399,5 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     requestAnimationFrame(step);
   };
   resize();requestAnimationFrame(step);
-  function refreshModels(changed){
-    for(const [code,key] of changed){
-      const p=pilots[code], previous=p.models[key];
-      if(previous){
-        groups[key].remove(previous);
-        const oldMeshes=new Set();previous.traverse(n=>{if(n.isMesh)oldMeshes.add(n)});
-        for(let i=surfaceBindings.length-1;i>=0;i--)if(oldMeshes.has(surfaceBindings[i].mesh))surfaceBindings.splice(i,1);
-        delete p.models[key];
-      }
-      failures.delete(code+'-'+key);
-    }
-    dirty=true;needsRender=true;updateLevel();status();
-  }
-  return {refreshModels,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }

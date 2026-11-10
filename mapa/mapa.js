@@ -1,4 +1,4 @@
-import {normalizeCity,selectLocalModels} from './public-client.js';
+import {normalizeCity} from './public-client.js';
 import {publicInterface} from './prostor/ovladani.js';
 import {treeInterface} from './stromy/ovladani.js';
 import {showArchiveRecord} from './archive-access.js';
@@ -127,7 +127,6 @@ async function boot(){
   const res=await fetch('pilot.json',{cache:'no-cache'});
   if(!res.ok)throw Error('Nelze načíst katalog modelů.');
   houses=await res.json();
-  selectLocalModels(q('#model-files'),q('#model-result'),houses,changed=>{map?.refreshModels(changed);update(false,true)});
   try{
     const result=await fetch('stromy/stromy.geojson',{cache:'no-cache'});
     if(!result.ok)throw Error('Chybí inventura stromů.');
