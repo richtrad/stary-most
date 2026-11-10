@@ -70,12 +70,12 @@
       "kulova_geometry": "Anthropic · Claude Opus 5.5"
     },
     "kulova_public_source": {
-      "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/kulova_street.glb",
+      "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova/models/kulova_street.glb",
       "sha256": "40f16269c4cf6b6d36263fa6642c5f6a1aab9181f5e38a456723b946eacc9170",
       "date": "2026-10",
       "scope": "Veřejná říjnová verze zástavby a povrchů Město Most, projekt MOST. Povrchy této verze končí u čp. 266. Půdorysy a portréty tří domů mají vlastní prameny.",
       "author": "Claude (Anthropic), veřejná zpráva k ulici",
-      "report": "https://grafitctu.github.io/most/kulova/ZPRAVA.md",
+      "report": "https://richtrad.github.io/most/kulova/ZPRAVA.md",
       "gutter_split": {
         "slope": 0.203,
         "threshold": -117.942403

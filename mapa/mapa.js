@@ -170,7 +170,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js'),fetch('https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/gis/mapa/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js'),fetch('https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/gis/mapa/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view)=>choose({cp,view}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true));

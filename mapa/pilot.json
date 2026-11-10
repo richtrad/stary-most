@@ -29,7 +29,7 @@
     "placement": "Historická parcela 151 (1937). Dům sdílí východní hranici s čp. 262. Obě průčelí měří 13,746 m, uliční hrana v GIS přibližně 13,75 m. Vstup ve druhé ose zleva potvrzují uliční fotografie a zaměření z července 1965.",
     "photos": [
       {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/sources/cp_261,262,263_001.jpg",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova-261/sources/cp_261,262,263_001.jpg",
         "title": "Kulová z piaristické věže · kolem 1908",
         "note": "Čp. 261 je nízký dům vlevo od zdobené fasády okresní nemocenské pokladny čp. 262. Fotografie zachycuje také čp. 263. Zobrazen je celý zveřejněný archivní snímek včetně okrajů.",
         "collection": "Archivní fotografie, projekt MOST",
@@ -40,7 +40,7 @@
     ],
     "plans": [
       {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/sources/cp_261_001.jpg",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova-261/sources/cp_261_001.jpg",
         "title": "Čp. 261 · řez a půdorysy z roku 1883",
         "note": "List je přímo označen čp. 261 a datem 8. března 1883. Zachycuje řez a půdorysy. Číslo parcely v kartě domu vychází ze samostatné situace z roku 1937.",
         "collection": "Veřejná stavební dokumentace projektu MOST",
@@ -61,7 +61,7 @@
         "textureSwatches": {}
       },
       "gpt": {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/models/cp261_v10.glb",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova-261/models/cp261_v10.glb",
         "revision": "v10",
         "maker": "GPT-6 Astra · Codex",
         "credit": "Geometrická a texturovaná řada v6–v10 vznikla v GPT-6 Astra (gpt-6-astra). V10 má vstup v první ose. Zaměření z roku 1965 prokazuje druhou osu zleva.",
@@ -110,7 +110,7 @@
     "identity": "Půdorys GIS 8 · EPSG:5514",
     "photos": [
       {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/sources/cp_261,262,263_001.jpg",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova-261/sources/cp_261,262,263_001.jpg",
         "title": "Kulová z piaristické věže · kolem 1908",
         "note": "Čp. 261 je nízký dům vlevo od zdobené fasády okresní nemocenské pokladny čp. 262. Fotografie zachycuje také čp. 263. Zobrazen je celý zveřejněný archivní snímek včetně okrajů.",
         "collection": "Archivní fotografie, projekt MOST",
@@ -121,7 +121,7 @@
     ],
     "plans": [
       {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-263/sources/cp_263_003.jpg",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova-263/sources/cp_263_003.jpg",
         "title": "Poloha čp. 262 v uliční řadě · 1910",
         "note": "Čp. 261, 262 a 263 vidíte vpravo dole v situačním plánu Kugelgasse v měřítku 1 : 1000. Řez a půdorys ve zbývající části listu patří sousednímu čp. 263.",
         "collection": "Veřejná stavební dokumentace projektu MOST",
@@ -203,7 +203,7 @@
         "bytes": 211609
       },
       {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/assets/src/2bd813fa16fa162a.jpg",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova/assets/src/2bd813fa16fa162a.jpg",
         "title": "Dům čp. 267 v letech 1957–58 · reprodukce",
         "collection": "Veřejná reprodukce projektu MOST",
         "recordId": "Dům čp. 267 v letech 1957–58",
@@ -211,7 +211,7 @@
         "note": "Originální archivní karta s fotografií a popisem nároží. Čp. 267 je označeno vpravo. Zobrazen je veřejně přístupný náhled archivního listu."
       },
       {
-        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/assets/src/0ebdc835a90ec929.jpg",
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova/assets/src/0ebdc835a90ec929.jpg",
         "title": "Starší pohled do Kulové · reprodukce",
         "collection": "Veřejná reprodukce projektu MOST",
         "recordId": "Starší pohled do Kulové",
