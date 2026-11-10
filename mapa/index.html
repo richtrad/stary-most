@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Starý Most | Kulová ve 3D</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
+<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+<header><a class="brand" href="../" aria-label="Starý Most, úvod" style="color:inherit;text-decoration:none"><span class="mark" aria-hidden="true">M</span><strong>Starý Most</strong><span class="header-divider"></span><span class="subtitle">Historický 3D GIS</span></a><a class="header-route" style="color:inherit" href="../metodika/">Metodika</a></header>
+<main>
+<section id="map" aria-label="Interaktivní mapa Starého Mostu">
+<canvas id="scene" tabindex="0" aria-label="3D mapa. Tažením otočíte pohled, kolečkem změníte měřítko. Kliknutím na strom, cestu nebo parkový prvek otevřete letecký pramen. Archivní fotografii otevřete kliknutím na doložené průčelí nebo tlačítkem v kartě domu."></canvas>
+<div class="maphead"><div id="place">Starý Most</div><div id="scale"></div></div>
+<div id="pins"></div>
+<div id="map-status" role="status">Načítám město…</div>
+<div id="cartography"><span id="north" title="Mřížkový sever GIS"><i>↑</i> N</span><span id="distance" title="Měřítko v rovině středu pohledu"></span></div>
+<div id="map-tools"><button id="zoom-in" aria-label="Přiblížit">+</button><button id="zoom-out" aria-label="Oddálit">−</button></div>
+</section>
+<aside>
+<div class="panel-head"><p class="kicker">REKONSTRUKCE ULICE</p><h1>Kulová</h1><p class="lede">Historický Most od městského půdorysu po jednotlivá průčelí.</p></div>
+<nav aria-label="Měřítko pohledu"><button data-view="city">Celý Most</button><button data-view="street">Ulice</button><button data-view="facade">Fasáda</button><button data-view="trees">Stromy</button><button data-view="prostor">Povrchy</button></nav>
+<details id="land-controls" class="control tree-controls">
+<summary><strong>Povrchy a uliční prvky</strong><span id="land-total"></span></summary>
+<div id="land-filters" aria-label="Druhy veřejného prostoru"></div>
+<label class="tree-field" for="land-zone">Přiblížit oblast</label>
+<select id="land-zone"><option value="all">Celé zmapované okolí</option></select>
+<div class="tree-choice"><select id="land-feature" aria-label="Jednotlivý povrch nebo uliční prvek"></select><button type="button" id="land-open" disabled>Pramen ↗</button></div>
+<p class="tree-note">Odečet a model sadů vytvořil OpenAI · Codex (GPT-6). Vozovku, chodníky a obruby Kulové modeloval Claude Opus 5.5.</p>
+<div class="land-links"><a href="./letecke-snimky/?prostor=1#soupis">Porovnat s ortofotem ↗</a><a href="./prostor/prostor.geojson" download>GeoJSON</a></div>
+<details class="land-candidate"><summary>Lampa na uliční fotografii</summary><p class="tree-note">Vlevo na fasádě je svítidlo na zahnuté konzole. Přesné umístění držáku a rok snímku zůstávají otevřené.</p><a href="https://libuse.vugtk.cz:3004/manager/streets">Archivní evidence v Libuši</a></details>
+</details>
+<section class="control tree-controls" id="tree-controls" aria-labelledby="tree-label">
+<div class="tree-head"><h2 id="tree-label">Stromy</h2><span id="tree-summary"></span></div>
+<div class="segmented" role="group" aria-labelledby="tree-label"><button data-vegetation="crowns">S korunami</button><button data-vegetation="branches">Bez listí</button><button data-vegetation="off">Skrýt</button></div>
+<label class="tree-check"><input type="checkbox" id="tree-known"> Jen zřetelné stromy</label>
+<label class="tree-field" for="tree-area">Přiblížit oblast</label>
+<select id="tree-area"><option value="all">Celé zmapované okolí</option></select>
+<div class="tree-choice"><select id="tree-id" aria-label="Jednotlivý strom"></select><button type="button" id="tree-open" disabled>Pramen ↗</button></div>
+<p class="tree-note">Polohy podle leteckého snímku. Olistění, výšky a větvení modeloval OpenAI · Codex (GPT-6) pro obě vrstvy.</p>
+<a href="./letecke-snimky/#soupis">Stromy na ortofotu ↗</a> &nbsp;·&nbsp;
+</section>
+<section class="control"><h2>Dům</h2><div id="houses" class="house-list">
+<button data-cp="261"><b>Čp. 261</b><span>Dům vedle nemocenské pokladny</span></button>
+<button data-cp="262"><b>Čp. 262</b><span>Okresní nemocenská pokladna</span></button>
+<button data-cp="267"><b>Čp. 267</b><span>Nároží Šmeralova náměstí</span></button>
+</div></section>
+<section class="control"><h2>Vrstva modelů</h2><div class="segmented" role="group" aria-label="Autorská vrstva"><button data-layer="claude">Claude</button><button data-layer="gpt">GPT · Codex</button></div>
+<div class="surface-picker"><h2 id="surface-label">Povrch budov</h2>
+<div class="segmented" role="group" aria-labelledby="surface-label"><button type="button" data-surface="original">Původní vzhled</button><button type="button" data-surface="materials">Jen materiály</button></div>
+<p id="surface-note" hidden></p></div>
+<details id="local-models"><summary>Místní modely</summary><p>Vyberte soubory GLB z pilotu Kulové. Prohlížeč ověří jejich SHA-256 a zobrazí odpovídající autorskou revizi přímo na tomto zařízení.</p><label>Vybrat místní modely <input type="file" id="model-files" accept=".glb" multiple></label><p role="status" id="model-result"></p></details><div id="credit" aria-live="polite"><strong></strong><p></p><details><summary>Verze a stav ověření</summary><p class="scope"></p><code></code></details></div></section>
+<section class="control"><h2>Archivní prameny</h2><p class="address" id="address"></p><div class="source-actions"><button id="photo">Původní fotografie <span aria-hidden="true">↗</span></button><button id="plan">Situační plán</button></div>
+<p class="address"><a style="color:inherit" href="./letecke-snimky/" target="_blank" rel="noopener">Letecké snímky, povrchy a stromy ↗</a></p>
+<details class="registration"><summary>Jak je dům usazený</summary><p id="registration"></p><p>Čísla za lomítkem jsou označení zakreslená na listech. Parcelní čísla vycházejí ze situace z roku 1937. Terén a chodníky pro obě vrstvy vytvořil Claude Opus 5.5. Výšku prahů určuje předpokládaný dvouprocentní sklon ulice.</p></details></section>
+<p id="context">Městský GIS obsahuje 1 400 půdorysů ve 132 ulicích. Světlé objemy mají orientační výšku. Podrobné autorské modely jsou dostupné u tří označených domů.</p>
+</aside>
+</main>
+<dialog id="land-dialog" aria-labelledby="land-title">
+<div class="doc-head"><div><p class="kicker" id="land-place"></p><h2 id="land-title"></h2></div><button id="land-close" aria-label="Zavřít pramen povrchu">×</button></div>
+<div class="tree-photo"><canvas id="land-scan" width="800" height="380" aria-label="Městské ortofoto 1964 s obrysem vybraného prvku"></canvas></div>
+<div class="doc-foot">
+<label class="tree-check"><input type="checkbox" id="land-outline" checked> Vyznačit obrys</label>
+<p class="tree-note">Ortofoto města Mostu, 1964 · Georeal Plzeň · podkladová data © MO ČR</p>
+<p id="land-reading"></p><div class="land-actions"><a id="land-original" class="tree-source-link" target="_blank" rel="noopener">Toto místo na původním snímku ↗</a><a id="land-ground" hidden>Karta uliční fotografie Kulové</a></div>
+<details><summary>Přesnost a autorství</summary><p id="land-metrics"></p><p id="land-origin"></p></details>
+</div></dialog>
+<dialog id="tree-source" aria-labelledby="tree-title">
+<div class="doc-head"><div><p class="kicker">LETECKÝ PRAMEN · 16. DUBNA 1964</p><h2 id="tree-title"></h2></div><button id="tree-close" aria-label="Zavřít pramen stromu">×</button></div>
+<div class="tree-photo"><canvas id="tree-scan" width="520" height="320" aria-label="Výřez georeferencovaného ortofota 1964 se zaznačeným středem koruny"></canvas></div>
+<div class="doc-foot"><label class="tree-check"><input type="checkbox" id="tree-mark" checked> Vyznačit střed a přibližný průměr koruny</label>
+<p class="tree-note" id="tree-caption">Ortofoto města Mostu, 1964 · Georeal Plzeň · podkladová data © MO ČR</p>
+<p id="tree-reading"></p><a class="tree-source-link" id="tree-archive" target="_blank" rel="noopener">Otevřít toto místo na původním snímku ČÚZK ↗</a>
+<details><summary>Poloha, rozměry a autor modelu</summary><p id="tree-metrics"></p><p id="tree-coordinate"></p><p>3D model vytvořil OpenAI · Codex (GPT-6). Letecký měřický snímek © MO ČR, archiv Zeměměřického úřadu.</p></details>
+</div></dialog>
+<dialog id="archive" aria-labelledby="doc-title">
+<div class="doc-head"><div><p class="kicker" id="doc-kind"></p><h2 id="doc-title"></h2></div><button id="close-doc" aria-label="Zavřít pramen">×</button></div>
+<div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
+<div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
+</dialog>
+<script type="module" src="./mapa.js"></script>
+</body></html>

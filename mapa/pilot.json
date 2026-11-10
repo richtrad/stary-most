@@ -1,0 +1,357 @@
+{
+  "261": {
+    "cp": "261",
+    "id": 7,
+    "position": [
+      -76.8,
+      1.78,
+      -107.73
+    ],
+    "yaw": 9.757,
+    "address": "Kulová · severní strana",
+    "name": "Dům mezi čp. 260 a 262",
+    "edge": [
+      [
+        0,
+        0
+      ],
+      [
+        13.746,
+        0
+      ]
+    ],
+    "eyeHeight": 3.9,
+    "height": 8.6,
+    "trueBearing": 161.8,
+    "gridBearing": 170.243,
+    "parcel1937": "151",
+    "identity": "Půdorys GIS 7 · EPSG:5514",
+    "placement": "Historická parcela 151 (1937). Dům sdílí východní hranici s čp. 262. Obě průčelí měří 13,746 m, uliční hrana v GIS přibližně 13,75 m. Vstup ve druhé ose zleva potvrzují uliční fotografie a zaměření z července 1965.",
+    "photos": [
+      {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/sources/cp_261,262,263_001.jpg",
+        "title": "Kulová z piaristické věže · kolem 1908",
+        "note": "Čp. 261 je nízký dům vlevo od zdobené fasády okresní nemocenské pokladny čp. 262. Fotografie zachycuje také čp. 263. Zobrazen je celý zveřejněný archivní snímek včetně okrajů.",
+        "collection": "Archivní fotografie, projekt MOST",
+        "recordId": "cp_261,262,263_001.jpg",
+        "sha256": "9e44e922e859484911fb530cffaba6a2bc3bd536c743bbcf52404054c2481564",
+        "bytes": 796812
+      }
+    ],
+    "plans": [
+      {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/sources/cp_261_001.jpg",
+        "title": "Čp. 261 · řez a půdorysy z roku 1883",
+        "note": "List je přímo označen čp. 261 a datem 8. března 1883. Zachycuje řez a půdorysy. Číslo parcely v kartě domu vychází ze samostatné situace z roku 1937.",
+        "collection": "Veřejná stavební dokumentace projektu MOST",
+        "recordId": "Čp. 261, Brüx, 1883",
+        "sha256": "764e080efd15396b296b649307694b7c67bb11b0140c1ad64ddb96195efe4c80",
+        "bytes": 1019886
+      }
+    ],
+    "variants": {
+      "claude": {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/cp261.glb",
+        "maker": "Claude · Anthropic",
+        "revision": "r6 · veřejná verze",
+        "credit": "Geometrie pochází z veřejné říjnové rekonstrukce Kulové. Vydání této varianty uvádí autora Claude. Přesný identifikátor modelu u exportu chybí.",
+        "scope": "Místní pilot obsahuje také samostatně doloženou revizi r7m.",
+        "sha256": "e63fa4b586b4b233dd5bb9df282e6a2a746289e33f3bee946dc43c75ca8c090c",
+        "bytes": 89524,
+        "textureSwatches": {}
+      },
+      "gpt": {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/models/cp261_v10.glb",
+        "revision": "v10",
+        "maker": "GPT-6 Astra · Codex",
+        "credit": "Geometrická a texturovaná řada v6–v10 vznikla v GPT-6 Astra (gpt-6-astra). V10 má vstup v první ose. Zaměření z roku 1965 prokazuje druhou osu zleva.",
+        "scope": "Srovnávací revize se známou chybou polohy vstupu. Střed dveří je v modelu asi o 1,86 m vlevo vůči opravené variantě Claude.",
+        "sha256": "15db1ff532444830c990aa87d423d2d293f13e1eaee78ed8d7aa16efeac3b7e3",
+        "bytes": 17787648,
+        "textureSwatches": {
+          "GENERATED_REVEAL": "#7b705d",
+          "GENERATED_TIMBER": "#4a392e",
+          "SOURCE_FRONT_PROTECTED": "#6a6356",
+          "SOURCE_DOOR_WITHOUT_PHOTO_STEPS": "#382921",
+          "SOURCE_PANES_ONLY": "#303434",
+          "GENERATED_PLASTER": "#71644e",
+          "GENERATED_ROOF": "#6f4c37",
+          "SOURCE_PAINTED_WINDOW_TIMBER": "#c0c2c4"
+        }
+      }
+    },
+    "pilotVersions": {
+      "claude": {
+        "revision": "r7m",
+        "maker": "Claude Opus 5.5",
+        "credit": "Claude Fable 5.1 založil model s rozměry odvozenými od GPT. Claude Opus 5.5 (claude-opus-5-5) přepracoval geometrii, přesunul dveře do druhé osy a upravil UV.",
+        "scope": "Poloha dveří odpovídá zaměření z roku 1965. Některé rozměry krajních otvorů mají pracovní status. Model má základní materiály bez bitmap.",
+        "sha256": "30cef1c13ed3412bd57a2c2261950dbc218662a1039feb7e1f46c2570cf70210",
+        "bytes": 109076,
+        "textureSwatches": {}
+      },
+      "gpt": {
+        "revision": "v10",
+        "maker": "GPT-6 Astra · Codex",
+        "credit": "Geometrická a texturovaná řada v6–v10 vznikla v GPT-6 Astra (gpt-6-astra). V10 má vstup v první ose. Zaměření z roku 1965 prokazuje druhou osu zleva.",
+        "scope": "Srovnávací revize se známou chybou polohy vstupu. Střed dveří je v modelu asi o 1,86 m vlevo vůči opravené variantě Claude.",
+        "sha256": "15db1ff532444830c990aa87d423d2d293f13e1eaee78ed8d7aa16efeac3b7e3",
+        "bytes": 17787648,
+        "textureSwatches": {
+          "GENERATED_REVEAL": "#7b705d",
+          "GENERATED_TIMBER": "#4a392e",
+          "SOURCE_FRONT_PROTECTED": "#6a6356",
+          "SOURCE_DOOR_WITHOUT_PHOTO_STEPS": "#382921",
+          "SOURCE_PANES_ONLY": "#303434",
+          "GENERATED_PLASTER": "#71644e",
+          "GENERATED_ROOF": "#6f4c37",
+          "SOURCE_PAINTED_WINDOW_TIMBER": "#c0c2c4"
+        }
+      }
+    }
+  },
+  "262": {
+    "id": 8,
+    "position": [
+      -63.25,
+      1.479,
+      -110.06
+    ],
+    "yaw": 10.466,
+    "address": "Kulová · severní strana",
+    "name": "Okresní nemocenská pokladna",
+    "cp": "262",
+    "edge": [
+      [
+        0,
+        0
+      ],
+      [
+        16.5,
+        0
+      ]
+    ],
+    "eyeHeight": 7.0,
+    "height": 14.2,
+    "gridBearing": 169.5,
+    "trueBearing": 161.1,
+    "placement": "Historická parcela 152 (1937). Uliční průčelí mezi čp. 261 a 263 na severní straně Kulové. Jeho šířka je v obou modelech i v zaměření 16,50 m, digitalizovaná hrana měří 16,90 m. Výchozí roh modelu leží na západním konci hrany.",
+    "identity": "Půdorys GIS 8 · EPSG:5514",
+    "photos": [
+      {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-261/sources/cp_261,262,263_001.jpg",
+        "title": "Kulová z piaristické věže · kolem 1908",
+        "note": "Čp. 261 je nízký dům vlevo od zdobené fasády okresní nemocenské pokladny čp. 262. Fotografie zachycuje také čp. 263. Zobrazen je celý zveřejněný archivní snímek včetně okrajů.",
+        "collection": "Archivní fotografie, projekt MOST",
+        "recordId": "cp_261,262,263_001.jpg",
+        "sha256": "9e44e922e859484911fb530cffaba6a2bc3bd536c743bbcf52404054c2481564",
+        "bytes": 796812
+      }
+    ],
+    "plans": [
+      {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova-263/sources/cp_263_003.jpg",
+        "title": "Poloha čp. 262 v uliční řadě · 1910",
+        "note": "Čp. 261, 262 a 263 vidíte vpravo dole v situačním plánu Kugelgasse v měřítku 1 : 1000. Řez a půdorys ve zbývající části listu patří sousednímu čp. 263.",
+        "collection": "Veřejná stavební dokumentace projektu MOST",
+        "recordId": "Plán domu čp. 263, říjen 1910",
+        "sha256": "fa53efe86a09b929ee216e915e54a6439f75f77d08ba5d84778860aa6d6e7105",
+        "bytes": 944064
+      }
+    ],
+    "variants": {
+      "claude": {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/cp262.glb",
+        "maker": "Claude · Anthropic",
+        "revision": "r7 · veřejná verze",
+        "credit": "Geometrie pochází z veřejné říjnové rekonstrukce Kulové. Vydání této varianty uvádí autora Claude. Přesný identifikátor modelu u exportu chybí.",
+        "scope": "Místní pilot obsahuje také samostatně doloženou revizi r7m.",
+        "sha256": "4d8ad3147b0a35bfea4f9bf70ec4509848aeef883bb420923286a4c2e1acbfce",
+        "bytes": 454812,
+        "textureSwatches": {}
+      },
+      "gpt": {
+        "revision": "cp262_v2 · místní GLB",
+        "maker": "GPT-6.1 Sol · Codex",
+        "credit": "Geometrie předaná z Claude r7 (Fable 5.1, revize Opus 5.5). GPT-6.1 Sol (gpt-6.1-sol) zpracoval materiály a textury nad 128 převzatými sítěmi.",
+        "scope": "Veřejná mapa zobrazuje půdorys. Podrobnou GPT revizi připojíte z disku ve volbě Místní modely.",
+        "sha256": "3caba205cdb8898b429e47bc0c1ec20da4bd6c01e99b3bc713fc112260f86bd5",
+        "bytes": 7356052,
+        "textureSwatches": {
+          "262_clean_wall_PROVISIONAL": "#cfb996",
+          "262_source_feature_chart_PROVISIONAL": "#9b8868",
+          "262_source_dark_window_PROVISIONAL": "#2c2e2e",
+          "262_own_worn_return_PROVISIONAL": "#b6966a",
+          "262_own_plaster_PROVISIONAL": "#d8c6a9",
+          "262_roof_PROVISIONAL": "#83553f",
+          "262_weathered_metal_PROVISIONAL": "#b6966b",
+          "262_soffit_wood_PROVISIONAL": "#52463f",
+          "262_weathered_chimney_PROVISIONAL": "#d8c6a9"
+        },
+        "url": null
+      }
+    },
+    "parcel1937": "152",
+    "pilotVersions": {
+      "claude": {
+        "revision": "r7m",
+        "maker": "Claude Opus 5.5",
+        "credit": "Geometrii založil Claude Fable 5.1. Revizi r7 a UV r7m vytvořil Claude Opus 5.5 (claude-opus-5-5). Kolorování podkladu řídil GPT-5.5, rektifikaci FRONTu GPT-5.6 Sol. Oba použili editor OpenAI ImageGen.",
+        "scope": "Pracovní rekonstrukce. Archivní stav fasády je časově podmíněný. Přesnou verzi obrazového backendu záznamy neuvádějí.",
+        "sha256": "a222079878a6d2a140594615bf9a071370d8e1d19e7cbd230ea073be0be05c27",
+        "bytes": 2314680,
+        "textureSwatches": {
+          "plaster_front": "#a38f6e"
+        }
+      },
+      "gpt": {
+        "revision": "cp262_v2",
+        "maker": "GPT-6.1 Sol · Codex",
+        "credit": "Geometrie předaná z Claude r7 (Fable 5.1, revize Opus 5.5). GPT-6.1 Sol (gpt-6.1-sol) zpracoval materiály a textury nad 128 převzatými sítěmi.",
+        "scope": "Pracovní vizuální kontrola materiálů prošla. Historické schválení a finální uvolnění ulice zůstávají otevřené.",
+        "sha256": "3caba205cdb8898b429e47bc0c1ec20da4bd6c01e99b3bc713fc112260f86bd5",
+        "bytes": 7356052,
+        "textureSwatches": {
+          "262_clean_wall_PROVISIONAL": "#cfb996",
+          "262_source_feature_chart_PROVISIONAL": "#9b8868",
+          "262_source_dark_window_PROVISIONAL": "#2c2e2e",
+          "262_own_worn_return_PROVISIONAL": "#b6966a",
+          "262_own_plaster_PROVISIONAL": "#d8c6a9",
+          "262_roof_PROVISIONAL": "#83553f",
+          "262_weathered_metal_PROVISIONAL": "#b6966b",
+          "262_soffit_wood_PROVISIONAL": "#52463f",
+          "262_weathered_chimney_PROVISIONAL": "#d8c6a9"
+        }
+      }
+    }
+  },
+  "267": {
+    "id": 14,
+    "position": [
+      24.98,
+      0.13,
+      -129.73
+    ],
+    "yaw": 107.346,
+    "address": "Šmeralovo náměstí × Ždanovova",
+    "name": "Nárožní dům u vstupu do Kulové",
+    "cp": "267",
+    "edge": [
+      [
+        1.29,
+        -17.55
+      ],
+      [
+        0.062,
+        -0.848
+      ]
+    ],
+    "eyeHeight": 5.9,
+    "height": 12.0,
+    "placement": "Historická parcela 170 (1937). Situační plán i karta z let 1957–58 kladou dům na nároží Šmeralova náměstí a Ždanovovy. Fotografie je přiřazena k průčelí do náměstí. Druhá fasáda míří do Ždanovovy, azimut 64,2° od zeměpisného severu.",
+    "identity": "Půdorys GIS 14 · EPSG:5514",
+    "photos": [
+      {
+        "url": "https://mapy.mesto-most.cz/server/rest/services/Gisprojekty/Historie/MapServer/2/11/attachments/90",
+        "originalUrl": "https://mapy.mesto-most.cz/server/rest/services/Gisprojekty/Historie/MapServer/2/11/attachments/90",
+        "title": "Nároží čp. 267 na III. náměstí",
+        "note": "Fotografická pohlednice při pohledu k severozápadu. Čp. 267 stojí na nároží před tramvají, bezprostředně vpravo od členěné fasády sousedního domu. Datování městský záznam neuvádí.",
+        "collection": "Statutární město Most · mapová sbírka Historie",
+        "recordId": "Záznam 11, příloha 90",
+        "sha256": "18c15c4f4af9211586bed2a7769e99e2c540ec36fe1ef4214df208bffe5d2132",
+        "bytes": 211609
+      },
+      {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/assets/src/2bd813fa16fa162a.jpg",
+        "title": "Dům čp. 267 v letech 1957–58 · reprodukce",
+        "collection": "Veřejná reprodukce projektu MOST",
+        "recordId": "Dům čp. 267 v letech 1957–58",
+        "openLabel": "Otevřít veřejnou reprodukci ↗",
+        "note": "Originální archivní karta s fotografií a popisem nároží. Čp. 267 je označeno vpravo. Zobrazen je veřejně přístupný náhled archivního listu."
+      },
+      {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/assets/src/0ebdc835a90ec929.jpg",
+        "title": "Starší pohled do Kulové · reprodukce",
+        "collection": "Veřejná reprodukce projektu MOST",
+        "recordId": "Starší pohled do Kulové",
+        "openLabel": "Otevřít veřejnou reprodukci ↗",
+        "note": "Originální fotografie s výkladem čp. 267 na pravém okraji a lidmi s kočárkem. Jde o jiný snímek téhož nároží. Zobrazen je veřejně přístupný náhled archivního listu."
+      }
+    ],
+    "plans": [
+      {
+        "url": "parcely.svg",
+        "title": "Čp. 267 · poloha podle GIS",
+        "collection": "Zákres podle zveřejněného městského GIS",
+        "recordId": "parcela 170",
+        "note": "Schéma doprovází čtení situace z roku 1937. Původní archivní parcelní situaci uchovává Libuše.",
+        "openLabel": "Otevřít celý zákres ↗"
+      }
+    ],
+    "variants": {
+      "claude": {
+        "url": "https://raw.githubusercontent.com/grafitctu/grafitctu.github.io/0cb5065da6f4084d2892c1b2228201a374bad1c5/most/kulova/models/cp267.glb",
+        "maker": "Claude · Anthropic",
+        "revision": "r5 · veřejná verze",
+        "credit": "Geometrie pochází z veřejné říjnové rekonstrukce Kulové. Vydání této varianty uvádí autora Claude. Přesný identifikátor modelu u exportu chybí.",
+        "scope": "Místní pilot obsahuje také samostatně doloženou revizi r7.",
+        "sha256": "a2423d9904b8c0d3092739cbe9c423e44b298b5b8d8a3430be1f245ac2bb9988",
+        "bytes": 153072,
+        "textureSwatches": {}
+      },
+      "gpt": {
+        "revision": "G8 v3 · místní GLB",
+        "maker": "GPT-6.1 Sol · Codex",
+        "credit": "GPT-6.1 Sol (gpt-6.1-sol) přepracoval geometrii a registrované textury nad Claude r7. Listopadová předávka Claude obsahuje tentýž soubor G8 v3.",
+        "scope": "Veřejná mapa zobrazuje půdorys. Podrobnou GPT revizi připojíte z disku ve volbě Místní modely.",
+        "sha256": "7e8b381c13aa518cf1e099074ac17ee49f90f9f36f29808a8843d61a939a23f2",
+        "bytes": 5454512,
+        "textureSwatches": {
+          "267_Kulova_PHOTO_REGISTERED_RECONSTRUCTED": "#7a756c",
+          "267_Minoritska_HYPOTHESIS": "#989186",
+          "267_hidden_plaster_PROVISIONAL": "#999387",
+          "267_return_own_2D_PROVISIONAL": "#9a9387",
+          "267_unique_window_fills_PROVISIONAL": "#6e6961",
+          "267_PHOTO_RELIEF_FRONT_RECONSTRUCTED": "#34322e",
+          "267_structured_trim_PROVISIONAL": "#9a9387",
+          "267_roof_PROVISIONAL": "#83553f",
+          "267_timber_soffit_PROVISIONAL": "#4f443d"
+        },
+        "url": null
+      }
+    },
+    "parcel1937": "170",
+    "trueBearing": 158.5,
+    "gridBearing": 166.86,
+    "pilotVersions": {
+      "claude": {
+        "revision": "r7",
+        "maker": "Claude Opus 5.5",
+        "credit": "Výchozí geometrie Claude Fable 5.1, revize r7 Claude Opus 5.5 (claude-opus-5-5). Samostatný předchůdce revize G8.",
+        "scope": "Pracovní geometrická varianta s jednoduchými materiály.",
+        "sha256": "92fe8487bdc9b025d754d5f427b4bba60a5a55b11bdd1a7f4fd100676260a0c2",
+        "bytes": 193052,
+        "textureSwatches": {}
+      },
+      "gpt": {
+        "revision": "G8 v3",
+        "maker": "GPT-6.1 Sol · Codex",
+        "credit": "GPT-6.1 Sol (gpt-6.1-sol) přepracoval geometrii a registrované textury nad Claude r7. Listopadová předávka Claude obsahuje tentýž soubor G8 v3.",
+        "scope": "Pracovní G8 v3 prošel rozsahem tehdejší vizuální kontroly. Dvorní plochy, některé materiály a historické schválení zůstávají otevřené.",
+        "sha256": "7e8b381c13aa518cf1e099074ac17ee49f90f9f36f29808a8843d61a939a23f2",
+        "bytes": 5454512,
+        "textureSwatches": {
+          "267_Kulova_PHOTO_REGISTERED_RECONSTRUCTED": "#7a756c",
+          "267_Minoritska_HYPOTHESIS": "#989186",
+          "267_hidden_plaster_PROVISIONAL": "#999387",
+          "267_return_own_2D_PROVISIONAL": "#9a9387",
+          "267_unique_window_fills_PROVISIONAL": "#6e6961",
+          "267_PHOTO_RELIEF_FRONT_RECONSTRUCTED": "#34322e",
+          "267_structured_trim_PROVISIONAL": "#9a9387",
+          "267_roof_PROVISIONAL": "#83553f",
+          "267_timber_soffit_PROVISIONAL": "#4f443d"
+        }
+      }
+    }
+  }
+}

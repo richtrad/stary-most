@@ -1,0 +1,2877 @@
+{
+  "type": "FeatureCollection",
+  "name": "Stromy v okolí Kulové, duben 1964",
+  "metadata": {
+    "areas": {
+      "sady": "Fučíkovy sady",
+      "zahrady": "Západní zahrady",
+      "alej": "Pěšina pod západními zahradami",
+      "pas": "Zeleň západně od Kulové",
+      "kulova": "Dvory a okolí Kulové"
+    },
+    "date": "1964-04-16",
+    "flight": "WMSA08.1964.MOST63.00041",
+    "credit": "Letecký měřický snímek © MO ČR, archiv Zeměměřického úřadu. Ortofoto ORP Most 1964 zpracoval Georeal Plzeň, podkladová data © MO ČR.",
+    "model_author": "OpenAI · Codex (GPT-6)",
+    "scope": "Fučíkovy sady, západní zahrady, pěšina a okolí Kulové ve starém Mostě. Odečet samostatně rozlišitelných korun.",
+    "cues": {
+      "v": "Viditelné větvení a jeho přibližný střed.",
+      "k": "Samostatně čitelná koruna oddělená od okolní vegetace.",
+      "o": "Místo odpovídá stromu. Překryv, stín nebo slabý obrys ztěžují určení středu.",
+      "r": "Poloha v řadě je patrná podle větví a stínů podél pěšiny. Pata kmene je nejistá."
+    },
+    "municipal": {
+      "image": "https://mapy.mesto-most.cz/server/rest/services/Ortofoto/Ortofoto1964Vghmur/MapServer/export?bbox=-791210,-987525,-790690,-987145&bboxSR=5514&imageSR=5514&size=3120,2280&format=jpg&transparent=false&f=image",
+      "bbox": [
+        -791210,
+        -987525,
+        -790690,
+        -987145
+      ],
+      "size": [
+        3120,
+        2280
+      ],
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Ortofoto/Ortofoto1964Vghmur/MapServer/export?bbox=-791210,-987525,-790690,-987145&bboxSR=5514&imageSR=5514&size=3120,2280&format=png24&transparent=false&f=image",
+      "mapserver": "https://mapy.mesto-most.cz/server/rest/services/Ortofoto/Ortofoto1964Vghmur/MapServer"
+    },
+    "checks": {
+      "count": 8,
+      "median_m": 4.1,
+      "max_m": 10.76
+    },
+    "source_note": "Střed koruny odečtený z letecké fotografie. Druh a výška nejsou doloženy. Šířka je orientační vizuální třída, 3D výška, olistění i větvení jsou stylizované.",
+    "comparison_1953": {
+      "source_url": "https://gis.cenia.cz/mapcache/ortofotomapa_historicka/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=orto&STYLES=&SRS=EPSG:5514&BBOX=-791200,-987500,-790700,-987170&WIDTH=1500&HEIGHT=990&FORMAT=image/png",
+      "bbox": [
+        -791200,
+        -987500,
+        -790700,
+        -987170
+      ],
+      "size": [
+        1500,
+        990
+      ],
+      "crs": "EPSG:5514",
+      "credit": "CENIA, GEODIS BRNO a VGHMÚř Dobruška.",
+      "licence": "CC BY 4.0",
+      "note": "Pouze srovnávací ortofoto. Všechny značky inventury zachycují rok 1964."
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "S1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64208325,
+          50.52099777
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790933.9,
+          -987426.0
+        ],
+        "diameter_m_approx": 8,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          509,
+          396
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790920.83,-987443.67,-790874.75,-987417.75&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S2",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64230263,
+          50.52097397
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790918.9,
+          -987430.9
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          601,
+          406
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790906.23,-987445.26,-790860.15,-987419.34&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "S3",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6427885,
+          50.52087083
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790886.5,
+          -987447.3
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          803,
+          459
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790874.17,-987453.67,-790828.09,-987427.75&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P04",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64216278,
+          50.52088259
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790930.2,
+          -987439.5
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          538,
+          462
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790916.23,-987454.15,-790870.15,-987428.23&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P05",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64223222,
+          50.52090278
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790925.0,
+          -987438.0
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          568,
+          449
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790911.47,-987452.09,-790865.39,-987426.17&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P06",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64233467,
+          50.52086066
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790918.5,
+          -987443.7
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          610,
+          472
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790904.80,-987455.74,-790858.72,-987429.82&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P07",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64243991,
+          50.52089242
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790910.6,
+          -987441.3
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          656,
+          452
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790897.50,-987452.56,-790851.42,-987426.64&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P08",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6427396,
+          50.52104435
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790887.1,
+          -987427.7
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          790,
+          358
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790876.23,-987437.64,-790830.15,-987411.72&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P09",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64324654,
+          50.52112043
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790850.3,
+          -987424.6
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          1009,
+          305
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790841.47,-987429.23,-790795.39,-987403.31&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64243387,
+          50.52126175
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790905.0,
+          -987400.6
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          670,
+          235
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790895.28,-987418.12,-790849.20,-987392.20&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64257269,
+          50.52128396
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790894.9,
+          -987399.6
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          730,
+          220
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790885.75,-987415.74,-790839.67,-987389.82&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64270785,
+          50.52131582
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790884.9,
+          -987397.5
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          789,
+          199
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790876.39,-987412.41,-790830.31,-987386.49&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64218309,
+          50.52117534
+        ]
+      },
+      "properties": {
+        "area": "sady",
+        "sjtsk": [
+          -790924.0,
+          -987407.5
+        ],
+        "diameter_m_approx": 3,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "P",
+        "source_px": [
+          560,
+          290
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790912.74,-987426.85,-790866.66,-987400.93&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63939567,
+          50.52195526
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791106.8,
+          -987292.7
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          153,
+          189
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791102.92,-987347.06,-791056.84,-987321.14&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W02",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63970927,
+          50.52206579
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791083.0,
+          -987283.8
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          293,
+          121
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791080.70,-987336.27,-791034.62,-987310.35&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W04",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6400029,
+          50.52174727
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791067.6,
+          -987321.9
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          410,
+          302
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791062.13,-987364.99,-791016.05,-987339.07&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W05",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63936621,
+          50.52178161
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791111.7,
+          -987311.5
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          135,
+          294
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791105.78,-987363.72,-791059.70,-987337.80&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W06",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6392661,
+          50.52168489
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791120.3,
+          -987321.1
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          87,
+          354
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791113.40,-987373.25,-791067.32,-987347.33&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W07",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63944528,
+          50.52167456
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791107.9,
+          -987324.1
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          167,
+          359
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791100.70,-987374.04,-791054.62,-987348.12&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W08",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63977811,
+          50.52165331
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791084.9,
+          -987329.9
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          312,
+          365
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791077.68,-987374.99,-791031.60,-987349.07&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W09",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63967738,
+          50.52158381
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791093.1,
+          -987336.5
+        ],
+        "diameter_m_approx": 3,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          268,
+          411
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791084.67,-987382.29,-791038.59,-987356.37&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63979763,
+          50.52144066
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791087.0,
+          -987353.5
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          320,
+          501
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791076.42,-987396.58,-791030.33,-987370.66&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64001624,
+          50.52138953
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791072.5,
+          -987361.4
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          418,
+          535
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791060.86,-987401.98,-791014.78,-987376.06&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63992677,
+          50.52130836
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791080.1,
+          -987369.4
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          382,
+          590
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791066.57,-987410.71,-791020.49,-987384.79&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64054542,
+          50.52190943
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791026.9,
+          -987309.7
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          654,
+          219
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791023.40,-987351.82,-790977.32,-987325.90&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W14",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64061731,
+          50.52175354
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791024.4,
+          -987327.6
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          683,
+          314
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791018.79,-987366.90,-790972.71,-987340.98&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W15",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64068296,
+          50.52160615
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791022.2,
+          -987344.5
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          711,
+          409
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791014.35,-987381.98,-790968.27,-987356.06&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W16",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64069775,
+          50.52148121
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791023.2,
+          -987358.4
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          719,
+          490
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791013.08,-987394.83,-790967.00,-987368.91&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W17",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64066771,
+          50.52132841
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791027.8,
+          -987374.9
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          710,
+          590
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791014.51,-987410.71,-790968.43,-987384.79&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W18",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64060516,
+          50.52122343
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791033.9,
+          -987385.8
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          689,
+          659
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791017.84,-987421.66,-790971.76,-987395.74&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W19",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64086611,
+          50.52190975
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791004.4,
+          -987313.0
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          796,
+          228
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791000.86,-987353.25,-790954.78,-987327.33&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W20",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64092493,
+          50.52176717
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791002.6,
+          -987329.3
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          819,
+          316
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790997.21,-987367.22,-790951.13,-987341.30&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W21",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64100447,
+          50.52162745
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -790999.3,
+          -987345.5
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          852,
+          404
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790991.97,-987381.18,-790945.89,-987355.26&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W22",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64108339,
+          50.52146586
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -790996.4,
+          -987364.1
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          884,
+          507
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790986.89,-987397.53,-790940.81,-987371.61&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W23",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64115967,
+          50.52135855
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -790992.8,
+          -987376.7
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          915,
+          575
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790981.97,-987408.33,-790935.89,-987382.41&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "W24",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64122303,
+          50.52122094
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -790990.6,
+          -987392.5
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "W",
+        "source_px": [
+          939,
+          662
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790978.16,-987422.13,-790932.08,-987396.21&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63843044,
+          50.52144684
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791182.8,
+          -987338.6
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          73,
+          103
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791173.61,-987395.76,-791127.53,-987369.84&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H02",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63854499,
+          50.52143858
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791174.9,
+          -987340.7
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          122,
+          109
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791165.83,-987396.71,-791119.75,-987370.79&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H03",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63869813,
+          50.52144216
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791164.1,
+          -987341.9
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          188,
+          108
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791155.36,-987396.55,-791109.28,-987370.63&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H04",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63885752,
+          50.52141269
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791153.4,
+          -987346.8
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          256,
+          127
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791144.56,-987399.57,-791098.48,-987373.65&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H05",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63899362,
+          50.52135466
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791144.8,
+          -987354.6
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          314,
+          163
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791135.36,-987405.28,-791089.28,-987379.36&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H06",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63914484,
+          50.52142167
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791133.1,
+          -987348.8
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          386,
+          123
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791123.93,-987398.93,-791077.85,-987373.01&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H07",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63873261,
+          50.52132454
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791163.6,
+          -987355.2
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          198,
+          179
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791153.77,-987407.82,-791107.69,-987381.90&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H08",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63911139,
+          50.52127127
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791137.9,
+          -987365.0
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          365,
+          214
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791127.26,-987413.38,-791081.18,-987387.46&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H09",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63922174,
+          50.52128716
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791129.9,
+          -987364.4
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          417,
+          205
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791119.01,-987411.95,-791072.93,-987386.03&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63935459,
+          50.52123701
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791121.4,
+          -987371.3
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          479,
+          236
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791109.17,-987416.87,-791063.09,-987390.95&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H11",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63943339,
+          50.52118629
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791116.7,
+          -987377.7
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          516,
+          268
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791103.29,-987421.95,-791057.21,-987396.03&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H12",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63898529,
+          50.5211821
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791148.2,
+          -987373.5
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          305,
+          267
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791136.79,-987421.79,-791090.71,-987395.87&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63915441,
+          50.52111084
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791137.5,
+          -987383.1
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          382,
+          311
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791124.56,-987428.77,-791078.48,-987402.85&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H14",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63924581,
+          50.52105495
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791132.0,
+          -987390.2
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          425,
+          346
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791117.74,-987434.33,-791071.66,-987408.41&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H15",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63892714,
+          50.52105209
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791154.4,
+          -987387.2
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          278,
+          345
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791141.07,-987434.17,-791094.99,-987408.25&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H20",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63851212,
+          50.5210283
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791183.9,
+          -987385.5
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          98,
+          356
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791169.64,-987435.92,-791123.56,-987410.00&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H21",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63869595,
+          50.5209857
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791171.7,
+          -987392.1
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          177,
+          383
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791157.10,-987440.20,-791111.02,-987414.28&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H22",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63954428,
+          50.52111406
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791110.1,
+          -987386.8
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          568,
+          314
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791095.04,-987429.25,-791048.96,-987403.33&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H23",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63960739,
+          50.52122273
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791103.9,
+          -987375.5
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          599,
+          247
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791090.12,-987418.61,-791044.04,-987392.69&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H25",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63977587,
+          50.52098872
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791095.9,
+          -987403.0
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          678,
+          397
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791077.58,-987442.42,-791031.50,-987416.50&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H26",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63984246,
+          50.52101501
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791090.8,
+          -987400.8
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          711,
+          383
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791072.34,-987440.20,-791026.26,-987414.28&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H27",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6395561,
+          50.5208916
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791112.9,
+          -987411.4
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          571,
+          450
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791094.56,-987450.83,-791048.48,-987424.92&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H28",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63871212,
+          50.52074456
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791174.5,
+          -987418.8
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          184,
+          529
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791155.99,-987463.37,-791109.91,-987437.45&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H29",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63864323,
+          50.52061171
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791181.5,
+          -987432.7
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          153,
+          609
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791160.91,-987476.07,-791114.83,-987450.15&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H30",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63885904,
+          50.52058485
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791166.8,
+          -987437.9
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          248,
+          627
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791145.83,-987478.93,-791099.75,-987453.01&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H31",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63899444,
+          50.52068309
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791155.7,
+          -987428.5
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          309,
+          569
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791136.15,-987469.72,-791090.07,-987443.80&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H32",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63903739,
+          50.52057808
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791154.4,
+          -987440.5
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          328,
+          633
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791133.14,-987479.88,-791087.06,-987453.96&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H33",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64000482,
+          50.52058047
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791086.5,
+          -987450.3
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          768,
+          646
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791063.29,-987481.94,-791017.21,-987456.02&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H35",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64018109,
+          50.5206562
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791072.9,
+          -987443.8
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          852,
+          604
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791049.96,-987475.28,-791003.88,-987449.36&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H36",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64023621,
+          50.52069504
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791068.4,
+          -987440.1
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          879,
+          582
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791045.67,-987471.79,-790999.59,-987445.87&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H37",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64028363,
+          50.5207486
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791064.2,
+          -987434.7
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          904,
+          552
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791041.70,-987467.02,-790995.62,-987441.10&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H38",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64033818,
+          50.52078375
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791059.8,
+          -987431.4
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          931,
+          532
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791037.42,-987463.85,-790991.34,-987437.93&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H39",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64039211,
+          50.52082157
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791055.4,
+          -987427.8
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          957,
+          511
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791033.29,-987460.52,-790987.21,-987434.60&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H40",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64042749,
+          50.52088399
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791051.9,
+          -987421.3
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          977,
+          475
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791030.12,-987454.80,-790984.04,-987428.88&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H41",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64047522,
+          50.52092395
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791047.9,
+          -987417.4
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          1000,
+          452
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791026.47,-987451.15,-790980.39,-987425.23&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H42",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64052115,
+          50.52096555
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791044.0,
+          -987413.3
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          1021,
+          427
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791023.13,-987447.18,-790977.05,-987421.26&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H43",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64058453,
+          50.5210179
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791038.7,
+          -987408.2
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          1048,
+          395
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791018.85,-987442.11,-790972.77,-987416.19&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H44",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64013127,
+          50.5207233
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791075.3,
+          -987435.9
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          834,
+          564
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791052.82,-987468.93,-791006.74,-987443.01&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H45",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64020953,
+          50.52078522
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791068.8,
+          -987429.9
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          874,
+          530
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791046.47,-987463.53,-791000.39,-987437.61&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H46",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6402973,
+          50.52085532
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791061.5,
+          -987423.1
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "r",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          919,
+          491
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791039.32,-987457.34,-790993.24,-987431.42&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "H47",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64043537,
+          50.52101561
+        ]
+      },
+      "properties": {
+        "area": "alej",
+        "sjtsk": [
+          -791049.2,
+          -987406.9
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "H",
+        "source_px": [
+          989,
+          399
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791028.21,-987442.74,-790982.13,-987416.82&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63937684,
+          50.52287598
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791093.1,
+          -987191.2
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          94,
+          144
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791100.26,-987260.17,-791054.18,-987234.25&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N02",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63949909,
+          50.522853
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791084.9,
+          -987195.0
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          147,
+          159
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791091.85,-987262.55,-791045.77,-987236.63&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N03",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63971922,
+          50.52269113
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791072.1,
+          -987215.1
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          239,
+          257
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791077.24,-987278.10,-791031.16,-987252.18&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N04",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63954909,
+          50.52266868
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791084.4,
+          -987215.8
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          164,
+          269
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791089.15,-987280.01,-791043.07,-987254.09&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N05",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63938526,
+          50.5225823
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791097.3,
+          -987223.6
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          90,
+          319
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791100.89,-987287.94,-791054.81,-987262.02&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N06",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.63960845,
+          50.52241345
+        ]
+      },
+      "properties": {
+        "area": "zahrady",
+        "sjtsk": [
+          -791084.4,
+          -987244.5
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          183,
+          420
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791086.13,-987303.97,-791040.05,-987278.05&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N07",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64035997,
+          50.52286621
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791024.3,
+          -987202.5
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          525,
+          164
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791031.84,-987263.34,-790985.76,-987237.42&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N08",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6404082,
+          50.5227508
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791022.8,
+          -987215.7
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          543,
+          233
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791028.99,-987274.29,-790982.91,-987248.37&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N09",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64048282,
+          50.52267514
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791018.8,
+          -987224.8
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          574,
+          279
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791024.07,-987281.59,-790977.99,-987255.67&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N10",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64056115,
+          50.52292067
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791009.3,
+          -987198.6
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "k",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          615,
+          137
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791017.56,-987259.05,-790971.48,-987233.13&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N13",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64053705,
+          50.52246032
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791018.5,
+          -987249.0
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          591,
+          404
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791021.37,-987301.43,-790975.29,-987275.51&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N14",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64064149,
+          50.52237295
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791012.6,
+          -987259.7
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          634,
+          456
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791014.54,-987309.69,-790968.46,-987283.77&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N15",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64067282,
+          50.52225048
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791012.4,
+          -987273.5
+        ],
+        "diameter_m_approx": 7,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          644,
+          527
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791012.96,-987320.96,-790966.88,-987295.04&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N16",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64075846,
+          50.52212134
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791008.5,
+          -987288.6
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          678,
+          603
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791007.56,-987333.02,-790961.48,-987307.10&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N17",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64026684,
+          50.52243296
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791037.9,
+          -987249.2
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          472,
+          415
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791040.26,-987303.18,-790994.18,-987277.26&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N18",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64034065,
+          50.52228725
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791035.1,
+          -987266.0
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          500,
+          500
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791035.81,-987316.67,-790989.73,-987290.75&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N19",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64039703,
+          50.52219806
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791032.6,
+          -987276.4
+        ],
+        "diameter_m_approx": 5,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          522,
+          552
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791032.32,-987324.92,-790986.24,-987299.00&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "N20",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64049683,
+          50.5220448
+        ]
+      },
+      "properties": {
+        "area": "pas",
+        "sjtsk": [
+          -791028.1,
+          -987294.3
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "distinct",
+        "cue": "v",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "N",
+        "source_px": [
+          561,
+          642
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-791026.13,-987339.21,-790980.05,-987313.29&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "K02",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64238825,
+          50.52197908
+        ]
+      },
+      "properties": {
+        "area": "kulova",
+        "sjtsk": [
+          -790896.5,
+          -987321.2
+        ],
+        "diameter_m_approx": 4,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "K",
+        "source_px": [
+          592,
+          625
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790895.66,-987348.35,-790849.58,-987322.43&link=ext"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "K04",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.64117925,
+          50.52200388
+        ]
+      },
+      "properties": {
+        "area": "kulova",
+        "sjtsk": [
+          -790980.9,
+          -987305.9
+        ],
+        "diameter_m_approx": 6,
+        "confidence": "probable",
+        "cue": "o",
+        "source_date": "1964-04-16",
+        "flight_id": "WMSA08.1964.MOST63.00041",
+        "source_view": "K",
+        "source_px": [
+          66,
+          599
+        ],
+        "source_url": "https://ags.cuzk.gov.cz/archiv/openmap.html?typ=lms&idrastru=WMSA08.1964.MOST63.00041&extent=-790979.15,-987344.22,-790933.07,-987318.30&link=ext"
+      }
+    }
+  ]
+}
