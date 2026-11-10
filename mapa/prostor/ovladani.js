@@ -53,6 +53,9 @@ export function publicInterface(data,actions){
     q('#land-origin').textContent=(p.geometry_origin==='model_ulice'?'Geometrie uličního modelu':'Geometrie z leteckého odečtu')+' · '+p.model_author+'. Odečet a vazba na pramen · '+p.interpretation_author+'.';
     q('#land-metrics').textContent=p.id+' · '+p.confidence+' · '+p.area_m2.toLocaleString('cs-CZ')+' m² v modelu. '+meta.precision;
     q('#land-original').href=p.source;
+    const meshSource=q('#land-mesh-source');
+    meshSource.hidden=p.geometry_origin!=='model_ulice';
+    if(!meshSource.hidden)meshSource.href=meta.kulova_public_source.url;
     const streetPhoto=q('#land-ground');streetPhoto.hidden=!p.ground_photo;
     if(p.ground_photo)streetPhoto.href=p.ground_photo;
     if(!dialog.open)dialog.showModal();

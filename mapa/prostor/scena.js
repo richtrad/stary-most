@@ -32,9 +32,15 @@ export function publicSpace(scene, catalog, invalidate, failure) {
       return shape;
     });
     const material=new T.MeshBasicMaterial({color:catalog.metadata.colors[record.group],side:T.DoubleSide,toneMapped:false});
-    const height=record.group==='prvky'?.18:record.group==='vozovky'?.06:record.group==='pesiny'?.04:.015;
+    const height=record.display_thickness ?? (record.group==='prvky'?.18:record.group==='vozovky'?.06:record.group==='pesiny'?.04:.015);
     const mesh=new T.Mesh(new T.ExtrudeGeometry(shapes,{depth:height,bevelEnabled:false}).rotateX(-Math.PI/2),material);
-    mesh.userData.publicId=id;mesh.position.y=.06;scene.add(mesh);survey.set(id,mesh);
+    if(record.surface_plane){
+      const [a,b,c]=record.surface_plane;
+      mesh.geometry.applyMatrix4(new T.Matrix4().set(1,0,0,0, a,1,b,c, 0,0,1,0, 0,0,0,1));
+    } else {
+      mesh.position.y=.06;
+    }
+    mesh.userData.publicId=id;scene.add(mesh);survey.set(id,mesh);
   }
   state='ready';
   function bindStreet(root){
