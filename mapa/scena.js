@@ -1,3 +1,4 @@
+import {cityEnvironment} from './mesto/scena.js';
 import * as T from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {publicSpace} from './prostor/scena.js';
@@ -8,7 +9,7 @@ const vec = (a,b,c) => new T.Vector3(a,b,c);
 const rad = T.MathUtils.degToRad;
 const ground = 0.04;
 const LAYERS = ['claude','gpt'];
-export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree, message, landData, onLand) {
+export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree, message, landData, onLand, cityData, onCityItem) {
   const renderer = new T.WebGLRenderer({canvas, antialias:true, alpha:false, powerPreference:'high-performance'});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1,2));
   T.ColorManagement.legacyMode = false;
@@ -36,10 +37,16 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   floor.position.y = -0.06;
   scene.add(floor);
 
+  const environment=cityData?cityEnvironment(scene,cityData,()=>{needsRender=true}):null;
+  let selectedStreet='24';
+  function setCity(id,groups,plan,mode){
+    selectedStreet=String(id);environment?.configure(groups,plan);environment?.setStreet(id,mode==='street');
+    if(environment)backgroundRoads.visible=groups.includes('ulice');
+  }
   const vegetation=catalog?buildTrees(scene,city,catalog):null;
   let treeArea='all',treeFocus=null,treeMode='crowns';
   function setTrees(mode,quality,area,id) {
-    vegetation?.configure(mode,quality);
+    vegetation?.configure(mode,quality);environment?.treeStyle(mode);
     treeArea=area;treeFocus=id;treeMode=mode;needsRender=true;
   }
 
@@ -115,7 +122,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     geo.setAttribute('position',new T.Float32BufferAttribute(vertices,3));
     const mesh=new T.Mesh(geo,roadMat);scene.add(mesh);return mesh;
   }
-  roadMesh(roads);
+  const backgroundRoads=roadMesh(roads);
   const coarseKulova=roadMesh(kulovaRoad);
   const streetGround=new T.Group();scene.add(streetGround);
   let surfaceState='idle';
@@ -139,7 +146,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   }
   function status() {
     const key=cp+'-'+layer, item=pilots[cp].models[layer];
-    const s=injectedStatus || (view==='facade' && usingDetails ? (failures.has(key) ? 'Model se nepodařilo načíst. Znovu otevřete vrstvu.' : item ? 'Kliknutím na doložené průčelí otevřete původní fotografii.' : 'Načítám model domu…') : view==='prostor'?(land?.status()==='error'?'3D povrchy se nepodařilo načíst. Otevřete mapu na ortofotu.':'Kliknutím na cestu, trávník nebo uliční prvek otevřete jeho pramen.'):view==='trees'?(treeMode==='off'?'Vrstva stromů je skrytá.':'Kliknutím na strom otevřete jeho letecký pramen.'):view==='street'?'Označený dům přiblížíte kliknutím.':'Tažení otáčí pohled. Kolečkem nebo dvěma prsty změníte měřítko.');
+    const s=injectedStatus || (view==='facade' && usingDetails ? (failures.has(key) ? 'Model se nepodařilo načíst. Znovu otevřete vrstvu.' : item ? 'Kliknutím na doložené průčelí otevřete původní fotografii.' : 'Načítám model domu…') : view==='prostor'?(land?.status()==='error'?'3D povrchy se nepodařilo načíst. Otevřete mapu na ortofotu.':'Kliknutím na cestu, trávník nebo uliční prvek otevřete jeho pramen.'):view==='trees'?(treeMode==='off'?'Vrstva stromů je skrytá.':'Kliknutím na strom otevřete jeho letecký pramen.'):view==='street'?'Kliknutím na povrch, strom nebo značku fotografie otevřete pramen.':'Tažení otáčí pohled. Kolečkem nebo dvěma prsty změníte měřítko.');
     if(s!==lastStatus){message(s);lastStatus=s}
   }
   function registerMaterials(model,swatches) {
@@ -205,7 +212,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   }
   function updateLevel() {
     const target=controls.target;
-    const near=camera.position.distanceTo(target)<350 && Math.hypot(target.x+27,target.z+120)<235;
+    const near=view==='facade' && camera.position.distanceTo(target)<350 && Math.hypot(target.x+27,target.z+120)<235;
     if(near===usingDetails && !dirty) return;
     dirty=false;usingDetails=near;
     if(near)loadGround();
@@ -242,6 +249,21 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       const dist=Math.max(treeFocus?16:32,(width*.60+depth*.20)/camera.aspect,depth*.64+width*.10)/Math.tan(rad(20));
       const dir=vec(.33,.85,.72).normalize();
       return [aim,aim.clone().addScaledVector(dir,dist)];
+    }
+    if(mode==='street' && cityData && selectedStreet!=='24'){
+      const s=cityData.streets.find(s=>String(s.id)===selectedStreet);
+      if(s){
+        const [x,z,X,Z]=s.bounds;
+        const t=vec((x+X)/2,3,(z+Z)/2),dir=vec(.16,.94,.66).normalize();
+        const right=axisY.clone().cross(dir).normalize(),up=dir.clone().cross(right);
+        const tanY=Math.tan(rad(camera.fov/2)),tanX=tanY*camera.aspect;
+        let distance=85;
+        for(const a of [x-25,X+25])for(const b of [z-25,Z+25]){
+          const offset=vec(a,0,b).sub(t);
+          distance=Math.max(distance,offset.dot(dir)+1.17*Math.max(Math.abs(offset.dot(right))/tanX,Math.abs(offset.dot(up))/tanY));
+        }
+        return [t,t.clone().addScaledVector(dir,distance)];
+      }
     }
     if(mode==='street') {
       const t=vec(-28,3,-121), k=Math.max(1,1.24/camera.aspect);
@@ -313,7 +335,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   const buttons={};
   for(const code of ['street',...Object.keys(houses)]){
     const b=document.createElement('button');b.className='pin';b.textContent=code==='street'?'Kulová':'čp. '+code;
-    b.onclick=()=>onHouse(code==='street'?cp:code,code==='street'?'street':'facade');
+    b.onclick=()=>onHouse(code==='street'?cp:code,code==='street'?'street':'facade',code==='street'?'24':undefined);
     pinsEl.append(b);buttons[code]=b;
   }
   function pointScreen(p) {
@@ -356,9 +378,12 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     const hit=ray.intersectObjects(targets,true)[0];
     const tree=vegetation?.pick(ray);
     const item=land?.pick(ray);
-    if(!hit && !tree && !item)return;
+    const cityHit=environment?.pick(ray);
+    if(cityHit?.isPhoto){onCityItem(cityHit.id);return}
+    if(!hit && !tree && !item && !cityHit)return;
     const clip=contextMat.clippingPlanes;
     const block=ray.intersectObject(cityMesh).find(i=>!clip?.length||clip.every(plane=>plane.distanceToPoint(i.point)>=0));
+    if(cityHit && (!hit||cityHit.distance<hit.distance-.02) && (!tree||cityHit.distance<tree.distance-.02) && (!item||cityHit.distance<item.distance-.02) && (!block||cityHit.distance<block.distance+.04)){onCityItem(cityHit.id);return}
     if(item && (!hit || item.distance<hit.distance-.03) && (!tree || item.distance<tree.distance-.03) && (!block || item.distance<block.distance+.04)){
       onLand(item.id);return;
     }
@@ -394,10 +419,11 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     if(needsRender || flight){
       needsRender=false;
       camera.updateMatrixWorld();
+      environment?.frame(controls.target,camera.position.distanceTo(controls.target));
       pinLayout();cartography();renderer.render(scene,camera);
     }
     requestAnimationFrame(step);
   };
   resize();requestAnimationFrame(step);
-  return {setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({street:selectedStreet,environment:environment?.inspect(),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }

@@ -2,8 +2,8 @@
 <html lang="cs">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Starý Most | Kulová ve 3D</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
-<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css">
+<title>Starý Most | Ulice, parky a dobové fotografie</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
+<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -18,10 +18,27 @@
 <div id="map-tools"><button id="zoom-in" aria-label="Přiblížit">+</button><button id="zoom-out" aria-label="Oddálit">−</button></div>
 </section>
 <aside>
-<div class="panel-head"><p class="kicker">REKONSTRUKCE ULICE</p><h1>Kulová</h1><p class="lede">Historický Most od městského půdorysu po jednotlivá průčelí.</p></div>
+<div class="panel-head"><p class="kicker">MĚSTO PŘED DEMOLICÍ</p><h1 id="street-name">Starý Most</h1><p class="lede">Ulice, parky a stromy podle dobových pramenů.</p></div>
 <nav aria-label="Měřítko pohledu"><button data-view="city">Celý Most</button><button data-view="street">Ulice</button><button data-view="facade">Fasáda</button><button data-view="trees">Stromy</button><button data-view="prostor">Povrchy</button></nav>
+<section class="control tree-controls city-streets" aria-labelledby="street-label">
+<div class="tree-head"><h2 id="street-label">Prozkoumat ulici</h2><button type="button" id="street-next" title="Další ulice" aria-label="Přejít na další ulici">→</button></div>
+<label class="sr-only" for="street-select">Ulice starého Mostu</label><select id="street-select"></select>
+<p id="street-old-name" class="tree-note"></p>
+<div class="street-actions"><button type="button" id="street-source">Porovnat podklady ↗</button></div>
+<p class="tree-note" id="street-counts"></p>
+<label class="sr-only" for="city-photos">Dobové fotografie vybrané ulice</label><select id="city-photos"></select>
+<label class="sr-only" for="city-features">Prvky vybrané ulice</label><select id="city-features"></select>
+<details class="street-reading"><summary>Stav průzkumu ulice</summary><p class="tree-note" id="street-review"></p><p class="tree-note">Přehledový průchod ortofotem proběhl ve všech 132 uličních úsecích. Podrobný soupis drobných objektů pokračuje.</p></details>
+</section>
+<details class="control tree-controls" id="city-controls" open><summary><strong>Městské vrstvy</strong></summary>
+<div id="city-filters"></div>
+<label class="tree-check"><input type="checkbox" id="city-plan" checked> Zahrnout zákresy z 50. let</label>
+<p class="tree-note">Datace je uvedena u každého prvku. Šířky uličních pásů a výška porostů jsou orientační. Kliknutím otevřete pramen.</p>
+<p class="tree-note" id="city-total"></p>
+<a href="mesto/ulice.geojson" download>Ulice pro GIS ↗</a> · <a href="mesto/povrchy.geojson" download>Plochy ↗</a> · <a href="mesto/stromy.geojson" download>Nové stromy ↗</a>
+</details>
 <details id="land-controls" class="control tree-controls">
-<summary><strong>Povrchy a uliční prvky</strong><span id="land-total"></span></summary>
+<summary><strong>Podrobný soupis Kulové</strong><span id="land-total"></span></summary>
 <div id="land-filters" aria-label="Druhy veřejného prostoru"></div>
 <label class="tree-field" for="land-zone">Přiblížit oblast</label>
 <select id="land-zone"><option value="all">Celé zmapované okolí</option></select>
@@ -53,9 +70,15 @@
 <section class="control"><h2>Archivní prameny</h2><p class="address" id="address"></p><div class="source-actions"><button id="photo">Původní fotografie <span aria-hidden="true">↗</span></button><button id="plan">Situační plán</button></div>
 <p class="address"><a style="color:inherit" href="./letecke-snimky/" target="_blank" rel="noopener">Letecké snímky, povrchy a stromy ↗</a></p>
 <details class="registration"><summary>Jak je dům usazený</summary><p id="registration"></p><p>Čísla za lomítkem jsou označení zakreslená na listech. Parcelní čísla vycházejí ze situace z roku 1937. Terén a chodníky pro obě vrstvy vytvořil Claude Opus 5.5. Výšku prahů určuje předpokládaný dvouprocentní sklon ulice.</p></details></section>
-<p id="context">Městský GIS obsahuje 1 400 půdorysů ve 132 ulicích. Světlé objemy mají orientační výšku. Podrobné autorské modely jsou dostupné u tří označených domů.</p>
+<p id="context">Městský GIS obsahuje 1 400 půdorysů a 132 uličních úseků. Objemové domy mají orientační výšku. Podrobné modely tří domů v Kulové otevřete tlačítkem Fasáda.</p>
 </aside>
 </main>
+<dialog id="city-source" aria-labelledby="city-title">
+<div class="doc-head"><div><p class="kicker" id="city-source-kind"></p><h2 id="city-title"></h2></div><button type="button" id="city-close" aria-label="Zavřít městský pramen">×</button></div>
+<div id="city-source-options"><label for="city-source-layer">Podklad</label><select id="city-source-layer"><option value="ortho64">Ortofoto 1964</option><option value="cenia">Historické ortofoto CENIA</option><option value="plan50">Orientační plán · 50. léta</option><option value="plan38">Plán 1938</option></select><label class="tree-check"><input type="checkbox" id="city-outline" checked> Vyznačit zákres</label></div>
+<div class="city-source-image"><canvas id="city-scan" aria-label="Dobový podklad se zákresem vybraného místa"></canvas><img id="city-photo" hidden alt=""></div>
+<div class="doc-foot"><p id="city-caption" class="tree-note" role="status"></p><p id="city-reading"></p><a id="city-original" class="tree-source-link" target="_blank" rel="noopener">Otevřít originál ↗</a><details><summary>Přesnost a autorství</summary><p id="city-metrics"></p><p id="city-authorship"></p></details></div>
+</dialog>
 <dialog id="land-dialog" aria-labelledby="land-title">
 <div class="doc-head"><div><p class="kicker" id="land-place"></p><h2 id="land-title"></h2></div><button id="land-close" aria-label="Zavřít pramen povrchu">×</button></div>
 <div class="tree-photo"><canvas id="land-scan" width="800" height="380" aria-label="Městské ortofoto 1964 s obrysem vybraného prvku"></canvas></div>
@@ -66,7 +89,7 @@
 <details><summary>Přesnost a autorství</summary><p id="land-metrics"></p><p id="land-origin"></p></details>
 </div></dialog>
 <dialog id="tree-source" aria-labelledby="tree-title">
-<div class="doc-head"><div><p class="kicker">LETECKÝ PRAMEN · 16. DUBNA 1964</p><h2 id="tree-title"></h2></div><button id="tree-close" aria-label="Zavřít pramen stromu">×</button></div>
+<div class="doc-head"><div><p class="kicker" id="tree-period">LETECKÝ PRAMEN · 1964</p><h2 id="tree-title"></h2></div><button id="tree-close" aria-label="Zavřít pramen stromu">×</button></div>
 <div class="tree-photo"><canvas id="tree-scan" width="520" height="320" aria-label="Výřez georeferencovaného ortofota 1964 se zaznačeným středem koruny"></canvas></div>
 <div class="doc-foot"><label class="tree-check"><input type="checkbox" id="tree-mark" checked> Vyznačit střed a přibližný průměr koruny</label>
 <p class="tree-note" id="tree-caption">Ortofoto města Mostu, 1964 · Georeal Plzeň · podkladová data © MO ČR</p>

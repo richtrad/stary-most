@@ -1,3 +1,4 @@
+import {cityInterface,cityGroups} from './mesto/ovladani.js';
 import {normalizeCity} from './public-client.js';
 import {publicInterface} from './prostor/ovladani.js';
 import {treeInterface} from './stromy/ovladani.js';
@@ -5,8 +6,8 @@ import {showArchiveRecord} from './archive-access.js';
 const q=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
 const canvas=q('#scene'), dialog=q('#archive'), scan=q('#scan');
-const state={cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
-let houses,map,treeUI,catalog,landUI,landCatalog;
+const state={street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
+let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData;
 const status=t=>q('#map-status').textContent=t;
 function parse() {
   const p=new URLSearchParams(location.search);
@@ -27,12 +28,19 @@ function parse() {
   const rec=landUI?.items.get(landId);
   if(!rec || !landGroups.includes(rec.group))landId=null;
   const zone=landId?rec.zone:(p.get('oblast')==='all'||Object.hasOwn(landUI?.meta.zones||{},p.get('oblast'))?p.get('oblast'):'P');
-  return {landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
+  const street=cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
+  const cityItem=cityUI?.has(p.get('element'))?p.get('element'):null;
+  const enabled=p.has('mesto')?p.get('mesto').split(','):cityGroups;
+  return {street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
   const url=new URL(location.href);
   url.search='';
   for(const k of ['cp','layer','view']) url.searchParams.set(k,state[k]);
+  if(state.street!=='24')url.searchParams.set('street',state.street);
+  if(state.cityItem)url.searchParams.set('element',state.cityItem);
+  if(!state.cityPlan)url.searchParams.set('plan50','0');
+  if(state.cityGroups.length!==cityGroups.length)url.searchParams.set('mesto',state.cityGroups.join(','));
   if(state.surface==='materials')url.searchParams.set('surface','materials');
   if(state.vegetation!==(state.view==='prostor'?'branches':'crowns'))url.searchParams.set('vegetation',state.vegetation);
   if(state.quality!=='all')url.searchParams.set('quality',state.quality);
@@ -65,16 +73,17 @@ function update(instant=false,preserve=false) {
   q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+v.maker;
   if(view==='trees' && catalog){
     q('#place').textContent=state.tree?'Strom '+state.tree:(catalog.metadata.areas[state.area]||'Stromy kolem Kulové');
-    q('#scale').textContent='Starý Most · letecký snímek z 16. dubna 1964';
+    q('#scale').textContent=state.tree&&!treeUI.get(state.tree)?.city_reading?'Starý Most · letecký snímek z 16. dubna 1964':'Starý Most · ortofoto 1964';
     note.hidden=true;
   }
   if(view==='prostor' && landUI){
     q('#place').textContent=landUI.items.get(state.landId)?.title||landUI.meta.zones[state.zone]||'Veřejný prostor';
     q('#scale').textContent='Povrchy a uliční prvky · duben 1964';note.hidden=true;
   }
+  cityUI?.update(state);
   landUI?.update(state);
   treeUI?.update(state);
-  if(map){map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
+  if(map){map.setCity(state.street,state.cityGroups,state.cityPlan,state.view);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
 }
 function choose(change) {
   const onlyLayer=Object.keys(change).length===1&&'layer' in change;
@@ -82,10 +91,11 @@ function choose(change) {
   if(change.view==='trees' && state.vegetation==='off')change.vegetation='crowns';
   if(change.view && change.view!=='prostor')change.landId=null;
   if(change.view==='prostor' && state.view!=='prostor' && !new URL(location.href).searchParams.has('vegetation') && state.vegetation==='crowns')change.vegetation='branches';
-  Object.assign(state,change,{type:null,page:0,treeDoc:false,landDoc:false});
+  Object.assign(state,change,{type:null,page:0,treeDoc:false,landDoc:false,cityItem:null});
   writeLink();update(false,onlyLayer);renderDoc();
 }
 function renderDoc() {
+  cityUI?.show(state.cityItem);
   landUI?.show(state.landDoc?state.landId:null);
   treeUI?.show(state.treeDoc?state.tree:null);
   if(!state.type){if(dialog.open)dialog.close();return}
@@ -103,7 +113,7 @@ function renderDoc() {
 }
 function openDoc(type,code=state.cp) {
   if(state.cp!==code){state.cp=code;update(false,true)}
-  state.landDoc=false;state.treeDoc=false;state.type=type;state.page=0;writeLink();renderDoc();
+  state.cityItem=null;state.landDoc=false;state.treeDoc=false;state.type=type;state.page=0;writeLink();renderDoc();
 }
 function dismiss(){state.type=null;state.page=0;writeLink();renderDoc()}
 q('#close-doc').onclick=dismiss;
@@ -111,26 +121,46 @@ dialog.addEventListener('cancel',e=>{e.preventDefault();dismiss()});
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dismiss()}});
 function selectTree(id,open=true){
   const p=treeUI?.get(id);if(!p)return;
-  Object.assign(state,{view:'trees',landId:null,landDoc:false,area:p.area,tree:id,treeDoc:open,type:null,page:0});
+  Object.assign(state,{cityItem:null,view:'trees',landId:null,landDoc:false,area:p.area,tree:id,treeDoc:open,type:null,page:0});
   if(state.vegetation==='off')state.vegetation='crowns';
   writeLink();update();renderDoc();
 }
 function selectLand(id,open){
   const p=landUI?.items.get(id);if(!p)return;
   const cameFrom=state.view;
-  Object.assign(state,{view:'prostor',zone:p.zone,landId:id,landDoc:open,type:null,page:0,tree:null,treeDoc:false});
+  Object.assign(state,{cityItem:null,view:'prostor',zone:p.zone,landId:id,landDoc:open,type:null,page:0,tree:null,treeDoc:false});
   if(!state.landGroups.includes(p.group))state.landGroups=[...state.landGroups,p.group];
   if(cameFrom!=='prostor' && state.vegetation==='crowns' && !new URL(location.href).searchParams.has('vegetation'))state.vegetation='branches';
   writeLink();update();renderDoc();
+}
+function selectCity(id){
+  if(!cityUI?.has(id))return;
+  Object.assign(state,{cityItem:id,type:null,treeDoc:false,landDoc:false});
+  writeLink();renderDoc();
 }
 async function boot(){
   const res=await fetch('pilot.json',{cache:'no-cache'});
   if(!res.ok)throw Error('Nelze načíst katalog modelů.');
   houses=await res.json();
+  try {
+    const response=await fetch('mesto/pruzkum.json',{cache:'no-cache'});
+    if(!response.ok)throw Error('Celoměstský soupis není dostupný.');
+    cityData=await response.json();
+    cityUI=cityInterface(cityData,{
+      street:id=>choose({street:id,view:'street'}),
+      open:selectCity,
+      close:()=>{state.cityItem=null;writeLink();renderDoc()},
+      filter:(groups,plan)=>{state.cityGroups=groups;state.cityPlan=plan;writeLink();update(false,true)}
+    });
+  } catch(e){
+    document.querySelector('.city-streets').hidden=true;q('#city-controls').hidden=true;
+    console.warn('Celoměstská vrstva se nenačetla.',e);
+  }
   try{
     const result=await fetch('stromy/stromy.geojson',{cache:'no-cache'});
     if(!result.ok)throw Error('Chybí inventura stromů.');
     catalog=await result.json();
+    if(cityUI)cityUI.mergeTrees(catalog);
     treeUI=treeInterface(catalog,{
       selectTree:id=>selectTree(id,false), showTree:id=>selectTree(id,true),
       close:()=>{state.treeDoc=false;writeLink();renderDoc()},
@@ -173,7 +203,7 @@ async function boot(){
   const [scene,resp]=await Promise.all([import('./scena.js'),fetch('https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/gis/mapa/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
-  map=scene.buildMap(canvas,city,houses,catalog,(cp,view)=>choose({cp,view}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true));
+  map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity);
   q('#zoom-in').onclick=()=>map.zoom(.72);q('#zoom-out').onclick=()=>map.zoom(1.39);
   update(true);
   Object.defineProperty(window,'__MOST_VIEW__',{value:()=>map.inspect()});

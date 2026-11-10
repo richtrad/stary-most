@@ -1,3 +1,4 @@
+import {sourceCanvas} from '../mesto/podklady.js';
 const q=id=>document.getElementById(id);
 const fmt=n=>n.toLocaleString('cs-CZ',{maximumFractionDigits:1});
 
@@ -18,35 +19,33 @@ export function treeInterface(catalog,handlers) {
     }
     choose.value=id||'';
   }
-  const image=new Image();image.src=new URL(m.municipal.image,new URL('stromy/',document.baseURI)).href;
-  const dialog=q('tree-source'),c=q('tree-scan');
+  const origin=[-790848.106,-987409.177];
+  const dialog=q('tree-source'),canvas=q('tree-scan');
+  const exportLink=document.createElement('a');
+  const raster=sourceCanvas(canvas,origin,q('tree-caption'),exportLink);
   let current=null;
-  function draw(){
-    if(!current||!image.naturalWidth)return;
-    const p=features.get(current),[x,y]=p.sjtsk,[x0,y0,x1,y1]=m.municipal.bbox;
-    const px=(x-x0)*image.width/(x1-x0),py=(y1-y)*image.height/(y1-y0);
-    const ctx=c.getContext('2d'),width=520,height=320,ppm=image.width/(x1-x0);
-    const windowWidth=67*ppm,windowHeight=windowWidth*height/width;
-    c.width=width;c.height=height;
-    ctx.drawImage(image,px-windowWidth/2,py-windowHeight/2,windowWidth,windowHeight,0,0,width,height);
-    if(q('tree-mark').checked){
-      const r=Math.max(10,p.diameter_m_approx*.5*width/67);
-      ctx.beginPath();ctx.arc(width/2,height/2,r,0,2*Math.PI);ctx.strokeStyle='#152c24';ctx.lineWidth=4.2;ctx.stroke();ctx.strokeStyle='#aef4ab';ctx.lineWidth=2.4;ctx.stroke();
-      ctx.fillStyle='#d6ffd0';ctx.beginPath();ctx.arc(width/2,height/2,2,0,Math.PI*2);ctx.fill();
-    }
-  }
-  image.onload=draw;image.onerror=()=>{q('tree-caption').textContent='Městské ortofoto se nepodařilo načíst. Dubnový snímek otevřete odkazem níže.'};
   function show(id){
-    const p=features.get(id);if(!p){if(dialog.open)dialog.close();current=null;return}
-    current=id;const distinct=p.confidence==='distinct';
+    const p=features.get(id);
+    if(!p){if(dialog.open)dialog.close();current=null;raster.clear();return}
+    const changed=current!==id;current=id;
     q('tree-title').textContent='Strom '+id+' · '+m.areas[p.area];
-    q('tree-reading').textContent=(distinct?'Zřetelný na snímku. ':'Pravděpodobný strom. ')+m.cues[p.cue];
+    q('tree-period').textContent=p.city_reading?'LETECKÝ PRAMEN · ORTOFOTO 1964':'LETECKÝ PRAMEN · 16. DUBNA 1964';
+    q('tree-reading').textContent=(p.confidence==='distinct'?'Zřetelný na snímku. ':'Pravděpodobný strom. ')+(m.cues[p.cue]||'');
     q('tree-archive').href=p.source_url;
+    q('tree-archive').textContent=p.city_reading?'Otevřít toto místo na ortofotu ↗':'Otevřít původní snímek ČÚZK ↗';
     q('tree-metrics').textContent='Odhad šířky koruny přibližně '+p.diameter_m_approx+' m. Výška, druh a přesná poloha kmene nejsou změřené.';
-    q('tree-coordinate').textContent='S-JTSK (EPSG:5514) '+p.sjtsk.map(fmt).join(' / ')+'. Měřický snímek '+p.flight_id+'. Na osmi kontrolních bodech byla odchylka mapy nejčastěji v řádu metrů (medián '+fmt(m.checks.median_m)+' m, maximum '+fmt(m.checks.max_m)+' m).';
-    draw();if(!dialog.open)dialog.showModal();
+    let coordinate='S-JTSK (EPSG:5514) '+p.sjtsk.map(fmt).join(' / ')+'. '+p.flight_id+'.';
+    if(p.city_reading)coordinate+=' Georeference městského podkladu. Polohová přesnost tohoto odečtu není samostatně změřená.';
+    else if(m.checks)coordinate+=' Na osmi kontrolních bodech původního pilotu byl medián odchylky '+fmt(m.checks.median_m)+' m a maximum '+fmt(m.checks.max_m)+' m.';
+    q('tree-coordinate').textContent=coordinate;
+    if(changed){
+      const x=p.sjtsk[0]-origin[0],z=origin[1]-p.sjtsk[1];
+      raster.show({bounds:[x-32,z-19,x+32,z+19],points:[[x,z,p.diameter_m_approx/2]]});
+      raster.mark(q('tree-mark').checked);
+    }
+    if(!dialog.open)dialog.showModal();
   }
-  q('tree-mark').onchange=draw;
+  q('tree-mark').onchange=()=>raster.mark(q('tree-mark').checked);
   q('tree-close').onclick=handlers.close;
   dialog.addEventListener('cancel',e=>{e.preventDefault();handlers.close()});
   dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)handlers.close()}});
