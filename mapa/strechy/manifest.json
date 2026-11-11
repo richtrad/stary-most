@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-11-v1",
+  "version": "2026-11-11-blocks-v2",
   "epoch": "1964",
   "authors": {
     "gpt": {
@@ -14,23 +14,28 @@
     }
   },
   "counts": {
-    "revisedBuildings": 19,
+    "revisedBuildings": 33,
     "claudeComparisons": 15,
-    "courtyards": 13,
+    "courtyards": 27,
     "contextRoofs": 1334,
-    "displayedContextRoofs": 1315,
-    "contextFlatFallback": 66,
-    "individualCityReviewPending": 1381
+    "displayedContextRoofs": 1297,
+    "contextFlatFallback": 65,
+    "individualCityReviewPending": 1362,
+    "revisedRecords": 37,
+    "revisedGisFootprints": 38,
+    "openSpaces": 4
   },
   "sourceSnapshots": [
     "2026-10-17",
     "2026-11-05",
-    "2026-11-09"
+    "2026-11-09",
+    "2026-09-11 GIS / city metadata",
+    "2026-11-11 live Minoritská / Šmeralovo / čp. 228"
   ],
   "privateSourcePixelsPublished": false,
   "layerNotes": {
     "claude": "Původní geometrie Clauda Opus 5.5. Neutrální materiály a export: Codex. Pracovní rozpory zachovány.",
-    "gpt": "Nová geometrie střech a dvorů: OpenAI Codex, rodina GPT-6; přesná varianta běhu není dostupná. Vstupy: původní plány, GIS, letecký snímek a rozměrové studie Clauda."
+    "gpt": "Střechy a dvory: OpenAI Codex, rodina GPT-6; přesná varianta běhu není dostupná. Porovnání původních plánů, fotografií a ortofota 1964. Nezaměřené výšky a některé tvary jsou pracovní odhad."
   },
   "coverage": [
     {
@@ -41,6 +46,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Otevřen dvorek v zadním východním rohu; ponecháno západní křídlo a podkroví. Blokový plán dokládá topologii, rozměr dvorku je odhad."
     },
     {
@@ -52,6 +58,7 @@
         "photo-north"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Sedlová střecha s hřebenem podél Kulové; otevřený dvorek za hlavním domem, kůlna při zadní hranici."
     },
     {
@@ -63,6 +70,7 @@
         "photo-north"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Oddělena vysoká uliční hmota, otevřený dvůr a nižší zadní přístavba. Plochá střecha zadního křídla doložena blokovým plánem; přiřazení zadního pásu GIS je nejisté."
     },
     {
@@ -76,6 +84,7 @@
         "photo-1969"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "documented_section_1910_not_confirmed_1964",
       "note": "Zachován hřeben uličního křídla podél ulice; zúženo zadní křídlo a otevřen dvorek k čp. 264. Výška 12,15 m přejata z řezu 10/1910 (6,45 + 5,70), použití pro rok 1964 je pracovní."
     },
     {
@@ -87,6 +96,7 @@
         "photo-1969"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Sedlová střecha a zadní půdorysný výstupek; výška převzata jako pracovní odhad ze starší studie."
     },
     {
@@ -97,6 +107,7 @@
         "photo-1969"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Střecha přizpůsobena stavební hraně GIS. Rozpor šířky 11,43 m / návrhu 13,30 m není tím historicky vyřešen."
     },
     {
@@ -108,6 +119,7 @@
         "photo-east"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Sedlová uliční střecha a úzké zadní křídlo. Ponechána šířka GIS 15,23 m; rozpor s fotografickou studií 12,70 m zůstává otevřený."
     },
     {
@@ -120,6 +132,7 @@
         "photo-east"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Hlavní dům a zadní podkroví mají samostatné střešní hmoty podle blokového plánku. Šířka GIS je pracovní; kóty roku 1927 dávají 12,35 m přes zdi."
     },
     {
@@ -131,6 +144,7 @@
         "photo-east"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Nárožní střecha a odstupňovaná dvorní křídla kolem otevřeného dvora; bez fasádních textur. Rozměry z GIS, výšky křídel odhad."
     },
     {
@@ -140,6 +154,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "hypothesis",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Tvar a výška pouze pracovní hypotéza podle GIS a leteckého kontextu; vlastní plán v prohledaných místních přílohách nebyl nalezen."
     },
     {
@@ -150,6 +165,7 @@
         "plan-259-1871"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Valba doložena výkresem 1871 a leteckým kontextem; pozdější výškový stav je odhad."
     },
     {
@@ -159,6 +175,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Sedlová střecha, zadní výklenek půdorysu zůstává otevřený; vlastní střešní konstrukce není kótována."
     },
     {
@@ -170,6 +187,7 @@
         "plan-1608-1928"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Střecha s hřebenem podél ulice a zadní výstupek. Otevřený plán je datován 20. 8. 1928, uvádí stavební parcelu 262/2; souvislost s čp. 1608 podle půdorysu a databázového přiřazení."
     },
     {
@@ -180,6 +198,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Sedlová střecha s ukončením do proluky a zadní výstupek podle společného plánu 256/257; výšky odhad, vlastní přílohy nedostupné v místním snímku."
     },
     {
@@ -190,6 +209,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Dvě valbová křídla, zachovaný dvůr a zahrada. Vzepětí 5,07 m podle skici 1927; fotografie potvrzují dvě podlaží."
     },
     {
@@ -200,6 +220,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Doplněna dvě střešní křídla do L a otevřený vnitroblok podle společného plánu 256/257; velikost a výška zadního křídla pracovní odhad."
     },
     {
@@ -210,6 +231,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Navazující dům v Minoritské: samostatný hřeben podél ulice podle společného plánu 265–270 a leteckého snímku. Výška odhad."
     },
     {
@@ -220,6 +242,7 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Navazující dům v Minoritské: samostatná sedlová střecha podle společného plánu 265–270; výška odhad."
     },
     {
@@ -230,7 +253,311 @@
         "aerial-19640416"
       ],
       "roofStatus": "source_compared_topology",
+      "heightStatus": "mixed_estimate_and_prior_studies",
       "note": "Nárožní nepravidelný půdorys a střecha navazujícího bloku; zadní výběžek z GIS a blokového plánu, výška odhad."
+    },
+    {
+      "cp": "271",
+      "id": 18,
+      "footprintIds": [
+        18
+      ],
+      "label": "Čp. 271",
+      "sources": [
+        "live-86c26f51",
+        "live-a59c5866",
+        "live-c6978088",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Asymetrický profil střechy a nižší dvorní část podle řezu z roku 1898; konfrontováno s uliční fotografií. Výška a rozměry jsou aproximací, nikoli zaměřením roku 1964."
+    },
+    {
+      "cp": "272",
+      "id": 1161,
+      "footprintIds": [
+        1161
+      ],
+      "label": "Čp. 272",
+      "sources": [
+        "live-a5a95ebf",
+        "live-13acea09",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Asymetrická střecha podle plánu z února 1903: hřeben blízko ulice, mírnější spád dozadu. Šířka GIS a kóty plánu nejsou přesně shodné. Sanitární listy s odlišným číslem domu nebyly použity."
+    },
+    {
+      "cp": "273",
+      "id": 20,
+      "footprintIds": [
+        20
+      ],
+      "label": "Čp. 273",
+      "sources": [
+        "live-35e4365c",
+        "live-f73518f7",
+        "live-6f4dd586",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Oddělen uliční dům a nižší zadní část. Modrotisk popisuje dvorní stavbu, nikoli uliční střechu; ta je pracovní interpretací ortofota 1964. Portálový plán 6. 4. 1930 ověřuje polohu domu."
+    },
+    {
+      "cp": "170",
+      "id": 22,
+      "footprintIds": [
+        22
+      ],
+      "label": "Čp. 170",
+      "sources": [
+        "live-b2fbd9da",
+        "live-3aa50db6",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Sedlová uliční střecha a oddělený nižší dvorní objekt podle kolaudačního plánu 25. 9. 1930. Listy zahradního domu u Špičáku nebyly přeneseny do této parcely. Výšky jsou odhad."
+    },
+    {
+      "cp": "169",
+      "id": 23,
+      "footprintIds": [
+        23
+      ],
+      "label": "Čp. 169",
+      "sources": [
+        "old-ad278341",
+        "old-fcb1dfa4",
+        "old-b40dc72c",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Uliční sedlová střecha, otevřený dvůr a úzká dvorní křídla podle situačního nákresu a stavebních plánů. Křídla mimo hlavní polygon GIS mají přibližné rozměry."
+    },
+    {
+      "cp": "229",
+      "id": 30,
+      "footprintIds": [
+        30
+      ],
+      "label": "Čp. 229",
+      "sources": [
+        "live-a57b937c",
+        "live-fe666186",
+        "live-a43ab7f2",
+        "live-0f88927b",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Dva nestejné hřebeny, boční spojovací střecha a otevřený dvorek podle nákresu a zaměření krovu/řezu čp. 229 (1:50). Nejde o jedinou vysokou střešní desku."
+    },
+    {
+      "cp": "228-klaster",
+      "id": 31,
+      "footprintIds": [
+        31
+      ],
+      "label": "Čp. 228 · klášterní křídla",
+      "sources": [
+        "cloister-566b409d",
+        "cloister-676027ea",
+        "cloister-c6625dbb",
+        "cloister-d21ba231",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Z původně plného GIS bloku otevřen rajský dvůr: vyšší uliční křídlo, nižší vnitřní křídlo, spojovací trakt a malá garáž podle situačního nákresu. Rozměry dvora a výšky zůstávají přibližné."
+    },
+    {
+      "cp": "228",
+      "id": 33,
+      "footprintIds": [
+        33,
+        32
+      ],
+      "label": "Čp. 228 · minoritský kostel",
+      "sources": [
+        "cloister-566b409d",
+        "cloister-0817264e",
+        "cloister-70b1757a",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Sjednoceny dva sousední GIS díly 33 a 32 do kostelní hmoty. Střecha, nižší severní ambit, polygonální závěr, velká věž a sanktusník vycházejí z nákresu a fotografií. Výšky věží jsou modelový odhad."
+    },
+    {
+      "cp": "230",
+      "id": 29,
+      "footprintIds": [
+        29
+      ],
+      "label": "Čp. 230",
+      "sources": [
+        "live-a57b937c",
+        "live-0f88927b",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Nárožní valbová střecha a nižší dvorní část podle sdíleného nákresu 228/229/230 a původní fotografie. Barvy, sklon a výška jsou pracovní."
+    },
+    {
+      "cp": "255",
+      "id": 317,
+      "footprintIds": [
+        317
+      ],
+      "label": "Čp. 255",
+      "sources": [
+        "old-2c862732",
+        "live-ca5b7c43",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Hlavní střecha se štíty u sousedů, nízká zadní přístavba a otevřený dvůr podle nákresu a fotografie. Pozdější prázdná parcela čp. 256 v nákresu nebyla přenesena do roku 1964."
+    },
+    {
+      "cp": "254",
+      "id": 318,
+      "footprintIds": [
+        318
+      ],
+      "label": "Čp. 254",
+      "sources": [
+        "old-eef84c56",
+        "live-ca5b7c43",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Dlouhá střecha podél ulice U Jeptišek s valbou do náměstí; navazující nízké dvorní objekty a dvůr jsou odvozeny ze situačního nákresu. Drobné detaily fasády záměrně vynechány."
+    },
+    {
+      "cp": "253",
+      "id": 326,
+      "footprintIds": [
+        326
+      ],
+      "label": "Čp. 253 · piaristický kostel",
+      "sources": [
+        "old-e9068619",
+        "live-6c1f0c93",
+        "live-ca5b7c43",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "source_compared_topology",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Členěná kostelní střecha s polygonálním čelem a věží podle nákresu a panoramat náměstí. Geometrie výšky věže a osmiúhelníkové báně je zatím přibližná; fasády zůstávají bez ornamentů."
+    },
+    {
+      "cp": "168",
+      "id": 24,
+      "footprintIds": [
+        24
+      ],
+      "label": "Čp. 168",
+      "sources": [
+        "old-ad278341",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "hypothesis",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Navazující blok Dobrovolců: směr uličního hřebene a nezastavěné okolí porovnány s ortofotem 1964 a sousedním situačním nákresem čp. 169. Vlastní kótovaný řez nebyl v místně ověřených podkladech otevřen."
+    },
+    {
+      "cp": "167",
+      "id": 25,
+      "footprintIds": [
+        25
+      ],
+      "label": "Čp. 167",
+      "sources": [
+        "old-ad278341",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "hypothesis",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Navazující blok Dobrovolců: jednoduchá sedlová střecha podle leteckého kontextu 1964. Vlastní výškové zaměření neověřeno; jde o výslovně přiznanou pracovní hypotézu."
+    },
+    {
+      "cp": "171",
+      "id": 1163,
+      "footprintIds": [
+        1163
+      ],
+      "label": "Čp. 171 · zaniklé před 1964",
+      "sources": [
+        "cloister-70b1757a",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "open_space_1964",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Archivní karta fotografie z roku 1963 uvádí, že čp. 171, 172 a 173 byla zbořena kolem roku 1954. Ortofoto 1964 odpovídá volné ploše. Zachován dohledatelný půdorys; dům zde v časové vrstvě 1964 nestojí."
+    },
+    {
+      "cp": "172",
+      "id": 1162,
+      "footprintIds": [
+        1162
+      ],
+      "label": "Čp. 172 · zaniklé před 1964",
+      "sources": [
+        "cloister-70b1757a",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "open_space_1964",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Archivní karta fotografie z roku 1963 uvádí demolici čp. 171–173 kolem roku 1954. Z časové vrstvy 1964 odstraněna odhadovaná hmota GIS; přesný rok demolice není nezávisle ověřen."
+    },
+    {
+      "cp": "173",
+      "id": 21,
+      "footprintIds": [
+        21
+      ],
+      "label": "Čp. 173 · zaniklé před 1964",
+      "sources": [
+        "cloister-70b1757a",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "open_space_1964",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Otevřená plocha podle ortofota 1964 a poznámky na archivní kartě roku 1963 o demolici čp. 171–173 kolem roku 1954. Nezaměňovat dochovaný historický půdorys s přítomností domu v roce 1964."
+    },
+    {
+      "cp": "gis-315",
+      "id": 315,
+      "footprintIds": [
+        315
+      ],
+      "label": "Průchod vedle čp. 256",
+      "sources": [
+        "live-ea6105d1",
+        "live-fe402e48",
+        "block-ortho-1964"
+      ],
+      "roofStatus": "open_space_1964",
+      "heightStatus": "model_estimate_not_a_1964_height_survey",
+      "note": "Plocha mezi čp. 256 a 257 je ve sdíleném nákresu vedena jako dvůr/průchod. Odhadovaný plný GIS blok byl nahrazen otevřenou plochou; existence menšího zastřešení v roce 1964 není doložena."
     }
-  ]
+  ],
+  "latestBatch": {
+    "records": 18,
+    "roofs": 14,
+    "openSpaces": 4,
+    "courtyardsAndOpenAreas": 14,
+    "download": "minoritska_smeral_gpt_v2.glb",
+    "historicallyAccepted": false,
+    "date": "2026-11-11",
+    "note": "1964 layer: cp171/172/173 removed as documented pre-1964 demolitions. Original Claude geometry preserved separately."
+  }
 }

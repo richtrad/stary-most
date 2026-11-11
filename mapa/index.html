@@ -34,10 +34,10 @@
 <summary><strong>Střechy a dvory</strong><span id="roof-count"></span></summary>
 <div class="segmented" role="group" aria-label="Autor střech a dvorů"><button data-layer="gpt">GPT · nové střechy</button><button data-layer="claude">Claude · původní</button></div>
 <p id="roof-author-note" class="tree-note"></p>
-<label class="tree-field" for="roof-select">Kulová a ústí do Šmeralova náměstí</label>
+<label class="tree-field" for="roof-select">Kulová, Minoritská a okolí Šmeralova náměstí</label>
 <div class="tree-choice"><select id="roof-select"></select><button id="roof-source" disabled>Pramen ↗</button></div>
 <label class="tree-check"><input type="checkbox" id="roof-context" checked> Orientační střechy zbytku města</label>
-<p class="tree-note">19 upravených domů; čp. 154 má zatím hypotézu střechy. Zbytek města má algoritmické střechy bez jednotlivého historického ověření. Neurčené výšky a hranice dvorů zůstávají odhadem.</p>
+<p class="tree-note">33 pracovních střech a 4 opravené volné plochy. Čp. 171–173 už v roce 1964 nestála. Nezaměřené výšky, hranice dvorů a slabě doložené části zůstávají odhadem. Zbytek města má orientační algoritmické střechy.</p>
 <p class="tree-note"><a href="strechy/manifest.json">Pokrytí a autorství ↗</a> · <a href="strechy/prehled.html">Postup celým městem ↗</a> · <a href="strechy/README.md">Postup a nejistoty ↗</a></p>
 </details>
 <details class="control tree-controls" id="furniture-controls">
@@ -98,7 +98,8 @@
 <select id="tree-area"><option value="all">Celé zmapované okolí</option></select>
 <div class="tree-choice"><select id="tree-id" aria-label="Jednotlivý strom"></select><button type="button" id="tree-open" disabled>Pramen ↗</button></div>
 <p class="tree-note">Polohy podle leteckého snímku. Olistění, výšky a větvení modeloval OpenAI · Codex (GPT-6) pro obě vrstvy.</p>
-<a href="./letecke-snimky/#soupis">Stromy na ortofotu ↗</a>
+<p class="tree-note" id="tree-stand-summary"></p>
+<a href="./letecke-snimky/#soupis">Stromy na ortofotu ↗</a> · <a href="./mesto/zelen-1964.json">Soupis doplnění 1964 ↗</a>
 </section>
 <section class="control"><h2>Dům</h2><div id="houses" class="house-list">
 <button data-cp="261"><b>Čp. 261</b><span>Dům vedle nemocenské pokladny</span></button>
@@ -152,7 +153,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js"></script>
+<script type="module" src="./mapa.js?v=20261111-zelen2"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>

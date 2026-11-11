@@ -1,3 +1,23 @@
+# Rozšíření 11. 11. 2026: Minoritská a okolí Šmeralova náměstí
+
+Nová dávka: 14 střech, 14 dvorů/volných ploch, 18 záznamů nad 19 půdorysy GIS. Dva GIS díly minoritského kostela tvoří jediný model. Čp. 171–173 jsou v časové vrstvě 1964 otevřené, stejně jako průchod mezi čp. 256 a 257.
+
+Geometrie: OpenAI Codex / rodina GPT-6; přesný identifikátor backendu není dostupný. Claude Opus 5.5 zůstává samostatnou nezměněnou vrstvou. Pro nové domy bez existujícího modelu Clauda se ukazuje pouze označený kontext GIS, nikoli model vydávaný za Claude.
+
+Prameny: čerstvé čtení Libuše 11. 11. 2026 (Minoritská, Šmeralovo náměstí, čp. 228), místní městský snapshot 11. 9. 2026, balík U Pražské brány 23. 10. 2026 a ortofoto Most 1964. Nalezené listy byly skutečně otevřeny; konfliktní plány domu jiného čísla a zahradního domku u Špičáku nejsou použity. Pozdější fotografie dvora 1971 je pouze srovnávací doklad.
+
+Všechny nové skutečné GLB byly otevřeny v prohlížeči: čtyři osy, čtyři šikmé střešní pohledy, půdorys, dva pohledy pod okap a detail; materiály i clay. Samostatně prověřeny hrany exportu nad ortofotem, otevření pramene, překryvy staveb, pokrytí střechou, uzavření spodku a degenerované trojúhelníky/UV. Tento rozsah je kontrola jednoduchých hmot, nikoli fasádní QA ani historické schválení. Okna, dveře, nápisy a ornamenty nejsou v této dávce modelovány.
+
+Půdorysy GIS jsou zachovány; lokální posun/paralaxa střech v ortofotu nejsou zaměněny za přesnou pozemní polohu. Výšky, sklon, detaily věží, drobné přístavby a některé hranice dvorů jsou pracovní odhady. Zvláště čp. 167/168 má jen letecký kontext a plán souseda. Publikované barvy jsou neutrální materiály, nikoli doložené historické odstíny.
+
+Původní soukromé skeny nejsou nově zveřejněny. Dialog pramene umožňuje připojit originál lokálně a ověřuje SHA-256. Editovatelné .blend, plán hledání, archivní podklady a úplná QA evidence jsou zachovány ve dvou místních kopiích E/F.
+
+Další bloky: zbytek U Jeptišek, Dobrovolců, Hvězdná; vždy nejprve plánová rešerše a porovnání snímků.
+
+---
+
+## Předchozí dávka Kulové (zachovaný záznam)
+
 # Střechy a dvory · 11. listopadu 2026
 
 Nová pracovní vrstva GPT: 19 domů, 13 dvorů/zahrad. Celá Kulová a ústí do Šmeralova náměstí, navíc čp. 256 a 268–270 v navazujícím bloku. Fasády mají pouze neutrální materiály. Čp. 154 je výslovně hypotéza.

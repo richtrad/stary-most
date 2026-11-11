@@ -6,7 +6,7 @@ export async function loadRoofData(){
 }
 export function roofModels(scene,data,city,changed){
  const group=new T.Group();group.name='Střechy a dvory · oddělené autorské verze';scene.add(group);
- const ids=new Set(data.gpt.buildings.map(b=>b.id)),records=new Map(data.gpt.buildings.map(b=>[b.cp,b]));
+ const ids=new Set(data.gpt.buildings.flatMap(b=>b.footprintIds||[b.id])),records=new Map(data.gpt.buildings.map(b=>[b.cp,b]));
  const layerGroups={},houseGroups={},allMaterials=[],pickMeshes=[];
  const palette={roof:0x8d9984,walls:0xbcb5a5,trim:0x777a6c};
  const makeMat=(color)=>{const m=new T.MeshStandardMaterial({color,roughness:1,side:T.DoubleSide});allMaterials.push(m);return m};
@@ -30,8 +30,10 @@ export function roofModels(scene,data,city,changed){
  const claudeIds=new Set(data.claude.buildings.map(b=>b.id));
  for(const [id,height,parts] of city.buildings){
   if(!ids.has(id)||claudeIds.has(id))continue;
-  const cp=data.gpt.buildings.find(b=>b.id===id).cp;
-  const h=new T.Group();layerGroups.claude.add(h);houseGroups.claude[cp]=h;
+  const record=data.gpt.buildings.find(b=>(b.footprintIds||[b.id]).includes(id));
+  if(record.kind==='open_space')continue;
+  const cp=record.cp;
+  let h=houseGroups.claude[cp];if(!h){h=new T.Group();layerGroups.claude.add(h);houseGroups.claude[cp]=h}
   const m=new T.Mesh(shape(parts,height),materials.walls);m.userData={roofCp:cp,roofKind:'gis-fallback'};h.add(m);pickMeshes.push(m);
  }
  const courts=new T.Group();courts.name='Dvory a zahrady · GPT';layerGroups.gpt.add(courts);
@@ -73,5 +75,5 @@ export function roofModels(scene,data,city,changed){
   const d=Math.max(46,Math.hypot(X-x,Z-z)*1.65,36/aspect);
   return [t,t.clone().addScaledVector(new T.Vector3(.25,.9,1).normalize(),d)];
  }
- return {ids,has:cp=>!!houseGroups[currentLayer][cp],configure,pick,destination,setFocus:cp=>{focus=cp},inspect:()=>({layer:currentLayer,selected:focus,revised:data.gpt.buildings.length,claude:data.claude.buildings.length,courtyards:data.gpt.courtyards.length,contextVisible:contextOn,contextRoofs:ranges.length,sourceCompared:19,historicallyAccepted:false})};
+ return {ids,has:cp=>!!houseGroups[currentLayer][cp],configure,pick,destination,setFocus:cp=>{focus=cp},inspect:()=>({layer:currentLayer,selected:focus,revised:data.gpt.buildings.length,roofs:data.gpt.buildings.filter(b=>b.roof.length).length,openSpaces:data.gpt.buildings.filter(b=>b.kind==='open_space').length,claude:data.claude.buildings.length,courtyards:data.gpt.courtyards.length,contextVisible:contextOn,contextRoofs:ranges.length,sourceCompared:data.gpt.buildings.filter(b=>b.roofStatus==='source_compared_topology').length,historicallyAccepted:false})};
 }

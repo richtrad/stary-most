@@ -2,7 +2,8 @@ const q=s=>document.querySelector(s);
 export function roofInterface(data,actions){
  const records=new Map(data.gpt.buildings.map(b=>[b.cp,b])),originals=new Map(data.claude.buildings.map(b=>[b.cp,b]));
  const sources=data.sources,local=new Map(),dialog=q('#roof-dialog');let state=null,shown=null,selectedSource=null,generation=0;
- q('#roof-select').replaceChildren(new Option('Celá Kulová a ústí do náměstí',''),...data.gpt.buildings.map(b=>new Option('Čp. '+b.cp,b.cp)));
+ const label=b=>b?.label||'Čp. '+b?.cp;
+ q('#roof-select').replaceChildren(new Option('Vybrat dům, dvůr nebo proluku…',''),...data.gpt.buildings.map(b=>new Option(label(b),b.cp)));
  q('#roof-select').onchange=e=>actions.select(e.target.value||null);
  q('#roof-source').onclick=()=>state?.roofFocus&&show({cp:state.roofFocus,kind:'roof'});
  q('#roof-context').onchange=e=>actions.context(e.target.checked);
@@ -16,7 +17,7 @@ export function roofInterface(data,actions){
   selectedSource=id;q('#roof-source-select').value=id;const s=sources[id];let url=local.get(s?.sha256);q('#roof-source-note').textContent=s?[s.title,s.date,s.note].join(' · '):'Pramen není přiřazen.';
   q('#roof-source-id').textContent=s?[s.collection,s.recordId,s.sha256&&'SHA-256 '+s.sha256].filter(Boolean).join(' · '):'';
   const img=q('#roof-scan');img.hidden=!url;if(url){img.src=url;img.alt=s.title}else img.removeAttribute('src');
-  q('#roof-source-lock').hidden=!!url;q('#roof-source-lock').textContent=s?.access==='public_service'?'Podklad je dostupný přes odkaz Letecká mapa. Tvar této střechy zůstává neověřeným odhadem.':'Původní archivní snímek není veřejně uložen. Připojte jej níže; ověřený originál se otevře přímo zde.';
+  q('#roof-source-lock').hidden=!!url;q('#roof-source-lock').textContent=s?.access==='public_service'?'Podklad je dostupný přes odkaz Letecká mapa. Rozsah porovnání a nejistoty popisuje záznam objektu výše.':'Původní archivní snímek není veřejně uložen. Připojte jej níže; ověřený originál se otevře přímo zde.';
   if(!url&&s?.url){
    q('#roof-source-lock').textContent='Načítám veřejný pramen a ověřuji jeho shodu…';
    try {
@@ -41,7 +42,7 @@ export function roofInterface(data,actions){
  q('#roof-import').onchange=e=>importFiles(e.target.files).catch(()=>q('#roof-import-status').textContent='Soubor se nepodařilo ověřit.');
  function show(hit){
   shown=hit;const r=records.get(hit.cp),old=originals.get(hit.cp),isContext=hit.kind==='context';
-  q('#roof-dialog-title').textContent=(hit.cp&&hit.cp!=='None'?'Čp. '+hit.cp:'Stavba GIS '+hit.id)+' · '+(hit.kind==='courtyard'?'dvůr / zahrada':'střechy a dvory');
+  q('#roof-dialog-title').textContent=(r?label(r):hit.cp&&hit.cp!=='None'?'Čp. '+hit.cp:'Stavba GIS '+hit.id)+' · '+(hit.kind==='courtyard'?'dvůr / zahrada':'střechy a dvory');
   q('#roof-dialog-author').textContent=isContext?'Algoritmický kontext města · původní generátor projektu, přesný model autora neevidován.':state.layer==='claude'?(old?'Claude · Opus 5.5 · '+old.revision+'. Neutrální materiály a export: Codex.':'Půdorysný kontext GIS. Model Clauda pro tento dům v této vrstvě není.'):data.manifest.layerNotes.gpt;
   q('#roof-dialog-note').textContent=isContext?'Tato střecha je pouze algoritmický odhad z půdorysu. Individuální porovnání s plánem a leteckým snímkem zatím neproběhlo.':state.layer==='claude'?(old?.note||r?.note):r?.note;
   const ids=available();q('#roof-source-select').replaceChildren(...ids.map(id=>new Option(sources[id]?.title||id,id)));
@@ -51,8 +52,8 @@ export function roofInterface(data,actions){
  function update(s){
   state=s;q('#roof-select').value=s.roofFocus||'';q('#roof-source').disabled=!s.roofFocus;q('#roof-context').checked=s.roofContext;
   q('#roof-author-note').textContent=data.manifest.layerNotes[s.layer];
-  q('#roof-count').textContent=s.layer==='gpt'?'19 domů · 13 dvorů':'15 modelů Clauda';
-  if(s.roofFocus&&s.view==='street'){q('#place').textContent='Čp. '+s.roofFocus+' · střechy a dvory';q('#scale').textContent=s.layer==='gpt'?'Nová geometrie GPT · pracovní rekonstrukce':'Původní geometrie Clauda · srovnání'}
+  q('#roof-count').textContent=s.layer==='gpt'?data.manifest.counts.revisedBuildings+' střech · '+data.gpt.courtyards.length+' dvorů a ploch':data.claude.buildings.length+' modelů Clauda';
+  if(s.roofFocus&&s.view==='street'){q('#place').textContent=label(records.get(s.roofFocus));q('#scale').textContent=s.layer==='gpt'?'Geometrie GPT · pracovní rekonstrukce 1964':originals.has(s.roofFocus)?'Původní geometrie Clauda · srovnání':'Model Clauda zde není · pouze kontext GIS'}
  }
  return {show,update,has:cp=>records.has(cp)};
 }

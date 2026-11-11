@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {buildVehicles} from '../vozidla/modely.js';
 import {buildSmallFeatures} from '../prvky/modely.js';
+import {buildCanopyStands} from './porosty.js?v=20261111-zelen2';
 const colors={ulice:0xb6b3a3,zelen:0x99ad7e,voda:0x739c9d,cesta:0xd7c9a7,porost:0x78926b,kolejiste:0xa29685,otevrena:0xc6b995};
 const heights={ulice:.046,zelen:.002,voda:.012,cesta:.032,porost:.003,kolejiste:.01,otevrena:.018};
 
@@ -19,6 +20,8 @@ function onSurface(point, rings) {
 export function cityEnvironment(scene,data,invalidate) {
   const items=new Map(data.surfaces.map(r=>[r.id,r]));
   const meshes=[];
+  const surveyedStands=data.surfaces.filter(r=>r.canopySurvey);
+  const stands=buildCanopyStands(surveyedStands);scene.add(stands.root);
   const details=buildSmallFeatures(data.details||[]);scene.add(details.root);
   const vehicles=buildVehicles(data.vehicles||[]);scene.add(vehicles.root);
   const materials=Object.fromEntries(Object.entries(colors).map(([kind,color])=>[kind,new T.MeshBasicMaterial({color,side:T.DoubleSide,toneMapped:false})]));
@@ -29,14 +32,15 @@ export function cityEnvironment(scene,data,invalidate) {
     const shape=new T.Shape(ring(rings[0]));
     for(const hole of rings.slice(1))shape.holes.push(new T.Path(ring(hole)));
     const mesh=new T.Mesh(new T.ShapeGeometry(shape).rotateX(-Math.PI/2),materials[record.kind]);
-    mesh.position.y=heights[record.kind];
+    mesh.position.y=record.canopySurvey ? .067 : heights[record.kind];
     mesh.userData.item=record;
     scene.add(mesh);meshes.push(mesh);
-    if(record.kind!=='porost')continue;
+    if(record.kind!=='porost'||record.canopySurvey)continue;
     const xs=rings[0].map(p=>p[0]),zs=rings[0].map(p=>p[1]);
     for(let x=Math.min(...xs)+9;x<Math.max(...xs)-9;x+=16){
       for(let z=Math.min(...zs)+9;z<Math.max(...zs)-9;z+=16){
         if(![[x,z],[x-9,z],[x+9,z],[x,z-9],[x,z+9]].every(p=>onSurface(p,rings)))continue;
+        if(surveyedStands.some(r=>onSurface([x,z],r.rings)))continue;
         // These facets form an area representation of woodland, not an inventory of trunks.
         woods.push({record,x,z});
       }
@@ -61,12 +65,13 @@ export function cityEnvironment(scene,data,invalidate) {
   });
   const outline=new T.LineSegments(new T.BufferGeometry(),new T.LineBasicMaterial({color:0xb98439,toneMapped:false,transparent:true,opacity:.9}));
   scene.add(outline);
-  let active=new Set(Object.keys(colors).concat('photos','vozidla')),showPlan=true,mode='crowns',streetId=null;
+  let active=new Set(Object.keys(colors).concat('photos','vozidla')),showPlan=true,mode='crowns',quality='all',streetId=null;
   function visibility(){
-    for(const mesh of meshes)mesh.visible=active.has(mesh.userData.item.kind)&&(showPlan||mesh.userData.item.source!=='plan50');
+    for(const mesh of meshes)mesh.visible=active.has(mesh.userData.item.kind)&&(showPlan||mesh.userData.item.source!=='plan50')&&(!mesh.userData.item.canopySurvey||(quality!=='distinct'&&mode!=='off'));
     vehicles.root.visible=active.has('vozidla');
     details.configure([...active]);
-    canopy.visible=showPlan&&mode==='crowns'&&active.has('porost');
+    canopy.visible=showPlan&&mode==='crowns'&&quality!=='distinct'&&active.has('porost');
+    stands.configure(mode,active.has('porost'),quality);
     invalidate();
   }
   function configure(groups,plan){
@@ -92,12 +97,12 @@ export function cityEnvironment(scene,data,invalidate) {
     const vehicle=vehicles.pick(ray), detail=details.pick(ray);
     const hit=ray.intersectObjects(meshes.filter(m=>m.visible),false)[0];
     const leaf=canopy.visible?ray.intersectObject(canopy)[0]:null;
-    const candidates=[vehicle,detail,hit&&{id:hit.object.userData.item.id,distance:hit.distance},leaf&&{id:woods[leaf.instanceId].record.id,distance:leaf.distance}].filter(Boolean);
+    const candidates=[vehicle,detail,stands.pick(ray),hit&&{id:hit.object.userData.item.id,distance:hit.distance},leaf&&{id:woods[leaf.instanceId].record.id,distance:leaf.distance}].filter(Boolean);
     if(candidates.length)return candidates.sort((a,b)=>a.distance-b.distance)[0];
     return null;
   }
   return {configure,setStreet,frame,pick,focusDetail:id=>{details.focus(id);invalidate()},
-    treeStyle(next){if(next!==mode){mode=next;visibility()}},
-    inspect:project=>({details:details.inspect(project),vehicles:vehicles.inspect(project),features:items.size,photos:data.photos.length,visible:meshes.filter(m=>m.visible).length,plan50:showPlan,woodlandFacets:woods.length,street:streetId})
+    treeStyle(next,nextQuality='all'){if(next!==mode||nextQuality!==quality){mode=next;quality=nextQuality;visibility()}},
+    inspect:project=>({details:details.inspect(project),vehicles:vehicles.inspect(project),features:items.size,photos:data.photos.length,visible:meshes.filter(m=>m.visible).length,plan50:showPlan,woodlandFacets:woods.length,stands:stands.inspect(project),street:streetId})
   };
 }

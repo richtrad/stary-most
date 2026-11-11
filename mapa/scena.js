@@ -1,6 +1,6 @@
 import {roofModels} from './strechy/modely.js';
 import {buildFurniture} from './mobiliar/modely.js';
-import {cityEnvironment} from './mesto/scena.js';
+import {cityEnvironment} from './mesto/scena.js?v=20261111-zelen2';
 import * as T from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {publicSpace} from './prostor/scena.js';
@@ -13,7 +13,8 @@ const ground = 0.04;
 const LAYERS = ['claude','gpt'];
 export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree, message, landData, onLand, cityData, onCityItem, furnitureCatalog, onFurniture, roofData, onRoof) {
   // Keep centimetre-separated ground layers stable from facade to city scale.
-  const renderer = new T.WebGLRenderer({canvas, antialias:true, alpha:false, logarithmicDepthBuffer:true, powerPreference:'high-performance'});
+  // Retain the rendered frame only for explicit source/visual QA captures.
+  const renderer = new T.WebGLRenderer({canvas, antialias:true, alpha:false, logarithmicDepthBuffer:true, powerPreference:'high-performance',preserveDrawingBuffer:new URLSearchParams(location.search).get('capture')==='1'});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1,2));
   T.ColorManagement.legacyMode = false;
   renderer.outputEncoding = T.sRGBEncoding;
@@ -53,7 +54,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   const vegetation=catalog?buildTrees(scene,city,catalog):null;
   let treeArea='all',treeFocus=null,treeMode='crowns';
   function setTrees(mode,quality,area,id) {
-    vegetation?.configure(mode,quality);environment?.treeStyle(mode);
+    vegetation?.configure(mode,quality);environment?.treeStyle(mode,quality);
     treeArea=area;treeFocus=id;treeMode=mode;needsRender=true;
   }
 

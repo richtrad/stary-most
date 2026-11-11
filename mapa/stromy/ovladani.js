@@ -30,7 +30,7 @@ export function treeInterface(catalog,handlers) {
     const changed=current!==id;current=id;
     q('tree-title').textContent='Strom '+id+' · '+m.areas[p.area];
     q('tree-period').textContent=p.city_reading?'LETECKÝ PRAMEN · ORTOFOTO 1964':'LETECKÝ PRAMEN · 16. DUBNA 1964';
-    q('tree-reading').textContent=(p.confidence==='distinct'?'Zřetelný na snímku. ':'Pravděpodobný strom. ')+(m.cues[p.cue]||'');
+    q('tree-reading').textContent=(p.confidence==='distinct'?'Zřetelný na snímku. ':'Pravděpodobný strom. ')+(p.readingNote||m.cues[p.cue]||'');
     q('tree-archive').href=p.source_url;
     q('tree-archive').textContent=p.city_reading?'Otevřít toto místo na ortofotu ↗':'Otevřít původní snímek ČÚZK ↗';
     q('tree-metrics').textContent='Odhad šířky koruny přibližně '+p.diameter_m_approx+' m. Výška, druh a přesná poloha kmene nejsou změřené.';
@@ -56,7 +56,7 @@ export function treeInterface(catalog,handlers) {
   for(const b of document.querySelectorAll('[data-vegetation]'))b.onclick=()=>handlers.style(b.dataset.vegetation);
   function update(s){
     const count=catalog.features.filter(t=>s.quality!=='distinct'||t.properties.confidence==='distinct').length;
-    q('tree-summary').textContent=s.vegetation==='off'?'Vrstva skrytá · 1964':count+' stromů ve vrstvě · 1964';
+    q('tree-summary').textContent=s.vegetation==='off'?'Vrstva skrytá · 1964':count+' jednotlivých odečtů · 1964';
     if(select.dataset.quality!==s.quality){
       for(const item of select.options){
         if(item.value==='all')continue;
@@ -64,6 +64,10 @@ export function treeInterface(catalog,handlers) {
         item.textContent=m.areas[item.value]+' ('+n+')';
       }
       select.dataset.quality=s.quality;
+    }
+    const review=m.vegetationReview;
+    if(review){
+      q('tree-stand-summary').textContent=s.quality==='distinct'?'Pravděpodobné stromy a porosty jsou skryté.':review.standGroups+' ploch porostu podle ortofota 1964. Rozložení jednotlivých korun uvnitř ploch je modelový odhad. Kliknutím na korunu porostu otevřete zdrojový zákres.';
     }
     q('tree-known').checked=s.quality==='distinct';select.value=s.area;
     options(s.area,s.quality,s.tree);

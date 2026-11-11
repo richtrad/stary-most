@@ -134,12 +134,13 @@ export function cityInterface(data, actions) {
   }
   function mergeTrees(catalog){
     const [ox,oy]=data.crs.origin5514;
+    catalog.metadata.vegetationReview=data.vegetationReview;
     catalog.metadata.cues.m='Korunový útvar odečtený z městského ortofota 1964. Rozlišení koruny a jejího stínu je místy nejisté. Poloha kmene vyžaduje další ověření.';
     for(const t of data.trees){
       const st=streets.get(String(t.streetId)),area='ulice-'+t.streetId;
       catalog.metadata.areas[area]=st.name1964||st.name1938;
       const sjtsk=[ox+t.at[0],oy-t.at[1]];
-      catalog.features.push({type:'Feature',id:t.id,geometry:null,properties:{area,sjtsk,diameter_m_approx:t.diameter,confidence:t.confidence,cue:'m',source_date:'1964',flight_id:'Městské ortofoto 1964',source_url:sourceRequest('ortho64',[t.at[0]-35,t.at[1]-21,t.at[0]+35,t.at[1]+21],data.crs.origin5514,1000,600).url,city_reading:true,source_px:t.pixel,source_view:t.view}});
+      catalog.features.push({type:'Feature',id:t.id,geometry:null,properties:{area,sjtsk,diameter_m_approx:t.diameter,confidence:t.confidence,cue:'m',source_date:'1964',flight_id:'Městské ortofoto 1964',source_url:sourceRequest('ortho64',[t.at[0]-35,t.at[1]-21,t.at[0]+35,t.at[1]+21],data.crs.origin5514,1000,600).url,city_reading:true,source_px:t.pixel,source_view:t.view,readingNote:t.readingNote,author:t.author,source_sha256:t.sourceSha256,source_tile_url:t.sourceTileUrl}});
     }
     return catalog;
   }
