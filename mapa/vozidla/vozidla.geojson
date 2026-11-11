@@ -1,0 +1,253 @@
+{
+  "type": "FeatureCollection",
+  "name": "Dobová vozidla · první odečty",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "rto-nadrazi-1",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.64349816215168,
+              50.53177195143661
+            ],
+            [
+              13.64352786866984,
+              50.53175985262857
+            ],
+            [
+              13.643445787518246,
+              50.53167795340618
+            ],
+            [
+              13.643416081030253,
+              50.53169005219358
+            ],
+            [
+              13.64349816215168,
+              50.53177195143661
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "title": "Škoda 706 RTO · nádraží, západní vůz",
+        "streetId": 128,
+        "model": "skoda-706-rto",
+        "bearingGridDeg": 41,
+        "dimensions": {
+          "length": 10.81,
+          "width": 2.5,
+          "height": 2.9,
+          "wheelbase": 5.45
+        },
+        "period": "1964 · pravděpodobný odečet",
+        "confidence": "probable",
+        "status": "provisional",
+        "locked": false,
+        "author": {
+          "organization": "OpenAI",
+          "agent": "Codex",
+          "modelFamily": "GPT-6",
+          "exactRuntimeModel": null,
+          "note": "Přesný identifikátor běžícího modelu není v runtime zpřístupněný.",
+          "role": "Vizuální odečet polohy a parametrická low-poly geometrie",
+          "date": "2026-11-11"
+        },
+        "detail": "Protáhlý světlý útvar pravděpodobně odpovídá autobusu. Dobová fotografie dokládá dvojici kulatých autobusů před starým nádražím; její datum ani shoda jednotlivých vozů se snímkem z roku 1964 nejsou ověřené. Typ Škoda 706 RTO je rekonstrukční volba, barvy a směr přídě jsou odhad.",
+        "accuracy": "Poloha je orientační; nejistota v metrech nebyla změřena. Podélná osa je přibližná, směr přídě může být otočený o 180°. Zvětšení rastru nezvyšuje jeho skutečné rozlišení.",
+        "sourceEvidence": {
+          "left": 140,
+          "top": -1225,
+          "scale": 5,
+          "width": 750,
+          "height": 800,
+          "url": "https://mapy.mesto-most.cz/server/rest/services/Ortofoto/Ortofoto1964Vghmur/MapServer/export?bbox=-790708.106%2C-986344.177%2C-790558.106%2C-986184.177&bboxSR=5514&imageSR=5514&size=750%2C800&format=jpg&f=image",
+          "sha256": "962fd6f7594d7e49a8ef92d17270b2d09076183958d0cf363f0d9bec510b538f",
+          "samplePixel": [
+            233,
+            380
+          ],
+          "pixelsPerMetre": 5,
+          "note": "Výstup služby je převzorkovaný na 5 px/m, nejde o skutečné rozlišení negativu.",
+          "credit": "Městské ortofoto 1964 · Georeal Plzeň · podkladová data © MO ČR"
+        },
+        "modelReference": {
+          "title": "Dopravní podnik Ostrava · Škoda 706 RTO",
+          "url": "https://www.dpo.cz/o-nas/historicka-vozidla/historicke-autobusy.html",
+          "drawing": "https://www.dpo.cz/images/historie/katalog/247.gif",
+          "note": "Typové rozměry z dokumentace dochovaného RTO CAR č. 247; konkrétní podtyp mosteckých vozů, výbava a zbarvení zůstávají neurčené. Model je zjednodušený."
+        },
+        "sjtsk": [
+          -790661.506,
+          -986260.177
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "rto-nadrazi-2",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.6436569883645,
+              50.5317050862202
+            ],
+            [
+              13.643671571330872,
+              50.531684624034604
+            ],
+            [
+              13.643532749574893,
+              50.53164443424632
+            ],
+            [
+              13.643518166560918,
+              50.531664896414846
+            ],
+            [
+              13.6436569883645,
+              50.5317050862202
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "title": "Škoda 706 RTO · nádraží, východní vůz",
+        "streetId": 128,
+        "model": "skoda-706-rto",
+        "bearingGridDeg": 74,
+        "dimensions": {
+          "length": 10.81,
+          "width": 2.5,
+          "height": 2.9,
+          "wheelbase": 5.45
+        },
+        "period": "1964 · pravděpodobný odečet",
+        "confidence": "probable",
+        "status": "provisional",
+        "locked": false,
+        "author": {
+          "organization": "OpenAI",
+          "agent": "Codex",
+          "modelFamily": "GPT-6",
+          "exactRuntimeModel": null,
+          "note": "Přesný identifikátor běžícího modelu není v runtime zpřístupněný.",
+          "role": "Vizuální odečet polohy a parametrická low-poly geometrie",
+          "date": "2026-11-11"
+        },
+        "detail": "Protáhlý světlý útvar pravděpodobně odpovídá autobusu. Dobová fotografie dokládá dvojici kulatých autobusů před starým nádražím; její datum ani shoda jednotlivých vozů se snímkem z roku 1964 nejsou ověřené. Typ Škoda 706 RTO je rekonstrukční volba, barvy a směr přídě jsou odhad.",
+        "accuracy": "Poloha je orientační; nejistota v metrech nebyla změřena. Podélná osa je přibližná, směr přídě může být otočený o 180°. Zvětšení rastru nezvyšuje jeho skutečné rozlišení.",
+        "sourceEvidence": {
+          "left": 140,
+          "top": -1225,
+          "scale": 5,
+          "width": 750,
+          "height": 800,
+          "url": "https://mapy.mesto-most.cz/server/rest/services/Ortofoto/Ortofoto1964Vghmur/MapServer/export?bbox=-790708.106%2C-986344.177%2C-790558.106%2C-986184.177&bboxSR=5514&imageSR=5514&size=750%2C800&format=jpg&f=image",
+          "sha256": "962fd6f7594d7e49a8ef92d17270b2d09076183958d0cf363f0d9bec510b538f",
+          "samplePixel": [
+            272,
+            414
+          ],
+          "pixelsPerMetre": 5,
+          "note": "Výstup služby je převzorkovaný na 5 px/m, nejde o skutečné rozlišení negativu.",
+          "credit": "Městské ortofoto 1964 · Georeal Plzeň · podkladová data © MO ČR"
+        },
+        "modelReference": {
+          "title": "Dopravní podnik Ostrava · Škoda 706 RTO",
+          "url": "https://www.dpo.cz/o-nas/historicka-vozidla/historicke-autobusy.html",
+          "drawing": "https://www.dpo.cz/images/historie/katalog/247.gif",
+          "note": "Typové rozměry z dokumentace dochovaného RTO CAR č. 247; konkrétní podtyp mosteckých vozů, výbava a zbarvení zůstávají neurčené. Model je zjednodušený."
+        },
+        "sjtsk": [
+          -790653.706,
+          -986266.977
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "auto-namesti-1",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.642055122612467,
+              50.5252701870247
+            ],
+            [
+              13.642074729000418,
+              50.52526220591831
+            ],
+            [
+              13.642042850441324,
+              50.52523038245322
+            ],
+            [
+              13.642023244061123,
+              50.52523836355428
+            ],
+            [
+              13.642055122612467,
+              50.5252701870247
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "title": "Osobní auto · I. náměstí",
+        "streetId": 110,
+        "model": "period-saloon",
+        "bearingGridDeg": 41,
+        "dimensions": {
+          "length": 4.2,
+          "width": 1.65,
+          "height": 1.52,
+          "wheelbase": 2.48
+        },
+        "period": "1964 · pravděpodobný odečet",
+        "confidence": "probable",
+        "status": "provisional",
+        "locked": false,
+        "author": {
+          "organization": "OpenAI",
+          "agent": "Codex",
+          "modelFamily": "GPT-6",
+          "exactRuntimeModel": null,
+          "note": "Přesný identifikátor běžícího modelu není v runtime zpřístupněný.",
+          "role": "Vizuální odečet polohy a parametrická low-poly geometrie",
+          "date": "2026-11-11"
+        },
+        "detail": "Izolovaný tmavý protáhlý útvar pravděpodobně odpovídá osobnímu autu. Přesná značka ani model nejsou rozlišitelné. Použitý dobový sedan, jeho rozměry, barva a směr přídě jsou rekonstrukční odhad.",
+        "accuracy": "Poloha je orientační; nejistota v metrech nebyla změřena. Podélná osa je přibližná, směr přídě může být otočený o 180°. Zvětšení rastru nezvyšuje jeho skutečné rozlišení.",
+        "sourceEvidence": {
+          "left": -90,
+          "top": -500,
+          "scale": 5,
+          "width": 650,
+          "height": 800,
+          "url": "https://mapy.mesto-most.cz/server/rest/services/Ortofoto/Ortofoto1964Vghmur/MapServer/export?bbox=-790938.106%2C-987069.177%2C-790808.106%2C-986909.177&bboxSR=5514&imageSR=5514&size=650%2C800&format=jpg&f=image",
+          "sha256": "fb7e797cbb970802fab83beefa6dc0c7764ed8b4cdd9ada82559d41df0b783b9",
+          "samplePixel": [
+            356,
+            243
+          ],
+          "pixelsPerMetre": 5,
+          "note": "Výstup služby je převzorkovaný na 5 px/m, nejde o skutečné rozlišení negativu.",
+          "credit": "Městské ortofoto 1964 · Georeal Plzeň · podkladová data © MO ČR"
+        },
+        "modelReference": null,
+        "sjtsk": [
+          -790866.906,
+          -986957.777
+        ]
+      }
+    }
+  ]
+}

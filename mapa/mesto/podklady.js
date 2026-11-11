@@ -8,6 +8,12 @@ const sources = {
 export function sourceRequest(key, bounds, origin, width=1000, height=600) {
   const source=sources[key] || sources.ortho64;
   const [x,z,X,Z]=bounds, [ox,oy]=origin;
+  // This service returns MAP OUT below its supported map scale.
+  // Request at most 5 output pixels per metre; the canvas can enlarge the crop.
+  if(key==='ortho64'){
+    const factor=Math.min(1,5*(X-x)/width,5*(Z-z)/height);
+    width=Math.max(1,Math.round(width*factor));height=Math.max(1,Math.round(height*factor));
+  }
   const box=[ox+x,oy-Z,ox+X,oy-z].map(n=>n.toFixed(3)).join(',');
   const args=new URLSearchParams();
   let url;

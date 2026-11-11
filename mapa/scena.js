@@ -39,8 +39,9 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   scene.add(floor);
 
   const environment=cityData?cityEnvironment(scene,cityData,()=>{needsRender=true}):null;
-  let selectedStreet='24';
-  function setCity(id,groups,plan,mode){
+  let selectedStreet='24',vehicleFocus=null;
+  function setCity(id,groups,plan,mode,focus){
+    vehicleFocus=mode==='street'?cityData?.vehicles?.find(v=>v.id===focus):null;
     selectedStreet=String(id);environment?.configure(groups,plan);environment?.setStreet(id,mode==='street');
     if(environment)backgroundRoads.visible=groups.includes('ulice');
   }
@@ -251,6 +252,12 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       const dir=vec(.33,.85,.72).normalize();
       return [aim,aim.clone().addScaledVector(dir,dist)];
     }
+    if(mode==='street' && vehicleFocus){
+      const v=vehicleFocus,t=vec(v.at[0],1.2,v.at[1]);
+      const dir=vec(1,.9,-1.1).normalize().applyAxisAngle(axisY,-rad(v.bearingGridDeg));
+      const distance=Math.max(v.model==='skoda-706-rto'?25:13,18/camera.aspect);
+      return [t,t.clone().addScaledVector(dir,distance)];
+    }
     if(mode==='street' && cityData && selectedStreet!=='24'){
       const s=cityData.streets.find(s=>String(s.id)===selectedStreet);
       if(s){
@@ -426,5 +433,5 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     requestAnimationFrame(step);
   };
   resize();requestAnimationFrame(step);
-  return {setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({street:selectedStreet,environment:environment?.inspect(),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }
