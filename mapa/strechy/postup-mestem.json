@@ -63,7 +63,10 @@
       ],
       "nextStep": "Před dalším modelováním hledat plány domů, sousedů a ulice; pak porovnat s leteckým snímkem.",
       "planSearchStatus": "local_scope_recorded",
-      "historicallyAccepted": false
+      "historicallyAccepted": false,
+      "aliases": [
+        "Minoritská"
+      ]
     },
     {
       "id": 23,
