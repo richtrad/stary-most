@@ -1,6 +1,6 @@
 import {roofModels} from './strechy/modely.js?v=20261111-blocks2';
 import {buildFurniture} from './mobiliar/modely.js';
-import {cityEnvironment} from './mesto/scena.js?v=20261111-zelen2';
+import {cityEnvironment} from './mesto/scena.js?v=20261111-mosty2';
 import * as T from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {publicSpace} from './prostor/scena.js';
@@ -341,6 +341,15 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     dirty=true;updateLevel();status();
   }
   controls.addEventListener('start',()=>{flight=null;handMoved=true});
+  function focusBridge(id) {
+    const b=cityData?.surfaces.find(r=>r.id===id&&r.kind==='most');
+    if(!b)return;
+    const target=vec(b.at[0],.5,b.at[1]),dir=vec(.32,1,.75).normalize();
+    const distance=Math.max(78,(b.length+b.width)*1.5/Math.min(1,camera.aspect));
+    const f0=camera.position.clone().sub(controls.target);
+    flight={start:performance.now(),t0:controls.target.clone(),t1:target,d0:f0.length(),d1:distance,dir0:f0.normalize(),dir1:dir};
+    handMoved=true;needsRender=true;dirty=true;
+  }
   function zoom(factor) {
     flight=null;handMoved=true;
     const delta=camera.position.clone().sub(controls.target);
@@ -467,5 +476,5 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     requestAnimationFrame(step);
   };
   resize();requestAnimationFrame(step);
-  return {setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {focusBridge,setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }

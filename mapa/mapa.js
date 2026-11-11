@@ -1,10 +1,10 @@
 import {loadRoofData} from './strechy/modely.js?v=20261111-blocks2';
 import {roofInterface} from './strechy/ovladani.js?v=20261111-blocks2';
 import {furnitureInterface} from './mobiliar/ovladani.js';
-import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-zelen2';
+import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
 import {normalizeCity} from './public-client.js';
 import {publicInterface} from './prostor/ovladani.js';
-import {treeInterface} from './stromy/ovladani.js?v=20261111-zelen2';
+import {treeInterface} from './stromy/ovladani.js?v=20261111-mosty2';
 import {showArchiveRecord} from './archive-access.js';
 const q=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
@@ -44,8 +44,9 @@ function parse() {
   return {roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
-  const url=new URL(location.href);
+  const url=new URL(location.href),capture=url.searchParams.get('capture')==='1';
   url.search='';
+  if(capture)url.searchParams.set('capture','1');
   if(state.roofFocus)url.searchParams.set('roof',state.roofFocus);
   if(!state.roofContext)url.searchParams.set('roofcontext','0');
   for(const k of ['cp','layer','view']) url.searchParams.set(k,state[k]);
@@ -224,6 +225,7 @@ async function boot(){
     }catch(e){console.warn('Drobné prvky se nenačetly.',e)}
     cityUI=cityInterface(cityData,{
       street:id=>choose({street:id,view:'street'}),
+      bridge:b=>{choose({street:String(b.streetId),view:'street',cityPlan:true,cityGroups:[...new Set([...state.cityGroups,'most'])]});map?.focusBridge(b.id);selectCity(b.id)},
       sector:id=>{const first=cityData.details.find(r=>r.sector===id);choose({detailSector:id||null,detailFocus:null,view:'street',...(first?{street:String(first.streetId)}:{})})},
       detail:id=>{const r=cityData.details.find(r=>r.id===id);if(r)choose({detailFocus:id,detailSector:r.sector,street:String(r.streetId),view:'street',cityGroups:[...new Set([...state.cityGroups,r.kind])]});else if(!id)choose({detailFocus:null,detailSector:state.detailSector,view:'street'})},
       open:selectCity,
@@ -279,7 +281,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261111-zelen2'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261111-mosty2'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));

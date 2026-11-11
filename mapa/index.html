@@ -10,7 +10,7 @@
 <header><a class="brand" href="../" aria-label="Starý Most, úvod" style="color:inherit;text-decoration:none"><span class="mark" aria-hidden="true">M</span><strong>Starý Most</strong><span class="header-divider"></span><span class="subtitle">Historický 3D GIS</span></a><a class="header-route" style="color:inherit" href="../metodika/">Metodika</a></header>
 <main>
 <section id="map" aria-label="Interaktivní mapa Starého Mostu">
-<canvas id="scene" tabindex="0" aria-label="3D mapa. Tažením otočíte pohled, kolečkem změníte měřítko. Kliknutím na vozidlo, strom, cestu nebo parkový prvek otevřete letecký pramen. Archivní fotografii otevřete kliknutím na doložené průčelí nebo tlačítkem v kartě domu."></canvas>
+<canvas id="scene" tabindex="0" aria-label="3D mapa. Tažením otočíte pohled, kolečkem změníte měřítko. Kliknutím na most, vozidlo, strom, cestu nebo parkový prvek otevřete zdrojový snímek nebo plán. Archivní fotografii otevřete kliknutím na doložené průčelí nebo tlačítkem v kartě domu."></canvas>
 <div class="maphead"><div id="place">Starý Most</div><div id="scale"></div></div>
 <div id="pins"></div>
 <div id="map-status" role="status">Načítám město…</div>
@@ -70,6 +70,8 @@
 <label class="tree-check"><input type="checkbox" id="city-plan" checked> Zahrnout zákresy z 50. let</label>
 <p class="tree-note">Datace je uvedena u každého prvku. Šířky uličních pásů a výška porostů jsou orientační. Kliknutím otevřete pramen.</p>
 <p class="tree-note" id="city-total"></p>
+<label class="tree-field" for="bridge-select">Mosty přes tok a náhon</label><select id="bridge-select"><option value="">Vybrat most nebo přechod…</option></select>
+<p class="tree-note">Polohy podle plánů; konstrukce a zábradlí jsou schematické. <a href="./mosty/mosty.geojson">Mosty pro GIS ↗</a> · <a href="./mosty/README.md">Prameny a autorství ↗</a></p>
 <a href="mesto/ulice.geojson" download>Ulice pro GIS ↗</a> · <a href="mesto/povrchy.geojson" download>Plochy ↗</a> · <a href="mesto/stromy.geojson" download>Nové stromy ↗</a>
 </details>
 <section class="control tree-controls" id="vehicle-controls" aria-labelledby="vehicle-label">
@@ -153,7 +155,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js?v=20261111-zelen2"></script>
+<script type="module" src="./mapa.js?v=20261111-mosty2"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>

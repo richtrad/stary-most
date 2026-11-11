@@ -1,6 +1,6 @@
 import {sourceCanvas,boundsOf,sourceRequest} from './podklady.js';
 const q=id=>document.getElementById(id);
-const LABELS={ulice:'Ulice',zelen:'Zeleň',voda:'Voda',cesta:'Parkové cesty',porost:'Porosty',kolejiste:'Železnice',otevrena:'Otevřené plochy',photos:'Fotografie',vozidla:'Vozidla',dvor:'Dvory',zahrada:'Zahrady',zahon:'Záhony',hranice:'Hranice pozemků',zed:'Zídky',stavba:'Drobné stavby'};
+const LABELS={most:'Mosty a přechody',ulice:'Ulice',zelen:'Zeleň',voda:'Voda',cesta:'Parkové cesty',porost:'Porosty',kolejiste:'Železnice',otevrena:'Otevřené plochy',photos:'Fotografie',vozidla:'Vozidla',dvor:'Dvory',zahrada:'Zahrady',zahon:'Záhony',hranice:'Hranice pozemků',zed:'Zídky',stavba:'Drobné stavby'};
 export const cityGroups=Object.keys(LABELS);
 
 export function cityInterface(data, actions) {
@@ -18,6 +18,9 @@ export function cityInterface(data, actions) {
     choose.add(new Option(title+(duplicate?' · úsek '+s.id:''),String(s.id)));
   }
   choose.onchange=()=>actions.street(choose.value);
+  const bridgeChoice=q('bridge-select');
+  for(const b of data.surfaces.filter(r=>r.kind==='most'))bridgeChoice.add(new Option(b.title,b.id));
+  bridgeChoice.onchange=()=>{const b=items.get(bridgeChoice.value);if(b){actions.bridge(b)}};
   q('street-next').onclick=()=>{
     const i=order.findIndex(s=>String(s.id)===choose.value);
     actions.street(String(order[(i+1)%order.length].id));
