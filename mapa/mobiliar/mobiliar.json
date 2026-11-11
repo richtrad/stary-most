@@ -983,6 +983,6 @@
     "acceptedGeometry": "2 bins, 1 bench, 1 stone post, 1 c1900 poster column",
     "excluded": "3 misplaced or type-mismatched bracket lamps; pole crossarms/insulators and connecting wires not visually confirmed; unspecific sign replaced from source",
     "manifestCaveat": "Aggregate sources_revisions_manifest.json differs from the declared digest. Each used GLB matches its own declared digest; provenance is limited to those individually verified files.",
-    "canonicalRegistryUpdate": "pending: original C drive below required free-space reserve; scoped receipt saved on E and F"
+    "canonicalRegistryUpdate": "Updated verified F:/MOST canonical registry target on 2026-11-11. Full task remains READY_FOR_REVIEW; only five furniture objects accepted for this working web pilot. Drive-copy sync not verified."
   }
 }
