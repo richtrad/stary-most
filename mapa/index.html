@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Starý Most | Ulice, parky a dobové fotografie</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
-<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css"><link rel="stylesheet" href="mobiliar/mobiliar.css">
+<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css"><link rel="stylesheet" href="mobiliar/mobiliar.css"><link rel="stylesheet" href="strechy/strechy.css">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -30,7 +30,17 @@
 <label class="sr-only" for="city-features">Prvky vybrané ulice</label><select id="city-features"></select>
 <details class="street-reading"><summary>Stav průzkumu ulice</summary><p class="tree-note" id="street-review"></p><p class="tree-note">Přehledový průchod ortofotem proběhl ve všech 132 uličních úsecích. Podrobný soupis drobných objektů pokračuje.</p></details>
 </section>
-<details class="control tree-controls" id="furniture-controls" open>
+<details class="control tree-controls" id="roof-controls" open>
+<summary><strong>Střechy a dvory</strong><span id="roof-count"></span></summary>
+<div class="segmented" role="group" aria-label="Autor střech a dvorů"><button data-layer="gpt">GPT · nové střechy</button><button data-layer="claude">Claude · původní</button></div>
+<p id="roof-author-note" class="tree-note"></p>
+<label class="tree-field" for="roof-select">Kulová a ústí do Šmeralova náměstí</label>
+<div class="tree-choice"><select id="roof-select"></select><button id="roof-source" disabled>Pramen ↗</button></div>
+<label class="tree-check"><input type="checkbox" id="roof-context" checked> Orientační střechy zbytku města</label>
+<p class="tree-note">19 upravených domů; čp. 154 má zatím hypotézu střechy. Zbytek města má algoritmické střechy bez jednotlivého historického ověření. Neurčené výšky a hranice dvorů zůstávají odhadem.</p>
+<p class="tree-note"><a href="strechy/manifest.json">Pokrytí a autorství ↗</a> · <a href="strechy/prehled.html">Postup celým městem ↗</a> · <a href="strechy/README.md">Postup a nejistoty ↗</a></p>
+</details>
+<details class="control tree-controls" id="furniture-controls">
 <summary><strong>Kulová · mobiliář z fotografií</strong><span id="furniture-count"></span></summary>
 <label class="tree-check"><input type="checkbox" id="furniture-enabled" checked> Zobrazit mobiliář a vozidla</label>
 <label class="tree-field" for="furniture-epoch">Fotografická scéna</label><select id="furniture-epoch"></select>
@@ -143,4 +153,13 @@
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
 <script type="module" src="./mapa.js"></script>
+<dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
+<button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
+<p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>
+<p id="roof-dialog-author"></p><p id="roof-dialog-note"></p>
+<div class="roof-source-tabs"><button id="roof-show-plan">Plány</button><button id="roof-show-photo">Původní fotografie</button><a href="letecke-snimky/">Letecká mapa ↗</a></div>
+<label for="roof-source-select">Vybraný pramen</label><select id="roof-source-select"></select><p id="roof-source-note"></p>
+<img id="roof-scan" alt="" hidden><p id="roof-source-lock"></p><p id="roof-source-id"></p>
+<details><summary>Připojit vlastní originály z Libuše</summary><p>Soubory zůstanou pouze v prohlížeči. Po shodě SHA-256 je otevře kliknutí na příslušný dům.</p><input type="file" id="roof-import" multiple accept="image/*"><p id="roof-import-status" role="status"></p></details>
+</dialog>
 </body></html>

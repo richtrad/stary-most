@@ -1,3 +1,4 @@
+import {roofModels} from './strechy/modely.js';
 import {buildFurniture} from './mobiliar/modely.js';
 import {cityEnvironment} from './mesto/scena.js';
 import * as T from 'three';
@@ -10,7 +11,7 @@ const vec = (a,b,c) => new T.Vector3(a,b,c);
 const rad = T.MathUtils.degToRad;
 const ground = 0.04;
 const LAYERS = ['claude','gpt'];
-export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree, message, landData, onLand, cityData, onCityItem, furnitureCatalog, onFurniture) {
+export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree, message, landData, onLand, cityData, onCityItem, furnitureCatalog, onFurniture, roofData, onRoof) {
   // Keep centimetre-separated ground layers stable from facade to city scale.
   const renderer = new T.WebGLRenderer({canvas, antialias:true, alpha:false, logarithmicDepthBuffer:true, powerPreference:'high-performance'});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1,2));
@@ -72,6 +73,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     }
     return new T.ExtrudeGeometry(shapes,{depth:height,bevelEnabled:false,curveSegments:1}).rotateX(-Math.PI/2);
   }
+  const roofIds=new Set(roofData?.gpt.buildings.map(b=>b.id)||[]);
   const contextPositions = [], contextNormals = [], contextColors = [], topLines = [], pilots = {};
   const byId = Object.fromEntries(Object.values(houses).map(h=>[h.id,h.cp]));
   const palette = [0x9ba797,0xb4b8a2,0x929e91,0xa3ac99].map(n=>new T.Color(n));
@@ -90,6 +92,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       pilots[cp] = {proxy, anchor:vec(...houses[cp].position), models:{}};
       continue;
     }
+    if(roofIds.has(id)){geo.dispose();continue}
     for(const [outer,holes] of parts)for(const ring of [outer,...holes])for(let i=0;i<ring.length;i++){
       const a=ring[i],b=ring[(i+1)%ring.length];
       topLines.push(a[0],height+.03,a[1],b[0],height+.03,b[1]);
@@ -138,6 +141,9 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   const pending=new Map(), failures=new Set();
   let cp='262',layer='claude',view='city',flight=null,handMoved=false,usingDetails=false,dirty=false;
   let injectedStatus='', lastStatus='', needsRender=true;
+  const roofs=roofData?roofModels(scene,roofData,city,()=>{needsRender=true}):null;
+  let roofFocus=null,roofContext=true;
+  function setRoofs(cp,context){roofFocus=cp;roofContext=context;roofs?.setFocus(cp);dirty=true}
   const furniture=furnitureCatalog?buildFurniture(scene,furnitureCatalog,()=>{needsRender=true},landData):null;
   let furnitureFocus=null;
   function setFurniture(settings,focus){furnitureFocus=focus;furniture?.configure(settings,focus)}
@@ -230,11 +236,13 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     for(const key of LAYERS) groups[key].visible=near && key===layer;
     for(const [code,p] of Object.entries(pilots)) {
       if(near) loadModel(code,layer);
-      p.proxy.visible=!(near && p.models[layer]);
+      p.proxy.visible=!(near && p.models[layer]) && !roofs?.has(code);
     }
+    roofs?.configure(layer,new Set(near?Object.entries(pilots).filter(([,p])=>p.models[layer]).map(([code])=>code):[]),contextMat.clippingPlanes,roofContext);
     status();
   }
   function destinations(mode) {
+    if(mode==='street'&&roofFocus){const d=roofs?.destination(roofFocus,camera.aspect);if(d)return d}
     if(mode==='street'&&furnitureFocus){const d=furniture?.destination(furnitureFocus,camera.aspect);if(d)return d}
     if(mode==='facade') {
       const {center,normal,len}=face(houses[cp]);
@@ -409,9 +417,11 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     const item=land?.pick(ray);
     const cityHit=environment?.pick(ray);
     const furnitureHit=furniture?.pick(ray);
-    if(!hit && !tree && !item && !cityHit && !furnitureHit)return;
+    const roofHit=roofs?.pick(ray);
+    if(!hit && !tree && !item && !cityHit && !furnitureHit && !roofHit)return;
     const clip=contextMat.clippingPlanes;
     const block=ray.intersectObject(cityMesh).find(i=>!clip?.length||clip.every(plane=>plane.distanceToPoint(i.point)>=0));
+    if(roofHit && [hit,tree,item,cityHit,furnitureHit,block].every(h=>!h||roofHit.distance<h.distance+.03)){onRoof?.(roofHit);return}
     if(furnitureHit && (!hit||furnitureHit.distance<hit.distance+.02) && (!tree||furnitureHit.distance<tree.distance+.02) && (!item||furnitureHit.distance<item.distance+.02) && (!block||furnitureHit.distance<block.distance+.06)){onFurniture(furnitureHit.id);return}
     if(cityHit?.isPhoto){onCityItem(cityHit.id);return}
     if(cityHit && (!hit||cityHit.distance<hit.distance-.02) && (!tree||cityHit.distance<tree.distance-.02) && (!item||cityHit.distance<item.distance-.02) && (!block||cityHit.distance<block.distance+.04)){onCityItem(cityHit.id);return}
@@ -456,5 +466,5 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     requestAnimationFrame(step);
   };
   resize();requestAnimationFrame(step);
-  return {setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }

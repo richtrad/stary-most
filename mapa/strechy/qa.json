@@ -1,0 +1,48 @@
+{
+  "dateUtc": "2026-11-11T07:31:52.122271+00:00",
+  "scope": "Roof and courtyard massing requested by user; plain facades; historical acceptance remains open",
+  "historicalAcceptance": false,
+  "technicalChecks": {
+    "validPolygons": true,
+    "finiteMesh": true,
+    "courtsClearOfBuildings": true,
+    "courtPairsDoNotOverlap": true,
+    "glbValidHeader": true,
+    "glbHasNoArchivalImages": true,
+    "nodeCount": 70,
+    "javascriptSyntax": "passed for 4 edited modules"
+  },
+  "sha256": {
+    "gpt-roofs.json": "a9848ab71d5281197dc2a366b01956292efd5b273f15d7470f0b4786153eaec1",
+    "claude-roofs.json": "f87138ff3518c5695f87a772629df324fab2f6a93c90f36da9a4fce97044191d",
+    "kulova_gpt_roofs_v1.glb": "63dd123d4f0a9c2b890890d8ec0d53990f48ca0ffc4b513de1180aa6239fb438",
+    "mesto-strechy.json": "3e11231536a92eb2eacab1e6181bb21519d522e85034259c5fbaae3f141622fa"
+  },
+  "browserChecks": {
+    "gptClaudeSwitch": "observed",
+    "singleHouseFocus": "observed cp263",
+    "wholeCityZoom": "observed",
+    "contextRoofToggle": "observed",
+    "legacyFacade262": "observed",
+    "roofRayClickIdentity": "observed cp262",
+    "sourcePhoto": "observed exact SHA; local import and preexisting public photo",
+    "sourcePlan263": "observed exact SHA and displayed 3244x2160",
+    "streetCoverageFilter": "observed Kulova",
+    "consoleErrors": 0
+  },
+  "limitations": [
+    "No per-house historical acceptance for 1315 city context roofs",
+    "66 city footprints remain flat massing",
+    "cp154 roof remains hypothesis",
+    "Widths cp111/265/266 unresolved across GIS and studies",
+    "Height and courtyard boundaries often estimated",
+    "Aerial alignment approximate; no measured geodetic RMS",
+    "Detailed facade windows, doors, lettering and damage are outside this plain-massing scope"
+  ],
+  "visualReviewCounts": {
+    "buildings": 19,
+    "materialViewsPerBuilding": 9,
+    "clayViewsPerBuilding": 9,
+    "privateEvidence": "Preserved locally; no archival raster sources published in this update"
+  }
+}
