@@ -44,5 +44,69 @@
     "Vizuální QA v prohlížeči, kontrola kliknutí a pramene",
     "Publikace modelů a metadat, soukromé originály zůstávají mimo veřejný repozitář",
     "SHA-256 zálohy E/F"
-  ]
+  ],
+  "extension20261111": {
+    "scope": "Selected street objects in112,29,21,23; no building meshes changed",
+    "api": "One current original downloaded through GentleReader; previous same-day area snapshots reused. No API writes.",
+    "areas": [
+      {
+        "streetId": 112,
+        "areaId": "22a5b75a-b7e6-4c52-852a-ca50a9d58dd5",
+        "name": "Šmeralovo náměstí",
+        "snapshotDate": "2026-11-11",
+        "status": "found",
+        "structures": 3,
+        "planLinks": 17,
+        "allPlansVisuallyReviewed": false
+      },
+      {
+        "streetId": 29,
+        "areaId": "1f6eee78-a7e9-4dde-beef-0c005bd781d5",
+        "name": "Ždanovova",
+        "snapshotDate": "2026-11-11",
+        "status": "found",
+        "structures": 12,
+        "planLinks": 74,
+        "allPlansVisuallyReviewed": false
+      },
+      {
+        "streetId": 21,
+        "areaId": "687f07c1-30da-4d2c-b5e7-ee92d1de57bd",
+        "name": "U jeptišek",
+        "snapshotDate": "2026-11-11",
+        "status": "found",
+        "structures": 8,
+        "planLinks": 47,
+        "allPlansVisuallyReviewed": false
+      },
+      {
+        "streetId": 23,
+        "areaId": "83bfb1d5-3f7d-401c-9bb3-a617b069106d",
+        "name": "Dobrovolců",
+        "snapshotDate": "2026-11-11",
+        "status": "found",
+        "structures": 29,
+        "planLinks": 79,
+        "allPlansVisuallyReviewed": false
+      }
+    ],
+    "visuallyOpenedPlanIds": [
+      "0d369da3-1194-4e25-aadd-30fcea01305f",
+      "566b409d-a1ea-4a5d-b3a1-3a2006a15040",
+      "6948f498-3f6b-4833-b318-5d49aeae76cd",
+      "6a3dbd3c-ff33-43c9-9ccd-395f9e0c1cc0",
+      "86c26f51-d4fa-4baf-ae82-d1a952d112e8",
+      "a59c5866-5712-48d1-9ca6-39316c64a554",
+      "ea6105d1-5cc8-4677-bba9-28addbdff70c"
+    ],
+    "status": "found",
+    "reviewScope": "Selected sheets opened; not all217 attachment links reviewed. A drawing of a proposed chimney does not establish construction.",
+    "registration": "Separate observed presence, inferred house assignment, estimated metric anchor, uncertain date. All new records remain provisional.",
+    "deferred": [
+      "čekárna a dispečerská věž: pozdější proluka, neověřená datace a objem",
+      "dvorní komín651: projekt1931, neprokázaná realizace a stav1964",
+      "vzdálené autobusy: nevyřešený typ, datum a přesná poloha",
+      "další svítidlo v Minoritské: neuzavřené přiřazení domu"
+    ]
+  }
 }

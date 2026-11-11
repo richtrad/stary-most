@@ -57,6 +57,29 @@ function crossarm(g){
     cyl(g,M.paper,.055,.12,x,.18*sign,.7,8);cyl(g,M.paper,.07,.025,x,.13*sign,.7,8);
   }
 }
+function insulatorRack(g,{top=3,bottom=0,width=.9,reach=.55}={}){
+  box(g,M.iron,.11,.5,.07,0,-.18,.035);
+  tube(g,[0,-.35,0],[0,0,reach],.025);
+  tube(g,[-width/2,0,reach],[width/2,0,reach],.025);
+  for(const [count,sign] of [[top,1],[bottom,-1]])for(let i=0;i<count;i++){
+    const x=count===1?0:-width*.4+i*width*.8/(count-1);
+    tube(g,[x,0,reach],[x,sign*.20,reach],.015);
+    cyl(g,M.paper,.052,.11,x,sign*.18,reach,8);
+    cyl(g,M.paper,.067,.026,x,sign*.13,reach,8);
+  }
+}
+function historicLamp(g){
+  // Printed postcard: the silhouette is legible, fine top details are uncertain.
+  cyl(g,M.stone,.58,.16,0,.08,0,8);
+  cyl(g,M.iron,.37,.9,0,.61,0,8,.23);
+  cyl(g,M.iron,.26,.15,0,1.14,0,12);
+  cyl(g,M.iron,.105,5.8,0,4.05,0,12,.055);
+  for(const y of [1.35,2.1,5.65])cyl(g,M.iron,.15,.09,0,y,0,12);
+  const points=[[0,6.95,0],[0,6.75,.12],[0,6.55,.42],[0,6.25,.52],[0,6.13,.52]];
+  for(let i=1;i<points.length;i++)tube(g,points[i-1],points[i],.025);
+  cyl(g,M.iron,.17,.12,0,6.03,.52,10,.055);
+  const globe=sphere(g,M.white,.20,0,5.82,.52);globe.scale.y=1.15;
+}
 function sign(g,stop){
   cyl(g,M.iron,.035,2.5,0,1.25,0,10);
   const o=cyl(g,stop?M.paper:M.red,.30,.035,0,2.25,0,24);o.rotation.x=Math.PI/2;o.position.z=.05;if(stop)o.scale.z=1.35;
@@ -150,9 +173,9 @@ export function buildFurniture(scene,catalog,onChange,landData){
       height=Math.max(height,top);
     }return height;
   }
-  const root=new T.Group();root.name='Kulová · fotografický mobiliář';scene.add(root);
+  const root=new T.Group();root.name='Starý Most · fotografický mobiliář';scene.add(root);
   const groups=new Map(),meshes=[],errors=[],pending=new Set(),loader=new GLTFLoader();
-  const builders={poster,railing,bench,lamp:(g,p)=>lamp(g,p?.short),pole:(g,p)=>pole(g,p?.lamp),crossarm,sign:(g,p)=>sign(g,p?.stop),bus,van,stairs};
+  const builders={poster,railing,bench,lamp:(g,p)=>lamp(g,p?.short),pole:(g,p)=>pole(g,p?.lamp),crossarm,insulatorRack,historicLamp,sign:(g,p)=>sign(g,p?.stop),bus,van,stairs};
   const records=catalog.objects;
   for(const r of records){
     const g=new T.Group();g.name=r.id;g.userData.record=r;g.position.set(r.at[0],(r.heightBase||.085)+groundHeight(...r.at)-.075,r.at[1]);g.rotation.y=(r.yaw||0)*Math.PI/180;root.add(g);groups.set(r.id,g);
@@ -177,7 +200,7 @@ export function buildFurniture(scene,catalog,onChange,landData){
   function destination(id,aspect=1){
     const r=records.find(r=>r.id===id);if(!r)return null;
     const g=groups.get(id);
-    const target=r.cameraTarget?V(...r.cameraTarget):V(r.at[0],g.position.y+(r.aimHeight||1.3),r.at[1]);
+    const target=r.cameraTarget?V(...r.cameraTarget):V(r.at[0],g.position.y+(r.aimHeight??1.3),r.at[1]);
     const offset=V(...(r.cameraOffset||[7,6,9])),dir=offset.clone().normalize(),right=V(0,1,0).cross(dir).normalize(),up=dir.clone().cross(right);
     const box=new T.Box3().setFromObject(g),tanY=Math.tan(20*Math.PI/180),tanX=tanY*aspect;
     let distance=offset.length();
@@ -192,6 +215,6 @@ export function buildFurniture(scene,catalog,onChange,landData){
     return hit?{id:hit.object.userData.furniture,distance:hit.distance}:null;
   },inspect(project){
     return {epoch:settings.epoch,enabled:root.visible,selected,pending:[...pending],errors:[...errors],total:records.length,visible:records.filter(r=>visible(r.id)).length,
-      objects:records.map(r=>{const g=groups.get(r.id),b=new T.Box3().setFromObject(g);return {id:r.id,author:r.author.key,visible:visible(r.id),bounds:b.isEmpty()?null:[b.min.toArray(),b.max.toArray()],screen:project(r.cameraTarget?V(...r.cameraTarget):V(r.at[0],g.position.y+(r.aimHeight||1.3),r.at[1]))}})};
+      objects:records.map(r=>{const g=groups.get(r.id),b=new T.Box3().setFromObject(g);return {id:r.id,author:r.author.key,visible:visible(r.id),bounds:b.isEmpty()?null:[b.min.toArray(),b.max.toArray()],screen:project(r.cameraTarget?V(...r.cameraTarget):V(r.at[0],g.position.y+(r.aimHeight??1.3),r.at[1]))}})};
   }};
 }

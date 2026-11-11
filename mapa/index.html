@@ -41,17 +41,17 @@
 <p class="tree-note"><a href="strechy/manifest.json">Pokrytí a autorství ↗</a> · <a href="strechy/prehled.html">Postup celým městem ↗</a> · <a href="strechy/README.md">Postup a nejistoty ↗</a></p>
 </details>
 <details class="control tree-controls" id="furniture-controls">
-<summary><strong>Kulová · mobiliář z fotografií</strong><span id="furniture-count"></span></summary>
+<summary><strong>Uliční prvky z fotografií</strong><span id="furniture-count"></span></summary>
 <label class="tree-check"><input type="checkbox" id="furniture-enabled" checked> Zobrazit mobiliář a vozidla</label>
 <label class="tree-field" for="furniture-epoch">Fotografická scéna</label><select id="furniture-epoch"></select>
 <div id="furniture-filters" aria-label="Druhy mobiliáře"></div>
 <label class="tree-field" for="furniture-author">Autor geometrie mobiliáře</label><select id="furniture-author"><option value="all">Claude i GPT</option><option value="claude">Claude · Opus 5.5</option><option value="gpt">OpenAI · Codex (GPT-6)</option></select>
-<label class="sr-only" for="furniture-select">Přiblížit mobiliář Kulové</label>
+<label class="sr-only" for="furniture-select">Přiblížit uliční prvek</label>
 <div class="tree-choice"><select id="furniture-select"></select><button type="button" id="furniture-open" disabled>Fotografie ↗</button></div>
 <p id="furniture-selected" class="tree-note"></p>
 <p class="tree-note">Období mění tuto vrstvu. Okolní město kombinuje různé podklady, zejména rok 1964. Polohy a nedoložené podrobnosti mají uvedenou nejistotu.</p>
 <details><summary>Připojit vlastní archivní snímky</summary><p class="tree-note">Vyberte jednou původní fotografie z Libuše. Po ověření SHA-256 je otevře kliknutí na příslušný prvek. Snímky se nikam neodesílají.</p><label class="tree-field" for="furniture-import">Původní fotografie</label><input type="file" id="furniture-import" accept="image/*" multiple><p id="furniture-import-status" role="status"></p></details>
-<p class="tree-note"><a href="mobiliar/mobiliar.geojson" download>Mobiliář pro GIS ↗</a> · <a href="mobiliar/README.md">Prameny a autorství ↗</a></p>
+<p class="tree-note"><a href="mobiliar/mobiliar.geojson" download>Mobiliář pro GIS ↗</a> · <a href="mobiliar/README.md">Prameny a autorství ↗</a> · <a href="mobiliar/postup.html">Postup ulicemi ↗</a></p>
 </details>
 <details class="control tree-controls" id="detail-controls">
 <summary><strong>Dvory, zahrady a drobné prvky</strong><span id="detail-summary"></span></summary>
@@ -155,7 +155,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js?v=20261111-mosty2"></script>
+<script type="module" src="./mapa.js?v=20261111-streets1"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>

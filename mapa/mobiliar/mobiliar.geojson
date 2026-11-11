@@ -596,6 +596,312 @@
         "status": "provisional",
         "locked": false
       }
+    },
+    {
+      "type": "Feature",
+      "id": "lampa-smeral-pohlednice",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790824.106,
+          -987363.177
+        ]
+      },
+      "properties": {
+        "id": "lampa-smeral-pohlednice",
+        "title": "Šmeralovo náměstí · vysoká lampa na pohlednici",
+        "category": "svetla",
+        "epoch": "square-postcard-undated",
+        "source": "U01",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 8,
+        "observed": "Vysoký štíhlý sloup s rozšířenou patou a zavěšeným světlým tělesem na přední straně.",
+        "hypothesis": "Výška 7 m, průřezy, závěs, odstín a poloha v otevřeném náměstí jsou přibližné. Jemný tvar horního ramene je ve tisku neostrý.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 112,
+        "registrationNote": "Relativní poloha před průčelím piaristického kostela a levou částí fronty 254–255; bez metrické fotogrammetrie.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "plakat-smeral-pohlednice",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790813.106,
+          -987322.177
+        ]
+      },
+      "properties": {
+        "id": "plakat-smeral-pohlednice",
+        "title": "Šmeralovo náměstí · plakátovací sloup na pohlednici",
+        "category": "sloupy",
+        "epoch": "square-postcard-undated",
+        "source": "U01",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 8,
+        "observed": "Válcový plakátovací sloup při pravém okraji pohlednice, vedle sochařského prvku.",
+        "hypothesis": "Průměr, výška 3,6 m a poloha jsou odhad. Plakáty jsou prázdné plochy; text ani tiskové barvy se nepřepisují.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 112,
+        "registrationNote": "Poloha ve volné ploše před severní částí fronty náměstí. Odlišná fotografická scéna od sloupu u čp. 257 v roce 1957–58.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lampa-minoritska-271",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790835.456,
+          -987234.677
+        ]
+      },
+      "properties": {
+        "id": "lampa-minoritska-271",
+        "title": "Minoritská · nástěnné svítidlo u čp. 271",
+        "category": "svetla",
+        "epoch": "minoritska-undated",
+        "source": "U02",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 3,
+        "observed": "Podlouhlé svítidlo na zahnutém rameni na pravé uliční frontě v popředí.",
+        "hypothesis": "Montážní výška 7,1 m a rozměry ramene jsou odhad; přesná poloha na průčelí není zaměřena.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 29,
+        "registrationNote": "Pracovní přiřazení k uliční straně čp. 271: příloha domu, dobová fasáda a plán se sousedy 270/272. Půdorys GIS 18; hrana do Minoritské. Identita má stupeň pravděpodobná.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sloup-kostelni-169",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790896.406,
+          -987220.577
+        ]
+      },
+      "properties": {
+        "id": "sloup-kostelni-169",
+        "title": "U čp. 169 · dřevěný sloup se svítidlem",
+        "category": "svetla",
+        "epoch": "kostelni-pole-undated",
+        "source": "U03",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 3,
+        "observed": "Dřevěný sloup u protějšího nároží, krátké zakřivené rameno a zavěšené svítidlo.",
+        "hypothesis": "Výška 7,1 m, přesná poloha u nároží a směr ramene jsou odhad. Neviditelné vedení se nedoplňuje.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 29,
+        "registrationNote": "Pohled na frontu 170–169–168, protější strana při východním nároží děkanského kostela. Nákres 169 potvrzuje sousednost a uliční stranu.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "konzola-kostelni-169",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790885.876,
+          -987216.287
+        ]
+      },
+      "properties": {
+        "id": "konzola-kostelni-169",
+        "title": "Čp. 169 · konzola s izolátory",
+        "category": "sloupy",
+        "epoch": "kostelni-pole-undated",
+        "source": "U03",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 1.5,
+        "observed": "Fasádní kovová konzola nad vstupní částí a světlé izolátory v horní a dolní řadě.",
+        "hypothesis": "Velikost, montážní výška a odstín jsou odhad; vedení mimo čitelný detail není modelováno.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 29,
+        "registrationNote": "Půdorys GIS 23, průčelí 169 mezi 170 a168, severozápadní hrana do Kostelního náměstí.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lampa-ujeptisek-771",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790896.556,
+          -987363.247
+        ]
+      },
+      "properties": {
+        "id": "lampa-ujeptisek-771",
+        "title": "U jeptišek · lampa u vyššího domu čp. 771",
+        "category": "svetla",
+        "epoch": "ujeptisek-undated",
+        "source": "U04",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 2,
+        "observed": "Podlouhlé svítidlo na zahnutém nástěnném rameni při pravé části vyššího průčelí.",
+        "hypothesis": "Přiřazení k 771 je pracovní podle pořadí fasád; výška 6 m a poloha na stěně nejsou zaměřeny.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 21,
+        "registrationNote": "Uliční fronta 162–69–771–651–254; GIS 320. Plán 254 potvrzuje směr do náměstí, nikoli rozměry lampy.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lampa-ujeptisek-254",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790868.106,
+          -987358.457
+        ]
+      },
+      "properties": {
+        "id": "lampa-ujeptisek-254",
+        "title": "U jeptišek · vzdálenější nástěnné svítidlo",
+        "category": "svetla",
+        "epoch": "ujeptisek-undated",
+        "source": "U04",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Druhé podlouhlé svítidlo na levé frontě, blíže vyústění do náměstí.",
+        "hypothesis": "Přibližná kotva na dlouhém bočním průčelí 254; vzdálenost, délka ramene a montážní výška jsou odhad.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 21,
+        "registrationNote": "GIS 318, dlouhá severní hrana do U jeptišek. Nákres 254 odděluje boční stěnu od čela do Šmeralova náměstí.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "izolatory-ujeptisek-69",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790907.406,
+          -987364.937
+        ]
+      },
+      "properties": {
+        "id": "izolatory-ujeptisek-69",
+        "title": "U jeptišek · izolátory pod okapem nízkého domu",
+        "category": "sloupy",
+        "epoch": "ujeptisek-undated",
+        "source": "U04",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 2,
+        "observed": "Tři zřetelné světlé izolátory v řadě na nízké uliční frontě.",
+        "hypothesis": "Nosná lišta, výška a rozteč jsou zjednodušené. Pracovní přiřazení k69 vychází z pořadí 162–69–771, nikoli z čitelné tabulky na fotce.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 21,
+        "registrationNote": "GIS321, hrana do U jeptišek. Další izolátory v hloubce snímku nejsou součástí tohoto objektu.",
+        "historicallyAccepted": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zabradli-dekansky-kostel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790948.306,
+          -987215.057
+        ]
+      },
+      "properties": {
+        "id": "zabradli-dekansky-kostel",
+        "title": "Kostelní náměstí · zábradlí u děkanského kostela",
+        "category": "zabradli",
+        "epoch": "kostelni-winter-undated",
+        "source": "U05",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Nízké kovové zábradlí se dvěma vodorovnými tyčemi v levém popředí zimního snímku.",
+        "hypothesis": "Zachycena je jen viditelná část: délka5,8m, výška0,95m a rozteče jsou odhad. Pokračování mimo snímek ani přesný sklon terénu nejsou doloženy.",
+        "status": "provisional",
+        "locked": false,
+        "streetId": 23,
+        "registrationNote": "Podél jihozápadní části obvodu děkanského kostela, GIS28, proti čp.166–168. Vazbu potvrzuje plán167/168; přesná kotva zábradlí je přibližná.",
+        "historicallyAccepted": false
+      }
     }
   ]
 }

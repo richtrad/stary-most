@@ -1,5 +1,5 @@
 import {roofModels} from './strechy/modely.js?v=20261111-blocks2';
-import {buildFurniture} from './mobiliar/modely.js';
+import {buildFurniture} from './mobiliar/modely.js?v=20261111-streets1';
 import {cityEnvironment} from './mesto/scena.js?v=20261111-mosty2';
 import * as T from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';

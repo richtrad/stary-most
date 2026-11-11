@@ -1,0 +1,1355 @@
+{
+  "date": "2026-11-11",
+  "totalStreetSegments": 132,
+  "scope": "První fotograficky doložené prvky; podrobná inventura ulic není dokončena.",
+  "lastBatch": {
+    "id": "streets-112-29-21-23-v1",
+    "date": "2026-11-11",
+    "streetIds": [
+      112,
+      29,
+      21,
+      23
+    ],
+    "objects": 9,
+    "newSources": 5,
+    "sceneCount": 5,
+    "completeStreetInventory": false,
+    "note": "První vybrané fotograficky doložené prvky; registrace a rozměry jsou pracovní. Čekárna, věž a dvorní komín zůstávají mimo scénu."
+  },
+  "queue": [
+    {
+      "order": 1,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 112,
+      "name": "Náměstí Dr. Šmerala",
+      "status": "První fotografické prvky · další průzkum otevřen",
+      "addedObjects": 2,
+      "objectIds": [
+        "lampa-smeral-pohlednice",
+        "plakat-smeral-pohlednice"
+      ]
+    },
+    {
+      "order": 2,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 29,
+      "name": "Ždanovova",
+      "status": "První fotografické prvky · další průzkum otevřen",
+      "addedObjects": 3,
+      "objectIds": [
+        "lampa-minoritska-271",
+        "sloup-kostelni-169",
+        "konzola-kostelni-169"
+      ]
+    },
+    {
+      "order": 3,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 21,
+      "name": "U jeptišek",
+      "status": "První fotografické prvky · další průzkum otevřen",
+      "addedObjects": 3,
+      "objectIds": [
+        "lampa-ujeptisek-771",
+        "lampa-ujeptisek-254",
+        "izolatory-ujeptisek-69"
+      ]
+    },
+    {
+      "order": 4,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 23,
+      "name": "Dobrovolců",
+      "status": "První fotografické prvky · další průzkum otevřen",
+      "addedObjects": 1,
+      "objectIds": [
+        "zabradli-dekansky-kostel"
+      ]
+    },
+    {
+      "order": 5,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 35,
+      "name": "Hvězdná",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 6,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 36,
+      "name": "Hvězdná",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 7,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 33,
+      "name": "Rozmarýnová",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 8,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 34,
+      "name": "U tržiště",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 9,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 111,
+      "name": "Náměstí gen. Svobody",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 10,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 37,
+      "name": "Tyršova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 11,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 81,
+      "name": "Tyršova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 12,
+      "phase": 1,
+      "phaseTitle": "Navazující centrum",
+      "streetId": 38,
+      "name": "Maršála Rybalka",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 13,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 10,
+      "name": "U Pražské brány",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 14,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 14,
+      "name": "Zeyerova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 15,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 13,
+      "name": "Oblouková",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 16,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 12,
+      "name": "Rosy Luxemburgové",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 17,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 9,
+      "name": "Fučíkovy sady",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 18,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 22,
+      "name": "Eliášova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 19,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 11,
+      "name": "Leninova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 20,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 41,
+      "name": "Jablonského",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 21,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 40,
+      "name": "U náhonu",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 22,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 39,
+      "name": "Na popravišti",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 23,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 87,
+      "name": "U Běly",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 24,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 80,
+      "name": "Kapitána Jaroše",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 25,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 82,
+      "name": "Hašlerova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 26,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 85,
+      "name": "Sady u Běly",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 27,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 76,
+      "name": "Okružní",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 28,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 86,
+      "name": "Na hrázi",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 29,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 83,
+      "name": "Jungmannovy sady",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 30,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 84,
+      "name": "Jeronýmovo náměstí",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 31,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 79,
+      "name": "Havlíčkova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 32,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 127,
+      "name": "Maršála Koněva",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 33,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 48,
+      "name": "Malá barvířská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 34,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 42,
+      "name": "Barvířská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 35,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 49,
+      "name": "Balbínova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 36,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 110,
+      "name": "Náměstí Míru",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 37,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 31,
+      "name": "Úzká",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 38,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 30,
+      "name": "Josefa Hory",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 39,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 32,
+      "name": "Švermova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 40,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 77,
+      "name": "Na bělidle",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 41,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 78,
+      "name": "Bezručova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 42,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 114,
+      "name": "Náměstí 14. prosince",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 43,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 53,
+      "name": "Smetanovo náměstí",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 44,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 54,
+      "name": "Nádražní",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 45,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 44,
+      "name": "J. K. Tyla",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 46,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 43,
+      "name": "Palackého",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 47,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 17,
+      "name": "Gottwaldova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 48,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 27,
+      "name": "Kabátnická",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 49,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 25,
+      "name": "Kostelní",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 50,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 28,
+      "name": "Zd. Nejedlého",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 51,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 26,
+      "name": "Pod hradbami",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 52,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 8,
+      "name": "Rooseveltova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 53,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 20,
+      "name": "K výsluní",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 54,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 18,
+      "name": "Zámecká stezka",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 55,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 132,
+      "name": "Klostermannova stezka",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 56,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 19,
+      "name": "Zámecká",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 57,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 1,
+      "name": "Žižkova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 58,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 129,
+      "name": "Na Střelišti",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 59,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 15,
+      "name": "Hřbitovní",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 60,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 88,
+      "name": "Kamenná",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 61,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 70,
+      "name": "Mánesova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 62,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 71,
+      "name": "Riegrova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 63,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 75,
+      "name": "Dr. Bendla",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 64,
+      "phase": 2,
+      "phaseTitle": "Zbytek vnitřního města",
+      "streetId": 115,
+      "name": "Náměstí Prof. Groha",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 65,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 65,
+      "name": "Gorkého",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 66,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 66,
+      "name": "Průběžná",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 67,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 64,
+      "name": "Josefa Svátka",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 68,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 117,
+      "name": "Vrbenského náměstí",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 69,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 116,
+      "name": "Husovo náměstí",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 70,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 52,
+      "name": "Propadlá",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 71,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 51,
+      "name": "Špitálská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 72,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 45,
+      "name": "Lužická",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 73,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 113,
+      "name": "Václavské náměstí",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 74,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 50,
+      "name": "Nádražní",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 75,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 55,
+      "name": "U hřiště",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 76,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 128,
+      "name": "nám. Dvouletky",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 77,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 130,
+      "name": "Slepá",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 78,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 58,
+      "name": "Henzlova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 79,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 59,
+      "name": "Svatopluka Čecha",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 80,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 60,
+      "name": "Karla Marxe",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 81,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 61,
+      "name": "K. H. Máchy",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 82,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 63,
+      "name": "Karla Liebknechta",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 83,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 57,
+      "name": "Novákova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 84,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 62,
+      "name": "Teplická",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 85,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 73,
+      "name": "J. Wolkera",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 86,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 131,
+      "name": "Kopistská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 87,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 47,
+      "name": "Janovská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 88,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 109,
+      "name": "U lihovaru",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 89,
+      "phase": 3,
+      "phaseTitle": "Sever a nádraží",
+      "streetId": 56,
+      "name": "Pařidelská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 90,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 46,
+      "name": "Vrchlického",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 91,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 89,
+      "name": "Chomutovská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 92,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 91,
+      "name": "Za střelnicí",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 93,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 92,
+      "name": "Novosvětská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 94,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 93,
+      "name": "Pod Hněvínem",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 95,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 90,
+      "name": "Na novém světě",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 96,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 100,
+      "name": "V rokli",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 97,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 101,
+      "name": "Maršála Žukova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 98,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 99,
+      "name": "Chmelná",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 99,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 97,
+      "name": "Zámecký dvůr",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 100,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 95,
+      "name": "Zahražanská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 101,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 98,
+      "name": "Vinohradská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 102,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 102,
+      "name": "Husitská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 103,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 94,
+      "name": "Jana Opletala",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 104,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 6,
+      "name": "Aloise Jiráska",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 105,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 4,
+      "name": "Resslova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 106,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 5,
+      "name": "Vítězslava Hálka",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 107,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 2,
+      "name": "Janáčkova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 108,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 3,
+      "name": "U města Chersonu",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 109,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 96,
+      "name": "Alej Boženy Němcové",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 110,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 104,
+      "name": "Jugoslávská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 111,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 103,
+      "name": "Partyzánská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 112,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 108,
+      "name": "Jožky Jabůrkové",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 113,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 105,
+      "name": "Dukelská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 114,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 106,
+      "name": "Prokopa Diviše",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 115,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 107,
+      "name": "Jana Vrby",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 116,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 7,
+      "name": "Československé armády",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 117,
+      "phase": 4,
+      "phaseTitle": "Západní svahy a zahrady",
+      "streetId": 126,
+      "name": "Čepirožská výšina",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 118,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 121,
+      "name": "Zikm. Wintra",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 119,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 120,
+      "name": "U Lesíka",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 120,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 119,
+      "name": "Vtelenská cesta",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 121,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 124,
+      "name": "Konětopská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 122,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 123,
+      "name": "Zelinářská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 123,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 122,
+      "name": "V Ležákách",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 124,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 16,
+      "name": "Pražská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 125,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 125,
+      "name": "Rudolická",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 126,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 118,
+      "name": "U kamenného mostu",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 127,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 72,
+      "name": "Antonína Sovy",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 128,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 69,
+      "name": "Komenského",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 129,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 68,
+      "name": "Lidická",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 130,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 67,
+      "name": "Nerudova",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 131,
+      "phase": 5,
+      "phaseTitle": "Východní ulice a předměstí",
+      "streetId": 74,
+      "name": "Sibiřská",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    },
+    {
+      "order": 132,
+      "phase": 6,
+      "phaseTitle": "Jižní okraj a návrat ke Kulové",
+      "streetId": 24,
+      "name": "Kulová",
+      "status": "Ve frontě",
+      "addedObjects": 0,
+      "objectIds": []
+    }
+  ]
+}
