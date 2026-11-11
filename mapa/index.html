@@ -18,7 +18,7 @@
 <div id="map-tools"><button id="zoom-in" aria-label="Přiblížit">+</button><button id="zoom-out" aria-label="Oddálit">−</button></div>
 </section>
 <aside>
-<div class="panel-head"><p class="kicker">MĚSTO PŘED DEMOLICÍ</p><h1 id="street-name">Starý Most</h1><p class="lede">Ulice, parky a stromy podle dobových pramenů.</p></div>
+<div class="panel-head"><p class="kicker">MĚSTO PŘED DEMOLICÍ</p><h1 id="street-name">Starý Most</h1><p class="lede">Ulice, dvory, zahrady a stromy podle dobových pramenů.</p></div>
 <nav aria-label="Měřítko pohledu"><button data-view="city">Celý Most</button><button data-view="street">Ulice</button><button data-view="facade">Fasáda</button><button data-view="trees">Stromy</button><button data-view="prostor">Povrchy</button></nav>
 <section class="control tree-controls city-streets" aria-labelledby="street-label">
 <div class="tree-head"><h2 id="street-label">Prozkoumat ulici</h2><button type="button" id="street-next" title="Další ulice" aria-label="Přejít na další ulici">→</button></div>
@@ -30,6 +30,18 @@
 <label class="sr-only" for="city-features">Prvky vybrané ulice</label><select id="city-features"></select>
 <details class="street-reading"><summary>Stav průzkumu ulice</summary><p class="tree-note" id="street-review"></p><p class="tree-note">Přehledový průchod ortofotem proběhl ve všech 132 uličních úsecích. Podrobný soupis drobných objektů pokračuje.</p></details>
 </section>
+<details class="control tree-controls" id="detail-controls" open>
+<summary><strong>Dvory, zahrady a drobné prvky</strong><span id="detail-summary"></span></summary>
+<div id="detail-filters" class="detail-filters" aria-label="Druhy drobných prvků"></div>
+<label class="tree-field" for="detail-sector">Procházet město po oblastech</label>
+<div class="tree-choice"><select id="detail-sector"><option value="">Všechny oblasti</option></select><button type="button" id="detail-next" aria-label="Přejít na další oblast">Další →</button></div>
+<label class="sr-only" for="detail-select">Přiblížit drobný prvek</label>
+<div class="tree-choice"><select id="detail-select"></select><button type="button" id="detail-source" disabled>Pramen ↗</button></div>
+<p class="tree-note">Výšku a materiál letecký snímek většinou neurčuje. Nejasné ploty a zídky zastupuje nízká značka hranice pozemku.</p>
+<details><summary>Stav průzkumu oblasti</summary><p id="detail-review" class="tree-note"></p></details>
+<p class="tree-note">Interpretace a modely · OpenAI · Codex (rodina GPT-6), společné pro obě autorské vrstvy.</p>
+<a href="prvky/prvky.geojson" download>Drobné prvky pro GIS ↗</a>
+</details>
 <details class="control tree-controls" id="city-controls" open><summary><strong>Městské vrstvy</strong></summary>
 <div id="city-filters"></div>
 <label class="tree-check"><input type="checkbox" id="city-plan" checked> Zahrnout zákresy z 50. let</label>
@@ -83,7 +95,7 @@
 </main>
 <dialog id="city-source" aria-labelledby="city-title">
 <div class="doc-head"><div><p class="kicker" id="city-source-kind"></p><h2 id="city-title"></h2></div><button type="button" id="city-close" aria-label="Zavřít městský pramen">×</button></div>
-<div id="city-source-options"><label for="city-source-layer">Podklad</label><select id="city-source-layer"><option value="ortho64">Ortofoto 1964</option><option value="cenia">Historické ortofoto CENIA</option><option value="plan50">Orientační plán · 50. léta</option><option value="plan38">Plán 1938</option></select><label class="tree-check"><input type="checkbox" id="city-outline" checked> Vyznačit zákres</label></div>
+<div id="city-source-options"><label for="city-source-layer">Podklad</label><select id="city-source-layer"><option value="ortho64">Ortofoto 1964</option><option value="cenia">Historické ortofoto CENIA</option><option value="plan50">Orientační plán · 50. léta</option><option value="plan38">Plán 1938</option><option value="plan30">Granznerův plán · 30. léta</option></select><label class="tree-check"><input type="checkbox" id="city-outline" checked> Vyznačit zákres</label></div>
 <div class="city-source-image"><canvas id="city-scan" aria-label="Dobový podklad se zákresem vybraného místa"></canvas><img id="city-photo" hidden alt=""></div>
 <div class="doc-foot"><p id="city-caption" class="tree-note" role="status"></p><p id="city-reading"></p><a id="city-original" class="tree-source-link" target="_blank" rel="noopener">Otevřít originál ↗</a><div class="vehicle-source-links"><a id="vehicle-ground" target="_blank" rel="noopener" hidden></a><a id="vehicle-reference" target="_blank" rel="noopener" hidden></a></div><details><summary>Přesnost a autorství</summary><p id="city-metrics"></p><p id="city-authorship"></p></details></div>
 </dialog>

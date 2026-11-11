@@ -6,7 +6,7 @@ import {showArchiveRecord} from './archive-access.js';
 const q=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
 const canvas=q('#scene'), dialog=q('#archive'), scan=q('#scan');
-const state={vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
+const state={detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
 let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData;
 const status=t=>q('#map-status').textContent=t;
 function parse() {
@@ -28,12 +28,16 @@ function parse() {
   const rec=landUI?.items.get(landId);
   if(!rec || !landGroups.includes(rec.group))landId=null;
   const zone=landId?rec.zone:(p.get('oblast')==='all'||Object.hasOwn(landUI?.meta.zones||{},p.get('oblast'))?p.get('oblast'):'P');
+  const detail=view==='street'?cityData?.details?.find(r=>r.id===p.get('detail')):null;
+  const detailFocus=detail?.id||null;
+  const detailSector=view==='street'?(detail?.sector||cityData?.detailCatalog?.sectors.find(s=>s.id===p.get('sektor'))?.id||null):null;
   const focus=cityData?.vehicles?.find(v=>v.id===p.get('vozidlo'));
-  const vehicleFocus=view==='street'&&focus?focus.id:null;
-  const street=vehicleFocus?String(focus.streetId):cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
+  const vehicleFocus=view==='street'&&focus&&!detailFocus&&!detailSector?focus.id:null;
+  const sectorStreet=detailSector?cityData.details.find(r=>r.sector===detailSector)?.streetId:null;
+  const street=detailFocus?String(detail.streetId):sectorStreet&&!p.has('street')?String(sectorStreet):vehicleFocus?String(focus.streetId):cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
   const cityItem=cityUI?.has(p.get('element'))?p.get('element'):null;
   const enabled=p.has('mesto')?p.get('mesto').split(','):cityGroups;
-  return {vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
+  return {detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
   const url=new URL(location.href);
@@ -41,6 +45,8 @@ function writeLink() {
   for(const k of ['cp','layer','view']) url.searchParams.set(k,state[k]);
   if(state.street!=='24')url.searchParams.set('street',state.street);
   if(state.vehicleFocus)url.searchParams.set('vozidlo',state.vehicleFocus);
+  if(state.detailFocus)url.searchParams.set('detail',state.detailFocus);
+  if(state.detailSector)url.searchParams.set('sektor',state.detailSector);
   if(state.cityItem)url.searchParams.set('element',state.cityItem);
   if(!state.cityPlan)url.searchParams.set('plan50','0');
   if(state.cityGroups.length!==cityGroups.length)url.searchParams.set('mesto',state.cityGroups.join(','));
@@ -86,10 +92,12 @@ function update(instant=false,preserve=false) {
   cityUI?.update(state);
   landUI?.update(state);
   treeUI?.update(state);
-  if(map){map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
+  if(map){map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
 }
 function choose(change) {
   const onlyLayer=Object.keys(change).length===1&&'layer' in change;
+  if(!('detailFocus' in change)&&(change.view||change.street))change.detailFocus=null;
+  if(!('detailSector' in change)&&(change.view||change.street))change.detailSector=null;
   if(!('vehicleFocus' in change)&&(change.view||change.street))change.vehicleFocus=null;
   if(change.view && change.view!=='trees'){change.tree=null;change.area='all'}
   if(change.view==='trees' && state.vegetation==='off')change.vegetation='crowns';
@@ -125,14 +133,14 @@ dialog.addEventListener('cancel',e=>{e.preventDefault();dismiss()});
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dismiss()}});
 function selectTree(id,open=true){
   const p=treeUI?.get(id);if(!p)return;
-  Object.assign(state,{cityItem:null,view:'trees',landId:null,landDoc:false,area:p.area,tree:id,treeDoc:open,type:null,page:0});
+  Object.assign(state,{detailFocus:null,detailSector:null,vehicleFocus:null,cityItem:null,view:'trees',landId:null,landDoc:false,area:p.area,tree:id,treeDoc:open,type:null,page:0});
   if(state.vegetation==='off')state.vegetation='crowns';
   writeLink();update();renderDoc();
 }
 function selectLand(id,open){
   const p=landUI?.items.get(id);if(!p)return;
   const cameFrom=state.view;
-  Object.assign(state,{cityItem:null,view:'prostor',zone:p.zone,landId:id,landDoc:open,type:null,page:0,tree:null,treeDoc:false});
+  Object.assign(state,{detailFocus:null,detailSector:null,vehicleFocus:null,cityItem:null,view:'prostor',zone:p.zone,landId:id,landDoc:open,type:null,page:0,tree:null,treeDoc:false});
   if(!state.landGroups.includes(p.group))state.landGroups=[...state.landGroups,p.group];
   if(cameFrom!=='prostor' && state.vegetation==='crowns' && !new URL(location.href).searchParams.has('vegetation'))state.vegetation='branches';
   writeLink();update();renderDoc();
@@ -156,8 +164,16 @@ async function boot(){
       if(!response.ok)throw Error('Katalog vozidel není dostupný.');
       cityData.vehicles=(await response.json()).vehicles;
     }catch(e){console.warn('Vrstva vozidel se nenačetla.',e)}
+    cityData.details=[];
+    try{
+      const r=await fetch('prvky/prvky.json',{cache:'no-cache'});
+      if(!r.ok)throw Error('Katalog drobných prvků není dostupný.');
+      cityData.detailCatalog=await r.json();cityData.details=cityData.detailCatalog.features;
+    }catch(e){console.warn('Drobné prvky se nenačetly.',e)}
     cityUI=cityInterface(cityData,{
       street:id=>choose({street:id,view:'street'}),
+      sector:id=>{const first=cityData.details.find(r=>r.sector===id);choose({detailSector:id||null,detailFocus:null,view:'street',...(first?{street:String(first.streetId)}:{})})},
+      detail:id=>{const r=cityData.details.find(r=>r.id===id);if(r)choose({detailFocus:id,detailSector:r.sector,street:String(r.streetId),view:'street',cityGroups:[...new Set([...state.cityGroups,r.kind])]});else if(!id)choose({detailFocus:null,detailSector:state.detailSector,view:'street'})},
       open:selectCity,
       vehicle:id=>{const v=cityData.vehicles.find(v=>v.id===id);if(v)choose({vehicleFocus:id,street:String(v.streetId),view:'street',cityGroups:[...new Set([...state.cityGroups,'vozidla'])]});else if(!id)choose({vehicleFocus:null,view:'street'})},
       close:()=>{state.cityItem=null;writeLink();renderDoc()},
@@ -207,8 +223,8 @@ async function boot(){
   });
   q('#photo').onclick=()=>openDoc('photos');q('#plan').onclick=()=>openDoc('plans');
   window.addEventListener('popstate',()=>{
-    const oldVehicle=state.vehicleFocus,oldStreet=state.street,oldArea=state.area,oldTree=state.tree,oldZone=state.zone,oldLand=state.landId;
-    Object.assign(state,parse());update(false,oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
+    const oldDetail=state.detailFocus,oldSector=state.detailSector,oldVehicle=state.vehicleFocus,oldStreet=state.street,oldArea=state.area,oldTree=state.tree,oldZone=state.zone,oldLand=state.landId;
+    Object.assign(state,parse());update(false,oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
   const [scene,resp]=await Promise.all([import('./scena.js'),fetch('https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/gis/mapa/city.json')]);

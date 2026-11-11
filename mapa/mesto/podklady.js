@@ -1,6 +1,7 @@
 const BASE = 'https://mapy.mesto-most.cz/server/rest/services/';
 const sources = {
   ortho64: {name:'Ortofoto 1964', service:'Ortofoto/Ortofoto1964Vghmur', credit:'Georeal Plzeň · podkladová data © MO ČR'},
+  plan30: {name:'Granznerův plán · 30. léta', service:'Rastry/LagePlanLudwigGranzner', credit:'Ludwig Granzner · Mapový archiv města Mostu'},
   plan50: {name:'Orientační plán · 50. léta', service:'Rastry/OrientacniPlanMostu1950s', credit:'Mapový archiv města Mostu'},
   plan38: {name:'Plán města · 1938', service:'Rastry/LageplanDerStadtBrux1938', credit:'Mapový archiv města Mostu'},
   cenia: {name:'Historické ortofoto CENIA', credit:'CENIA · GEODIS BRNO · VGHMÚř · CC BY 4.0'}
@@ -10,8 +11,9 @@ export function sourceRequest(key, bounds, origin, width=1000, height=600) {
   const [x,z,X,Z]=bounds, [ox,oy]=origin;
   // This service returns MAP OUT below its supported map scale.
   // Request at most 5 output pixels per metre; the canvas can enlarge the crop.
-  if(key==='ortho64'){
-    const factor=Math.min(1,5*(X-x)/width,5*(Z-z)/height);
+  if(key==='ortho64'||key==='plan30'){
+    const limit=key==='ortho64'?5:12;
+    const factor=Math.min(1,limit*(X-x)/width,limit*(Z-z)/height);
     width=Math.max(1,Math.round(width*factor));height=Math.max(1,Math.round(height*factor));
   }
   const box=[ox+x,oy-Z,ox+X,oy-z].map(n=>n.toFixed(3)).join(',');

@@ -1,0 +1,68 @@
+{
+  "searchedAt": "2026-11-11",
+  "scope": "Mapové plány města pro severní a centrální stavební bloky; nově zakreslené anonymní drobné střešní objekty nemají ověřenou vazbu na čp.",
+  "sources": [
+    {
+      "sector": "2C",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-791148.106%2C-986509.177%2C-790548.106%2C-985909.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "41635b0c9d7051a9f02d8eeac4a211efc244dda45263c45a83084e1445e8504d",
+      "bytes": 322880,
+      "status": "downloaded"
+    },
+    {
+      "sector": "2D",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-790548.106%2C-986509.177%2C-789948.106%2C-985909.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "f9c34c79e819415c153d9c17808cb4fe28e9ae260cb04a317ab55d893a97cd6e",
+      "bytes": 240045,
+      "status": "downloaded"
+    },
+    {
+      "sector": "3B",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-791748.106%2C-987109.177%2C-791148.106%2C-986509.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "13711df273eee7fe90d5b1eba04b0650cb7b779aededc74d3bf841e37035a478",
+      "bytes": 179126,
+      "status": "downloaded"
+    },
+    {
+      "sector": "3C",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-791148.106%2C-987109.177%2C-790548.106%2C-986509.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "5b53a16fc369f18989706741660817617d3151fa0a84a68f3352f46fc9c51942",
+      "bytes": 612131,
+      "status": "downloaded"
+    },
+    {
+      "sector": "3D",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-790548.106%2C-987109.177%2C-789948.106%2C-986509.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "e96f986bf4f2619cc592bd284eed73ba3870cfc15c30222e026afe1743f09b6e",
+      "bytes": 358326,
+      "status": "downloaded"
+    },
+    {
+      "sector": "4C",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-791148.106%2C-987709.177%2C-790548.106%2C-987109.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "d3e5ee9b63286019421ae0034bd8c323996ec6fa45c59a1945b626e054baa814",
+      "bytes": 511878,
+      "status": "downloaded"
+    },
+    {
+      "sector": "4D",
+      "url": "https://mapy.mesto-most.cz/server/rest/services/Rastry/LagePlanLudwigGranzner/MapServer/export?bbox=-790548.106%2C-987709.177%2C-789948.106%2C-987109.177&bboxSR=5514&imageSR=5514&size=1440%2C1440&format=jpg&f=image",
+      "sha256": "9731211b709482e61d724afba3e976dd523255d0c3728b46ec68de82ae21dcbf",
+      "bytes": 218617,
+      "status": "downloaded"
+    }
+  ],
+  "generalCityPlan": {
+    "status": "found",
+    "title": "Lage Plan Ludwig Granzner, 30. léta 20. století",
+    "visualReview": "Otevřeno všech sedm stažených výřezů jednoho plánu. Ověřeny uliční názvy, nádraží, uzavřené bloky a rozsah. Na západním okraji část zahrad leží mimo samotný list; přibližná registrace není katastrálním zaměřením.",
+    "result": "Slouží k orientaci bloků, nikoli k určení výšek nebo konstrukce drobných staveb."
+  },
+  "buildingPlans": {
+    "status": "unavailable",
+    "scope": "GET /areas?photos=full pro hledání příloh, sousedů a ulic; ani odpověď nebyla získána.",
+    "reason": "API :3000 odmítlo TCP spojení při dvou kontrolách, UI :3004 odpovědělo HTTP 200. Přílohy nebylo možné prohledat; absence plánů se netvrdí."
+  },
+  "shedModelStatus": "provisional_roof_volume_only",
+  "resolution": "Drobné objekty jsou explicitně pravděpodobné hmotové odhady bez čp. a bez tvrzení o přesné parcele, konstrukci či výšce."
+}

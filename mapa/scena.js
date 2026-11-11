@@ -39,8 +39,11 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   scene.add(floor);
 
   const environment=cityData?cityEnvironment(scene,cityData,()=>{needsRender=true}):null;
-  let selectedStreet='24',vehicleFocus=null;
-  function setCity(id,groups,plan,mode,focus){
+  let selectedStreet='24',vehicleFocus=null,detailFocus=null,detailSector=null;
+  function setCity(id,groups,plan,mode,focus,detail,sector){
+    detailFocus=mode==='street'?cityData?.details?.find(r=>r.id===detail):null;
+    detailSector=mode==='street'?cityData?.detailCatalog?.sectors.find(r=>r.id===sector):null;
+    environment?.focusDetail(detailFocus?.id);
     vehicleFocus=mode==='street'?cityData?.vehicles?.find(v=>v.id===focus):null;
     selectedStreet=String(id);environment?.configure(groups,plan);environment?.setStreet(id,mode==='street');
     if(environment)backgroundRoads.visible=groups.includes('ulice');
@@ -251,6 +254,18 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       const dist=Math.max(treeFocus?16:32,(width*.60+depth*.20)/camera.aspect,depth*.64+width*.10)/Math.tan(rad(20));
       const dir=vec(.33,.85,.72).normalize();
       return [aim,aim.clone().addScaledVector(dir,dist)];
+    }
+    if(mode==='street' && (detailFocus||detailSector)){
+      const [x,z,X,Z]=(detailFocus||detailSector).bounds;
+      const t=vec((x+X)/2,1,(z+Z)/2),dir=(detailFocus?vec(.12,1,.22):vec(.15,1,.65)).normalize();
+      const right=axisY.clone().cross(dir).normalize(),up=dir.clone().cross(right);
+      const tanY=Math.tan(rad(camera.fov/2)),tanX=tanY*camera.aspect;
+      let distance=detailFocus?28:160;
+      for(const a of [x-5,X+5])for(const b of [z-5,Z+5]){
+        const offset=vec(a,0,b).sub(t);
+        distance=Math.max(distance,offset.dot(dir)+1.22*Math.max(Math.abs(offset.dot(right))/tanX,Math.abs(offset.dot(up))/tanY));
+      }
+      return [t,t.clone().addScaledVector(dir,distance)];
     }
     if(mode==='street' && vehicleFocus){
       const v=vehicleFocus,t=vec(v.at[0],1.2,v.at[1]);

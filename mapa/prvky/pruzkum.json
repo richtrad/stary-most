@@ -1,0 +1,961 @@
+{
+  "sectors": [
+    {
+      "id": "1A",
+      "title": "Okraj mapovaného území 1A",
+      "bounds": [
+        -1500,
+        -2100,
+        -900,
+        -1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "1B",
+      "title": "Okraj mapovaného území 1B",
+      "bounds": [
+        -900,
+        -2100,
+        -300,
+        -1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "1C",
+      "title": "Okraj mapovaného území 1C",
+      "bounds": [
+        -300,
+        -2100,
+        300,
+        -1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 1
+    },
+    {
+      "id": "1D",
+      "title": "Okraj mapovaného území 1D",
+      "bounds": [
+        300,
+        -2100,
+        900,
+        -1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 1
+    },
+    {
+      "id": "1E",
+      "title": "Okraj mapovaného území 1E",
+      "bounds": [
+        900,
+        -2100,
+        1500,
+        -1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "2A",
+      "title": "Okraj mapovaného území 2A",
+      "bounds": [
+        -1500,
+        -1500,
+        -900,
+        -900
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "2B",
+      "title": "Okraj mapovaného území 2B",
+      "bounds": [
+        -900,
+        -1500,
+        -300,
+        -900
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "2C",
+      "title": "Nádraží a severozápadní areály",
+      "bounds": [
+        -300,
+        -1500,
+        300,
+        -900
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 2,
+      "baseBuildings": 76
+    },
+    {
+      "id": "2D",
+      "title": "Severovýchodní předměstí",
+      "bounds": [
+        300,
+        -1500,
+        900,
+        -900
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 7,
+      "baseBuildings": 83
+    },
+    {
+      "id": "2E",
+      "title": "Okraj mapovaného území 2E",
+      "bounds": [
+        900,
+        -1500,
+        1500,
+        -900
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 2
+    },
+    {
+      "id": "3A",
+      "title": "Západní zahrady",
+      "bounds": [
+        -1500,
+        -900,
+        -900,
+        -300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 10,
+      "baseBuildings": 7
+    },
+    {
+      "id": "3B",
+      "title": "Zahrady pod Hněvínem",
+      "bounds": [
+        -900,
+        -900,
+        -300,
+        -300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 24,
+      "baseBuildings": 139
+    },
+    {
+      "id": "3C",
+      "title": "Divadlo a severní centrum",
+      "bounds": [
+        -300,
+        -900,
+        300,
+        -300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 2,
+      "baseBuildings": 341
+    },
+    {
+      "id": "3D",
+      "title": "Severovýchodní vnitrobloky",
+      "bounds": [
+        300,
+        -900,
+        900,
+        -300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 6,
+      "baseBuildings": 275
+    },
+    {
+      "id": "3E",
+      "title": "Okraj mapovaného území 3E",
+      "bounds": [
+        900,
+        -900,
+        1500,
+        -300
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 1
+    },
+    {
+      "id": "4A",
+      "title": "Okraj mapovaného území 4A",
+      "bounds": [
+        -1500,
+        -300,
+        -900,
+        300
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "4B",
+      "title": "Svahy Hněvína",
+      "bounds": [
+        -900,
+        -300,
+        -300,
+        300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Převládá porost, voda, pole nebo zastíněné plochy; další drobné objekty zatím nejsou bezpečně rozlišené.",
+      "featureCount": 0,
+      "baseBuildings": 13
+    },
+    {
+      "id": "4C",
+      "title": "Jižní centrum a Kulová",
+      "bounds": [
+        -300,
+        -300,
+        300,
+        300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 5,
+      "baseBuildings": 348
+    },
+    {
+      "id": "4D",
+      "title": "Východní okraj u Bíliny",
+      "bounds": [
+        300,
+        -300,
+        900,
+        300
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Převládá porost, voda, pole nebo zastíněné plochy; další drobné objekty zatím nejsou bezpečně rozlišené.",
+      "featureCount": 0,
+      "baseBuildings": 55
+    },
+    {
+      "id": "4E",
+      "title": "Okraj mapovaného území 4E",
+      "bounds": [
+        900,
+        -300,
+        1500,
+        300
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "5A",
+      "title": "Okraj mapovaného území 5A",
+      "bounds": [
+        -1500,
+        300,
+        -900,
+        900
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "5B",
+      "title": "Okraj mapovaného území 5B",
+      "bounds": [
+        -900,
+        300,
+        -300,
+        900
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 1
+    },
+    {
+      "id": "5C",
+      "title": "Jižní zahrady a hřbitov",
+      "bounds": [
+        -300,
+        300,
+        300,
+        900
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 4,
+      "baseBuildings": 22
+    },
+    {
+      "id": "5D",
+      "title": "Jihovýchodní areály",
+      "bounds": [
+        300,
+        300,
+        900,
+        900
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 4,
+      "baseBuildings": 8
+    },
+    {
+      "id": "5E",
+      "title": "Okraj mapovaného území 5E",
+      "bounds": [
+        900,
+        300,
+        1500,
+        900
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "6A",
+      "title": "Okraj mapovaného území 6A",
+      "bounds": [
+        -1500,
+        900,
+        -900,
+        1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "6B",
+      "title": "Okraj mapovaného území 6B",
+      "bounds": [
+        -900,
+        900,
+        -300,
+        1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "6C",
+      "title": "Okraj mapovaného území 6C",
+      "bounds": [
+        -300,
+        900,
+        300,
+        1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "6D",
+      "title": "Jižní okrajová zástavba",
+      "bounds": [
+        300,
+        900,
+        900,
+        1500
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Zapsány čitelné prvky; podrobné určení konstrukcí a výšek zůstává otevřené.",
+      "featureCount": 6,
+      "baseBuildings": 24
+    },
+    {
+      "id": "6E",
+      "title": "Okraj mapovaného území 6E",
+      "bounds": [
+        900,
+        900,
+        1500,
+        1500
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "7A",
+      "title": "Okraj mapovaného území 7A",
+      "bounds": [
+        -1500,
+        1500,
+        -900,
+        2100
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "7B",
+      "title": "Okraj mapovaného území 7B",
+      "bounds": [
+        -900,
+        1500,
+        -300,
+        2100
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "7C",
+      "title": "Okraj mapovaného území 7C",
+      "bounds": [
+        -300,
+        1500,
+        300,
+        2100
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "7D",
+      "title": "Jižní pole a okraj zástavby",
+      "bounds": [
+        300,
+        1500,
+        900,
+        2100
+      ],
+      "reviewLevel": "detail",
+      "reviewedAt": "2026-11-11",
+      "note": "Kontrola v rozlišení podkladu. Převládá porost, voda, pole nebo zastíněné plochy; další drobné objekty zatím nejsou bezpečně rozlišené.",
+      "featureCount": 0,
+      "baseBuildings": 3
+    },
+    {
+      "id": "7E",
+      "title": "Okraj mapovaného území 7E",
+      "bounds": [
+        900,
+        1500,
+        1500,
+        2100
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "8A",
+      "title": "Okraj mapovaného území 8A",
+      "bounds": [
+        -1500,
+        2100,
+        -900,
+        2700
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "8B",
+      "title": "Okraj mapovaného území 8B",
+      "bounds": [
+        -900,
+        2100,
+        -300,
+        2700
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "8C",
+      "title": "Okraj mapovaného území 8C",
+      "bounds": [
+        -300,
+        2100,
+        300,
+        2700
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "8D",
+      "title": "Okraj mapovaného území 8D",
+      "bounds": [
+        300,
+        2100,
+        900,
+        2700
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    },
+    {
+      "id": "8E",
+      "title": "Okraj mapovaného území 8E",
+      "bounds": [
+        900,
+        2100,
+        1500,
+        2700
+      ],
+      "reviewLevel": "overview",
+      "reviewedAt": "2026-11-11",
+      "note": "Přehledový průchod ortofota. Žádný další spolehlivě čitelný drobný prvek nebyl v tomto průchodu zapsán; není to důkaz jeho historické absence.",
+      "featureCount": 0,
+      "baseBuildings": 0
+    }
+  ],
+  "courtyardDecisions": [
+    {
+      "id": "C01",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 512.4596890002256,
+        "top": -986.6905676406004,
+        "width_m": 109.08852784147723,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C02",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 403.9541224159705,
+        "top": -883.4869785955135,
+        "width_m": 96.02522589112482,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C03",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 243.61585334240928,
+        "top": -902.3605768298414,
+        "width_m": 142.3835567517445,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C04",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 321.050841159679,
+        "top": -778.6547827117281,
+        "width_m": 70.0152161121149,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C05",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 522.3597153746184,
+        "top": -717.6719128760133,
+        "width_m": 98.34332011965114,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C06",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 342.0025019803079,
+        "top": -693.1633837194447,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C07",
+      "decision": "rejected",
+      "view": {
+        "left": -83.26081765693776,
+        "top": -618.9581145609764,
+        "width_m": 61.98212364265519,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C08",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 410.9463473060127,
+        "top": -640.2131161585876,
+        "width_m": 95.33089612920719,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C09",
+      "decision": "rejected",
+      "view": {
+        "left": -85.12877333610771,
+        "top": -598.8355159466157,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C10",
+      "decision": "rejected",
+      "view": {
+        "left": -27.928459900227267,
+        "top": -611.2939595215789,
+        "width_m": 113.97280526985361,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C11",
+      "decision": "rejected",
+      "view": {
+        "left": -117.86586771504051,
+        "top": -568.1936385792526,
+        "width_m": 65.44850750137103,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C12",
+      "decision": "rejected",
+      "view": {
+        "left": -310.4953292098703,
+        "top": -543.9543172808184,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C13",
+      "decision": "accepted_inset",
+      "view": {
+        "left": -157.32264266367542,
+        "top": -461.37936783760836,
+        "width_m": 64.1411736179495,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C14",
+      "decision": "accepted_inset",
+      "view": {
+        "left": -126.31852828240434,
+        "top": -449.503395689243,
+        "width_m": 71.43701894344736,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C15",
+      "decision": "rejected",
+      "view": {
+        "left": -7.347522138574483,
+        "top": -424.08459082630054,
+        "width_m": 108.51926596779612,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C16",
+      "decision": "rejected",
+      "view": {
+        "left": -60.3117311475387,
+        "top": -369.1058402865911,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C17",
+      "decision": "rejected",
+      "view": {
+        "left": -163.213759998603,
+        "top": -369.6577747310041,
+        "width_m": 68.0783794477033,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C18",
+      "decision": "rejected",
+      "view": {
+        "left": 23.12604784961377,
+        "top": -353.1888135717686,
+        "width_m": 80.0621569674218,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C19",
+      "decision": "rejected",
+      "view": {
+        "left": -170.94860308644513,
+        "top": -336.4418370673438,
+        "width_m": 61.70819798402938,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C20",
+      "decision": "rejected",
+      "view": {
+        "left": -138.31196328398894,
+        "top": -321.66229476606657,
+        "width_m": 75.91618914091049,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C21",
+      "decision": "rejected",
+      "view": {
+        "left": -38.26542994805843,
+        "top": -313.9460744014615,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C22",
+      "decision": "rejected",
+      "view": {
+        "left": 104.5763638390963,
+        "top": -260.28211074918084,
+        "width_m": 103.716808016799,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C23",
+      "decision": "rejected",
+      "view": {
+        "left": 36.64154076523725,
+        "top": -244.31068122202979,
+        "width_m": 93.53062877932496,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C24",
+      "decision": "rejected",
+      "view": {
+        "left": 112.22239502360699,
+        "top": -192.60160908339287,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C25",
+      "decision": "rejected",
+      "view": {
+        "left": -96.51968033104926,
+        "top": -215.58337873482355,
+        "width_m": 113.11347456366164,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C26",
+      "decision": "rejected",
+      "view": {
+        "left": 94.69916976390519,
+        "top": -163.10681207402413,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C27",
+      "decision": "accepted_inset",
+      "view": {
+        "left": 146.24157506378117,
+        "top": -150.95933300148823,
+        "width_m": 60,
+        "pixels": 300
+      },
+      "reason": "Čitelný vnitroblok; obrys stažen o další 2 m od okraje."
+    },
+    {
+      "id": "C28",
+      "decision": "rejected",
+      "view": {
+        "left": 107.29703863144793,
+        "top": -138.6570340824572,
+        "width_m": 66.80141481588615,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    },
+    {
+      "id": "C29",
+      "decision": "rejected",
+      "view": {
+        "left": 134.29332919514115,
+        "top": 22.658768600448568,
+        "width_m": 61.630248638411416,
+        "pixels": 300
+      },
+      "reason": "Stíny, rozporné střechy nebo úzký průchod; C25 již pokrývá pilot Kulové."
+    }
+  ],
+  "rejected": [
+    {
+      "source": "manual-065",
+      "reason": "Překryv s existujícím GIS domu; nezakládá se duplicitní stavba."
+    },
+    {
+      "source": "manual-067",
+      "reason": "Překryv s existujícím GIS domu; nezakládá se duplicitní stavba."
+    },
+    {
+      "source": "manual-068",
+      "reason": "Překryv s existujícím GIS domu; nezakládá se duplicitní stavba."
+    },
+    {
+      "source": "detail-3b-zahrada-04",
+      "reason": "Po odečtu stávajících půdorysů zůstaly jen nesouvislé zbytky; plochu nelze použít."
+    },
+    {
+      "source": "detail-2d-zahon-01",
+      "reason": "Detail neprokazuje jednotlivé pěstební pásy; ponechána pouze nadřazená zahradní plocha."
+    },
+    {
+      "source": "detail-2d-zahon-02",
+      "reason": "Detail se směšuje se stíny a střechami; vyřazeno."
+    },
+    {
+      "source": "detail-4c-hranice-02",
+      "reason": "V detailu jde o rozhraní stínů a povrchů, fyzická hranice neprokázána."
+    },
+    {
+      "source": "detail-5c-zahon-02",
+      "reason": "Druhý zákres neobsahuje dostatečně čitelné pěstební pásy."
+    }
+  ],
+  "updatedAt": "2026-11-11",
+  "noNewTrafficIslands": "Zaměnitelné vodní plochy, stíny a vozidla nebyly převedeny na ostrůvky. Dosavadní pilotní prvky zůstávají."
+}

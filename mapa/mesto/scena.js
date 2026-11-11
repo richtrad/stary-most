@@ -1,5 +1,6 @@
 import * as T from 'three';
 import {buildVehicles} from '../vozidla/modely.js';
+import {buildSmallFeatures} from '../prvky/modely.js';
 const colors={ulice:0xb6b3a3,zelen:0x99ad7e,voda:0x739c9d,cesta:0xd7c9a7,porost:0x78926b,kolejiste:0xa29685,otevrena:0xc6b995};
 const heights={ulice:.046,zelen:.002,voda:.012,cesta:.032,porost:.003,kolejiste:.01,otevrena:.018};
 
@@ -18,6 +19,7 @@ function onSurface(point, rings) {
 export function cityEnvironment(scene,data,invalidate) {
   const items=new Map(data.surfaces.map(r=>[r.id,r]));
   const meshes=[];
+  const details=buildSmallFeatures(data.details||[]);scene.add(details.root);
   const vehicles=buildVehicles(data.vehicles||[]);scene.add(vehicles.root);
   const materials=Object.fromEntries(Object.entries(colors).map(([kind,color])=>[kind,new T.MeshBasicMaterial({color,side:T.DoubleSide,toneMapped:false})]));
   const woods=[];
@@ -63,6 +65,7 @@ export function cityEnvironment(scene,data,invalidate) {
   function visibility(){
     for(const mesh of meshes)mesh.visible=active.has(mesh.userData.item.kind)&&(showPlan||mesh.userData.item.source!=='plan50');
     vehicles.root.visible=active.has('vozidla');
+    details.configure([...active]);
     canopy.visible=showPlan&&mode==='crowns'&&active.has('porost');
     invalidate();
   }
@@ -86,15 +89,15 @@ export function cityEnvironment(scene,data,invalidate) {
   function pick(ray){
     const photo=ray.intersectObjects(pins.filter(m=>m.visible),false)[0];
     if(photo)return {id:photo.object.userData.item.id,distance:photo.distance,isPhoto:true};
-    const vehicle=vehicles.pick(ray);
+    const vehicle=vehicles.pick(ray), detail=details.pick(ray);
     const hit=ray.intersectObjects(meshes.filter(m=>m.visible),false)[0];
     const leaf=canopy.visible?ray.intersectObject(canopy)[0]:null;
-    if(vehicle && (!hit||vehicle.distance<hit.distance) && (!leaf||vehicle.distance<leaf.distance))return vehicle;
-    if(leaf && (!hit||leaf.distance<hit.distance))return {id:woods[leaf.instanceId].record.id,distance:leaf.distance};
-    return hit && {id:hit.object.userData.item.id,distance:hit.distance};
+    const candidates=[vehicle,detail,hit&&{id:hit.object.userData.item.id,distance:hit.distance},leaf&&{id:woods[leaf.instanceId].record.id,distance:leaf.distance}].filter(Boolean);
+    if(candidates.length)return candidates.sort((a,b)=>a.distance-b.distance)[0];
+    return null;
   }
-  return {configure,setStreet,frame,pick,
+  return {configure,setStreet,frame,pick,focusDetail:id=>{details.focus(id);invalidate()},
     treeStyle(next){if(next!==mode){mode=next;visibility()}},
-    inspect:project=>({vehicles:vehicles.inspect(project),features:items.size,photos:data.photos.length,visible:meshes.filter(m=>m.visible).length,plan50:showPlan,woodlandFacets:woods.length,street:streetId})
+    inspect:project=>({details:details.inspect(project),vehicles:vehicles.inspect(project),features:items.size,photos:data.photos.length,visible:meshes.filter(m=>m.visible).length,plan50:showPlan,woodlandFacets:woods.length,street:streetId})
   };
 }
