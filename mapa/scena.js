@@ -257,7 +257,8 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     }
     if(mode==='street' && (detailFocus||detailSector)){
       const [x,z,X,Z]=(detailFocus||detailSector).bounds;
-      const t=vec((x+X)/2,1,(z+Z)/2),dir=(detailFocus?vec(.12,1,.22):vec(.15,1,.65)).normalize();
+      const t=vec((x+X)/2,1,(z+Z)/2);
+      const dir=(detailFocus?.kind==='stavba'?vec(.015,1,.02):detailFocus?vec(.12,1,.22):vec(.15,1,.65)).normalize();
       const right=axisY.clone().cross(dir).normalize(),up=dir.clone().cross(right);
       const tanY=Math.tan(rad(camera.fov/2)),tanX=tanY*camera.aspect;
       let distance=detailFocus?28:160;
