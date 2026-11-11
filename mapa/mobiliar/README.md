@@ -1,26 +1,3 @@
-# Další ulice: první fotografické prvky · 11. 11. 2026
-
-Devět nových objektů z pěti původních pramenů rozšiřuje pilot na Šmeralovo náměstí, Minoritskou, U jeptišek a Dobrovolců / Kostelní náměstí. Celkem vrstva obsahuje 28 objektů: 23 procedurálních GPT/Codex a pět původních Claude Opus 5.5 GLB. Původních 19 záznamů a pět Claudeových souborů zůstávají zachované.
-
-- Šmeralovo náměstí: vysoká lampa a plakátovací sloup ze starší tištěné pohlednice.
-- Minoritská a fronta u čp. 169: nástěnné svítidlo, dřevěný sloup a konzola s izolátory.
-- U jeptišek: dvě nástěnné lampy a trojice izolátorů pod okapem.
-- Dobrovolců / Kostelní náměstí: viditelný úsek nízkého zábradlí u děkanského kostela.
-
-Každá fotografie tvoří vlastní nedatovanou scénu. Přesný rok, neznámé rozměry a materiálové barvy se neodvozují automaticky z typu předmětu. Přiřazení lampy k čp. 271 a prvků U jeptišek k jednotlivým domům jsou pracovní interpretace sousednosti; nejistota polohy je uvedena jednotlivě. Barvy starší pohlednice jsou tisk, nikoli barevná materiálová reference. Zábradlí se neprodlužuje do neviděných částí a elektrické sítě se nedoplňují mimo doložený detail.
-
-Před modelováním byly otevřeny situační plány čp. 167/168, 169, 254, 256/257, kláštera čp. 228 a stavební listy čp. 271. Dohromady byly ve čtyřech aktuálních metadatových soupisech nalezeny 217 přílohové vazby na plány; nejde o 217 jedinečných otevřených listů. Obnovená Libuše byla využita jedním cíleným GET původního snímku U jeptišek (7 590 622 B), s limitem jednoho požadavku a nejméně 10 s mezi přenosy. Ostatní podklady pocházejí z ověřených místních kopií.
-
-Čekárna a dispečerská věž v proluce po čp. 256, projektovaný dvorní komín čp. 651 z roku 1931 a vzdálené autobusy čekají na dataci či přesnější registraci. Nejsou vydávány za dokončené modely. Ulice s prvním doplněním stále vyžadují další průzkum; [fronta 132 úseků](postup.html) zachovává tento rozdíl.
-
-Nové objekty: OpenAI · Codex, rodina GPT-6, přesné backendové ID není dostupné. Společná fotografická vrstva prostředí zachovává autora každého prvku; změna autora domů nepřipisuje GPT objekty Claudovi. Fasády ani domovní modely se v této dávce neměnily. Soukromé originály jsou nadále připojovány pouze lokálně s ověřením SHA-256; veřejný repozitář obsahuje jen identifikaci pramenů, geometrii a evidenci.
-
-Kontrola v prohlížeči: všech devět prvků v detailu a šikmém pohledu, správné originály s ověřeným SHA-256 u všech devíti karet, přepínání ulic a autorů a kliknutí na prvek ve 3D. Výšky, rozměry a přesné polohy zůstávají odhady; tato kontrola nepotvrzuje historickou přesnost.
-
----
-
-## Zachovaný záznam pilotu Kulové
-
 # Kulová: mobiliář z původních fotografií
 
 Pilot z 11. listopadu 2026 obsahuje **19 objektů podle šesti původních snímků Libuše**. Kliknutí na objekt otevře kartu konkrétní fotografie. Výběr fotografické scény odděluje 1957–58, nedatovaný pohled dolů Kulovou, přibližně 1968, březen 1969 a přibližně 1900–1910.

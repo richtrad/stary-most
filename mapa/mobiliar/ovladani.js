@@ -4,13 +4,12 @@ export function furnitureInterface(catalog,actions){
   const dialog=q('#furniture-source'),image=q('#furniture-scan'),local=new Map();
   let current=null,shown=null,generation=0;
   const objectUrls=[];
-  function defaultEpoch(street){return catalog.defaultEpochByStreet?.[street]||'1957-58'}
-  function parse(p,view,street='24'){
-    const id=p.get('mobiliar'),r=records.get(id);
-    const epoch=epochs.includes(p.get('obdobi'))?p.get('obdobi'):r?.epoch||defaultEpoch(street);
+  function parse(p,view){
+    const epoch=epochs.includes(p.get('obdobi'))?p.get('obdobi'):'1957-58';
     const filters=p.has('mobiliardruhy')?p.get('mobiliardruhy').split(','):kinds;
     const author=['gpt','claude'].includes(p.get('autorprvku'))?p.get('autorprvku'):'all';
     const enabled=p.get('mobiliarvid')!=='0';
+    const id=p.get('mobiliar'),r=records.get(id);
     const focus=view==='street'&&enabled&&r&&r.epoch===epoch&&filters.includes(r.category)&&(author==='all'||r.author.key===author)?id:null;
     return {furnitureEpoch:epoch,furnitureKinds:kinds.filter(k=>filters.includes(k)),furnitureAuthor:author,furnitureEnabled:enabled,furnitureFocus:focus,furnitureDoc:focus&&p.get('doklad')==='1'?focus:null};
   }
@@ -28,13 +27,8 @@ export function furnitureInterface(catalog,actions){
   dialog.addEventListener('cancel',e=>{e.preventDefault();actions.close()});
   dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)actions.close()}});
   function update(state){
-    const changedStreet=current?.street!==state.street;
-    current={...state};
-    const streetRows=catalog.objects.filter(r=>String(r.streetId)===state.street);
-    if(streetRows.length){
-      q('#street-counts').textContent=q('#street-counts').textContent.replace('Fotografie','Veřejné fotografie')+' · Mobiliář '+streetRows.length+' / '+new Set(streetRows.map(r=>r.source)).size+' archivních pramenů';
-      if(changedStreet)q('#furniture-controls').open=true;
-    }
+    current=state;
+    if(state.street==='24')q('#street-counts').textContent=q('#street-counts').textContent.replace('Fotografie','Veřejné fotografie')+' · Mobiliář 19 / 6 archivních snímků';
     q('#furniture-epoch').value=state.furnitureEpoch;
     q('#furniture-enabled').checked=state.furnitureEnabled;
     q('#furniture-author').value=state.furnitureAuthor;
@@ -45,7 +39,6 @@ export function furnitureInterface(catalog,actions){
     q('#furniture-open').disabled=!state.furnitureFocus;
     q('#furniture-count').textContent=(state.furnitureEnabled?rows.length:0)+' / '+catalog.objects.length;
     const r=records.get(state.furnitureFocus);
-    if(r)q('#furniture-controls').open=true;
     q('#furniture-selected').textContent=r?r.author.name+' · '+r.author.model+'. Poloha přibližně ±'+r.positionUncertaintyM+' m.':'Vyberte prvek nebo na něj klikněte ve scéně.';
     if(r&&state.view==='street'){
       q('#place').textContent=r.title;
@@ -73,11 +66,11 @@ export function furnitureInterface(catalog,actions){
     if(!id){shown=null;generation++;if(dialog.open)dialog.close();return}
     if(shown===id&&!refresh)return;
     const r=records.get(id);if(!r)return;shown=id;const token=++generation,s=sources[r.source];
-    q('#furniture-source-kind').textContent=(s.kind==='postcard'?'PŮVODNÍ POHLEDNICE':'PŮVODNÍ FOTOGRAFIE')+' · '+catalog.epochs.find(e=>e.id===r.epoch).label;
+    q('#furniture-source-kind').textContent='PŮVODNÍ FOTOGRAFIE · '+catalog.epochs.find(e=>e.id===r.epoch).label;
     q('#furniture-title').textContent=r.title;q('#furniture-observed').textContent=r.observed;
     q('#furniture-hypothesis').textContent=r.hypothesis;
     q('#furniture-source-author').textContent='Geometrie: '+r.author.name+' · '+r.author.model+(r.author.exactModelId?' ('+r.author.exactModelId+')':' · přesné ID modelu není k dispozici')+'. Usazení a ověření: '+r.placementAuthor+'.';
-    q('#furniture-position').textContent='Odhad polohy ±'+r.positionUncertaintyM+' m. '+(r.registrationNote?r.registrationNote+' ':'')+catalog.baseContextNote;
+    q('#furniture-position').textContent='Odhad polohy ±'+r.positionUncertaintyM+' m. '+catalog.baseContextNote;
     q('#furniture-file-id').textContent=s.filename+' · Libuše '+s.id+' · SHA-256 '+s.sha256+' · '+s.bytes+' B. Metadata: '+s.metadataSnapshot+'. '+s.dateNote;
     const ref=q('#furniture-type-reference');ref.hidden=!r.typologyUrl;if(r.typologyUrl){ref.href=r.typologyUrl;ref.textContent=r.typologyTitle+' ↗'}
     q('#furniture-libuse').href=s.libuseUrl;
@@ -95,5 +88,5 @@ export function furnitureInterface(catalog,actions){
     if(url){image.src=url;image.alt=s.title;image.hidden=false;original.href=url;original.hidden=false;q('#furniture-local-needed').hidden=true;q('#furniture-source-status').textContent='Původní snímek ověřen podle SHA-256. Odkaz Celý originál otevře plné rozlišení.';}
   }
   window.addEventListener('pagehide',()=>objectUrls.forEach(u=>URL.revokeObjectURL(u)));
-  return {parse,update,show,defaultEpoch,has:id=>records.has(id),get:id=>records.get(id),kinds};
+  return {parse,update,show,has:id=>records.has(id),get:id=>records.get(id),kinds};
 }
