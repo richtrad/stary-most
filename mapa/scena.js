@@ -10,7 +10,8 @@ const rad = T.MathUtils.degToRad;
 const ground = 0.04;
 const LAYERS = ['claude','gpt'];
 export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree, message, landData, onLand, cityData, onCityItem) {
-  const renderer = new T.WebGLRenderer({canvas, antialias:true, alpha:false, powerPreference:'high-performance'});
+  // Keep centimetre-separated ground layers stable from facade to city scale.
+  const renderer = new T.WebGLRenderer({canvas, antialias:true, alpha:false, logarithmicDepthBuffer:true, powerPreference:'high-performance'});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1,2));
   T.ColorManagement.legacyMode = false;
   renderer.outputEncoding = T.sRGBEncoding;
