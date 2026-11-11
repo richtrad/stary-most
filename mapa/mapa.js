@@ -1,5 +1,5 @@
-import {loadRoofData} from './strechy/modely.js';
-import {roofInterface} from './strechy/ovladani.js';
+import {loadRoofData} from './strechy/modely.js?v=20261111-blocks2';
+import {roofInterface} from './strechy/ovladani.js?v=20261111-blocks2';
 import {furnitureInterface} from './mobiliar/ovladani.js';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-zelen2';
 import {normalizeCity} from './public-client.js';

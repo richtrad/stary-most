@@ -1,7 +1,7 @@
 import * as T from 'three';
 export async function loadRoofData(){
  const names=['manifest','gpt-roofs','claude-roofs','mesto-strechy','prameny'];
- const values=await Promise.all(names.map(async n=>{const r=await fetch('strechy/'+n+'.json');if(!r.ok)throw Error('Chybí vrstva střech: '+n);return r.json()}));
+ const values=await Promise.all(names.map(async n=>{const r=await fetch('strechy/'+n+'.json',{cache:'no-cache'});if(!r.ok)throw Error('Chybí vrstva střech: '+n);return r.json()}));
  return {manifest:values[0],gpt:values[1],claude:values[2],context:values[3],sources:values[4]};
 }
 export function roofModels(scene,data,city,changed){

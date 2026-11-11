@@ -1,4 +1,4 @@
-import {roofModels} from './strechy/modely.js';
+import {roofModels} from './strechy/modely.js?v=20261111-blocks2';
 import {buildFurniture} from './mobiliar/modely.js';
 import {cityEnvironment} from './mesto/scena.js?v=20261111-zelen2';
 import * as T from 'three';
