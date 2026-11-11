@@ -1,3 +1,4 @@
+import {furnitureInterface} from './mobiliar/ovladani.js';
 import {cityInterface,cityGroups} from './mesto/ovladani.js';
 import {normalizeCity} from './public-client.js';
 import {publicInterface} from './prostor/ovladani.js';
@@ -6,8 +7,8 @@ import {showArchiveRecord} from './archive-access.js';
 const q=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
 const canvas=q('#scene'), dialog=q('#archive'), scan=q('#scan');
-const state={detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
-let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData;
+const state={furnitureEpoch:"1957-58",furnitureKinds:[],furnitureAuthor:"all",furnitureEnabled:true,furnitureFocus:null,furnitureDoc:null,detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
+let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData,furnitureUI,furnitureCatalog;
 const status=t=>q('#map-status').textContent=t;
 function parse() {
   const p=new URLSearchParams(location.search);
@@ -37,7 +38,7 @@ function parse() {
   const street=detailFocus?String(detail.streetId):sectorStreet&&!p.has('street')?String(sectorStreet):vehicleFocus?String(focus.streetId):cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
   const cityItem=cityUI?.has(p.get('element'))?p.get('element'):null;
   const enabled=p.has('mesto')?p.get('mesto').split(','):cityGroups;
-  return {detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
+  return {...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
   const url=new URL(location.href);
@@ -45,6 +46,12 @@ function writeLink() {
   for(const k of ['cp','layer','view']) url.searchParams.set(k,state[k]);
   if(state.street!=='24')url.searchParams.set('street',state.street);
   if(state.vehicleFocus)url.searchParams.set('vozidlo',state.vehicleFocus);
+  if(state.furnitureEpoch!=='1957-58')url.searchParams.set('obdobi',state.furnitureEpoch);
+  if(state.furnitureFocus)url.searchParams.set('mobiliar',state.furnitureFocus);
+  if(state.furnitureDoc)url.searchParams.set('doklad','1');
+  if(!state.furnitureEnabled)url.searchParams.set('mobiliarvid','0');
+  if(state.furnitureAuthor!=='all')url.searchParams.set('autorprvku',state.furnitureAuthor);
+  if(furnitureUI&&state.furnitureKinds.length!==furnitureUI.kinds.length)url.searchParams.set('mobiliardruhy',state.furnitureKinds.join(','));
   if(state.detailFocus)url.searchParams.set('detail',state.detailFocus);
   if(state.detailSector)url.searchParams.set('sektor',state.detailSector);
   if(state.cityItem)url.searchParams.set('element',state.cityItem);
@@ -92,10 +99,12 @@ function update(instant=false,preserve=false) {
   cityUI?.update(state);
   landUI?.update(state);
   treeUI?.update(state);
-  if(map){map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
+  furnitureUI?.update(state);
+  if(map){map.setFurniture({epoch:state.furnitureEpoch,enabled:state.furnitureEnabled,kinds:state.furnitureKinds,author:state.furnitureAuthor},state.furnitureFocus);map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
 }
 function choose(change) {
   const onlyLayer=Object.keys(change).length===1&&'layer' in change;
+  if((change.view||change.street)&&!('furnitureFocus' in change))change.furnitureFocus=null;
   if(!('detailFocus' in change)&&(change.view||change.street))change.detailFocus=null;
   if(!('detailSector' in change)&&(change.view||change.street))change.detailSector=null;
   if(!('vehicleFocus' in change)&&(change.view||change.street))change.vehicleFocus=null;
@@ -103,10 +112,11 @@ function choose(change) {
   if(change.view==='trees' && state.vegetation==='off')change.vegetation='crowns';
   if(change.view && change.view!=='prostor')change.landId=null;
   if(change.view==='prostor' && state.view!=='prostor' && !new URL(location.href).searchParams.has('vegetation') && state.vegetation==='crowns')change.vegetation='branches';
-  Object.assign(state,change,{type:null,page:0,treeDoc:false,landDoc:false,cityItem:null});
+  Object.assign(state,change,{type:null,page:0,treeDoc:false,landDoc:false,cityItem:null,furnitureDoc:null});
   writeLink();update(false,onlyLayer);renderDoc();
 }
 function renderDoc() {
+  furnitureUI?.show(!state.type&&!state.cityItem&&!state.landDoc&&!state.treeDoc?state.furnitureDoc:null);
   cityUI?.show(state.cityItem);
   landUI?.show(state.landDoc?state.landId:null);
   treeUI?.show(state.treeDoc?state.tree:null);
@@ -150,10 +160,37 @@ function selectCity(id){
   Object.assign(state,{cityItem:id,type:null,treeDoc:false,landDoc:false});
   writeLink();renderDoc();
 }
+function selectFurniture(id,open=true){
+  const r=furnitureUI?.get(id);
+  if(!r){state.furnitureFocus=null;state.furnitureDoc=null;writeLink();update();renderDoc();return}
+  Object.assign(state,{furnitureFocus:id,furnitureDoc:open?id:null,furnitureEnabled:true,furnitureEpoch:r.epoch,view:'street',street:'24',detailFocus:null,detailSector:null,vehicleFocus:null,cityItem:null,type:null,treeDoc:false,landDoc:false});
+  if(!state.furnitureKinds.includes(r.category))state.furnitureKinds.push(r.category);
+  if(state.furnitureAuthor!=='all'&&state.furnitureAuthor!==r.author.key)state.furnitureAuthor='all';
+  writeLink();update(false,open);renderDoc();
+}
+function filterFurniture(change){
+  Object.assign(state,change);
+  const r=furnitureUI?.get(state.furnitureFocus);
+  if(r&&(!state.furnitureEnabled||!state.furnitureKinds.includes(r.category)||(state.furnitureAuthor!=='all'&&state.furnitureAuthor!==r.author.key)))state.furnitureFocus=null;
+  state.furnitureDoc=null;writeLink();update(false,true);renderDoc();
+}
 async function boot(){
   const res=await fetch('pilot.json',{cache:'no-cache'});
   if(!res.ok)throw Error('Nelze načíst katalog modelů.');
   houses=await res.json();
+  try{
+    const res=await fetch('mobiliar/mobiliar.json',{cache:'no-cache'});
+    if(!res.ok)throw Error('Katalog mobiliáře není dostupný.');
+    furnitureCatalog=await res.json();
+    furnitureUI=furnitureInterface(furnitureCatalog,{
+      select:selectFurniture,
+      epoch:epoch=>choose({furnitureEpoch:epoch,furnitureEnabled:true,furnitureFocus:null,furnitureAuthor:'all',furnitureKinds:furnitureUI.kinds.slice(),view:'street',street:'24'}),
+      filter:kinds=>filterFurniture({furnitureKinds:kinds}),
+      enable:enabled=>filterFurniture({furnitureEnabled:enabled}),
+      author:author=>filterFurniture({furnitureAuthor:author}),
+      close:()=>{state.furnitureDoc=null;writeLink();renderDoc()}
+    });
+  }catch(e){q('#furniture-controls').hidden=true;console.warn('Mobiliář Kulové se nenačetl.',e)}
   try {
     const response=await fetch('mesto/pruzkum.json',{cache:'no-cache'});
     if(!response.ok)throw Error('Celoměstský soupis není dostupný.');
@@ -223,14 +260,14 @@ async function boot(){
   });
   q('#photo').onclick=()=>openDoc('photos');q('#plan').onclick=()=>openDoc('plans');
   window.addEventListener('popstate',()=>{
-    const oldDetail=state.detailFocus,oldSector=state.detailSector,oldVehicle=state.vehicleFocus,oldStreet=state.street,oldArea=state.area,oldTree=state.tree,oldZone=state.zone,oldLand=state.landId;
-    Object.assign(state,parse());update(false,oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
+    const oldFurniture=state.furnitureFocus,oldDetail=state.detailFocus,oldSector=state.detailSector,oldVehicle=state.vehicleFocus,oldStreet=state.street,oldArea=state.area,oldTree=state.tree,oldZone=state.zone,oldLand=state.landId;
+    Object.assign(state,parse());update(false,oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
   const [scene,resp]=await Promise.all([import('./scena.js'),fetch('https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/gis/mapa/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
-  map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity);
+  map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture);
   q('#zoom-in').onclick=()=>map.zoom(.72);q('#zoom-out').onclick=()=>map.zoom(1.39);
   update(true);
   Object.defineProperty(window,'__MOST_VIEW__',{value:()=>map.inspect()});

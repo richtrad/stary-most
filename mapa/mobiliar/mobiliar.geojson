@@ -1,0 +1,601 @@
+{
+  "type": "FeatureCollection",
+  "name": "Kulová – fotograficky doložený mobiliář",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::5514"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "popelnice-265-a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790862.176,
+          -987289.297
+        ]
+      },
+      "properties": {
+        "id": "popelnice-265-a",
+        "title": "Kovová popelnice u čp. 265 · A",
+        "category": "sedacky",
+        "epoch": "1957-58",
+        "source": "S03",
+        "author": {
+          "key": "claude",
+          "name": "Anthropic · Claude",
+          "model": "Claude Opus 5.5",
+          "exactModelId": "claude-opus-5-5",
+          "declaredBy": "ANSWER_KULOVA_CLAUDE_CLOSURE_20261105_01.json",
+          "date": "2026-11-05"
+        },
+        "positionUncertaintyM": 1.5,
+        "observed": "Kruhová kovová nádoba s víkem na chodníku.",
+        "hypothesis": "Průměr 0,52 m, výška a odstín jsou odhad. Převzatá geometrie zůstává beze změny.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "popelnice-265-b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790861.486,
+          -987289.147
+        ]
+      },
+      "properties": {
+        "id": "popelnice-265-b",
+        "title": "Kovová popelnice u čp. 265 · B",
+        "category": "sedacky",
+        "epoch": "1957-58",
+        "source": "S03",
+        "author": {
+          "key": "claude",
+          "name": "Anthropic · Claude",
+          "model": "Claude Opus 5.5",
+          "exactModelId": "claude-opus-5-5",
+          "declaredBy": "ANSWER_KULOVA_CLAUDE_CLOSURE_20261105_01.json",
+          "date": "2026-11-05"
+        },
+        "positionUncertaintyM": 1.5,
+        "observed": "Druhá zřetelná nádoba v řadě před domem.",
+        "hypothesis": "Dvě nádoby jsou doložený výběr, nikoli úplný počet na fotografii.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lavicka-265",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790858.046,
+          -987288.027
+        ]
+      },
+      "properties": {
+        "id": "lavicka-265",
+        "title": "Lavička před čp. 265",
+        "category": "sedacky",
+        "epoch": "1957-58",
+        "source": "S03",
+        "author": {
+          "key": "claude",
+          "name": "Anthropic · Claude",
+          "model": "Claude Opus 5.5",
+          "exactModelId": "claude-opus-5-5",
+          "declaredBy": "ANSWER_KULOVA_CLAUDE_CLOSURE_20261105_01.json",
+          "date": "2026-11-05"
+        },
+        "positionUncertaintyM": 2,
+        "observed": "Lavička s laťovým opěradlem a kovovými bočnicemi.",
+        "hypothesis": "Délka 1,8 m a materiálové odstíny jsou odhad.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "patnik-264",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790881.126,
+          -987294.407
+        ]
+      },
+      "properties": {
+        "id": "patnik-264",
+        "title": "Ochranný kamenný sloupek u čp. 264",
+        "category": "sloupy",
+        "epoch": "1969",
+        "source": "S02",
+        "author": {
+          "key": "claude",
+          "name": "Anthropic · Claude",
+          "model": "Claude Opus 5.5",
+          "exactModelId": "claude-opus-5-5",
+          "declaredBy": "ANSWER_KULOVA_CLAUDE_CLOSURE_20261105_01.json",
+          "date": "2026-11-05"
+        },
+        "positionUncertaintyM": 1.5,
+        "observed": "Hranolový sloupek vedle elektrického sloupu.",
+        "hypothesis": "Výška 1,1 m a průřez 0,25 m jsou odhad.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "plakat-266-1900",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790840.616,
+          -987284.247
+        ]
+      },
+      "properties": {
+        "id": "plakat-266-1900",
+        "title": "Plakátovací sloup u čp. 266 · kolem 1900",
+        "category": "sloupy",
+        "epoch": "c1900",
+        "source": "S01",
+        "author": {
+          "key": "claude",
+          "name": "Anthropic · Claude",
+          "model": "Claude Opus 5.5",
+          "exactModelId": "claude-opus-5-5",
+          "declaredBy": "ANSWER_KULOVA_CLAUDE_CLOSURE_20261105_01.json",
+          "date": "2026-11-05"
+        },
+        "positionUncertaintyM": 2,
+        "observed": "Válcový plakátovací sloup s rozšířenou kuželovou stříškou u kraje fotografie.",
+        "hypothesis": "Přibližná výška 3,5 m a průměr 1,2 m. Text plakátů není čitelný a není doplněn.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "plakat-257",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790844.106,
+          -987298.677
+        ]
+      },
+      "properties": {
+        "id": "plakat-257",
+        "title": "Plakátovací sloup před čp. 257",
+        "category": "sloupy",
+        "epoch": "1957-58",
+        "source": "S27",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Válcový sloup, široká nízká stříška, koule na vrcholu a vrstvy plakátů.",
+        "hypothesis": "Výška 3,7 m, průměr, odstíny a přesná vzdálenost od nároží jsou odhad; plakáty zůstávají bez vymyšleného textu.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zabradli-stanoviste",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790845.306,
+          -987309.277
+        ]
+      },
+      "properties": {
+        "id": "zabradli-stanoviste",
+        "title": "Nízké zábradlí autobusového stanoviště",
+        "category": "zabradli",
+        "epoch": "1957-58",
+        "source": "S27",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Řada tenkých sloupků se dvěma vodorovnými příčkami před autobusem.",
+        "hypothesis": "Celková délka 14 m, výška 0,9 m a zakončení zakrytých úseků jsou odhad.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lavicka-stanoviste-a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790841.506,
+          -987308.9770000001
+        ]
+      },
+      "properties": {
+        "id": "lavicka-stanoviste-a",
+        "title": "Lavička u stanoviště · A",
+        "category": "sedacky",
+        "epoch": "1957-58",
+        "source": "S27",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Dřevěná sedací plocha a opěradlo na tmavých kovových nohách.",
+        "hypothesis": "Rozměry 1,85 m a odstíny jsou odhad; zachycené osoby nejsou součástí modelu.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lavicka-stanoviste-b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790840.706,
+          -987313.377
+        ]
+      },
+      "properties": {
+        "id": "lavicka-stanoviste-b",
+        "title": "Lavička u stanoviště · B",
+        "category": "sedacky",
+        "epoch": "1957-58",
+        "source": "S27",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Dřevěná sedací plocha a opěradlo na tmavých kovových nohách.",
+        "hypothesis": "Rozměry 1,85 m a odstíny jsou odhad; zachycené osoby nejsou součástí modelu.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "oznacnik-stanoviste",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790848.9060000001,
+          -987300.277
+        ]
+      },
+      "properties": {
+        "id": "oznacnik-stanoviste",
+        "title": "Označník autobusové zastávky",
+        "category": "doprava",
+        "epoch": "1957-58",
+        "source": "S27",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 3,
+        "observed": "Oválná horní tabulka a malá obdélníková tabulka na tenkém sloupku.",
+        "hypothesis": "Nápis ani přesný znak nelze bezpečně přečíst; tabulky zůstávají prázdné. Výška 2,7 m je odhad.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "autobus-257",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790850.306,
+          -987308.377
+        ]
+      },
+      "properties": {
+        "id": "autobus-257",
+        "title": "Autobus před čp. 257 · pravděpodobně Škoda 706 RO",
+        "category": "vozidla",
+        "epoch": "1957-58",
+        "source": "S27",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 4,
+        "observed": "Dlouhá oblá karoserie, řada bočních oken, čtyřdílné skládací dveře a střešní nosič.",
+        "hypothesis": "Určení 706 RO je pravděpodobné. Rozměry 10,66 × 2,50 × 3,15 m převzaty jako typová analogie; odstíny, skrytá strana a drobné vybavení jsou odhad. SPZ, logo ani číslo linky nejsou doplněny.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "znacka-267",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790825.206,
+          -987280.777
+        ]
+      },
+      "properties": {
+        "id": "znacka-267",
+        "title": "Zákaz vjezdu na nároží u čp. 267",
+        "category": "doprava",
+        "epoch": "1957-58",
+        "source": "S03",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 3,
+        "observed": "Kruhový štít se světlým vodorovným pruhem na nároží náměstí.",
+        "hypothesis": "Průměr, výška, červený odstín a přesná poloha podél obruby jsou modelové odhady.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lampa-260",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790935.106,
+          -987303.017
+        ]
+      },
+      "properties": {
+        "id": "lampa-260",
+        "title": "Nástěnná lampa na čp. 260",
+        "category": "svetla",
+        "epoch": "undated",
+        "source": "S16",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 1,
+        "observed": "Dlouhé ploché svítidlo na zahnuté trubkové konzole, dvě kotvy ve fasádě. Identita 260 ověřena pořadím 260–261–262–263 na plánu.",
+        "hypothesis": "Montážní výška 5,1 m, délka svítidla, zadní konstrukce a odstín jsou odhad.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "uzitkove-vozidlo",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790858.106,
+          -987293.4770000001
+        ]
+      },
+      "properties": {
+        "id": "uzitkove-vozidlo",
+        "title": "Světlé užitkové vozidlo v dolní Kulové",
+        "category": "vozidla",
+        "epoch": "undated",
+        "source": "S16",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 8,
+        "observed": "Čelní pohled na světlé vozidlo s děleným čelním sklem a zaoblenou střechou.",
+        "hypothesis": "Značka a typ zůstávají neurčené. Délka, skryté boky a rozvor jsou rekonstrukční odhad; přesná poloha na vozovce není změřena.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "konzola-259",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790934.706,
+          -987313.387
+        ]
+      },
+      "properties": {
+        "id": "konzola-259",
+        "title": "Konzola s izolátory na čp. 259",
+        "category": "sloupy",
+        "epoch": "undated",
+        "source": "S16",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 1.5,
+        "observed": "Příčná konzola s viditelnými porcelánovými izolátory u protějšího nároží.",
+        "hypothesis": "Rozteč, výška a ukotvení jsou odhad. Trasy vodičů pokračující mimo snímek se nedoplňují.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sloup-264",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790880.546,
+          -987294.247
+        ]
+      },
+      "properties": {
+        "id": "sloup-264",
+        "title": "Elektrický sloup s lampou u čp. 264",
+        "category": "svetla",
+        "epoch": "1969",
+        "source": "S02",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 1.5,
+        "observed": "Sloup s hranolovou patkou a bočním zahnutým ramenem malého svítidla.",
+        "hypothesis": "Horní konec je mimo záběr; celková výška 7,1 m je odhad. Nedoložené čtyři horní izolátory ze starší varianty nejsou převzaty.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sloup-263",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790895.356,
+          -987297.127
+        ]
+      },
+      "properties": {
+        "id": "sloup-263",
+        "title": "Elektrický sloup při styku čp. 262 a 263",
+        "category": "sloupy",
+        "epoch": "1969",
+        "source": "S02",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 2,
+        "observed": "Tenký vzpřímený sloup při styku obou domů.",
+        "hypothesis": "Výška 6,8 m, průřez a detaily mimo snímek jsou odhad. Nedoložené příčné dráty nepřebíráme.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "schody-skola",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790951.106,
+          -987300.927
+        ]
+      },
+      "properties": {
+        "id": "schody-skola",
+        "title": "Zábradlí schodů za starou školou",
+        "category": "zabradli",
+        "epoch": "c1968",
+        "source": "S11",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 3,
+        "observed": "Oboustranné kovové zábradlí s hustými svislými pruty, kamenné zídky a stupně; za čp. 150–153 směrem k Rooseveltově ulici.",
+        "hypothesis": "Zákres vede volným koridorem podél jižní stěny školy. Přesný výškový profil, počet stupňů a šířka nejsou změřeny; schodišťová podnož je orientační. Okolní městské objemy jsou z jiných podkladů a nejsou rekonstrukcí roku 1968.",
+        "status": "provisional",
+        "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lampa-skola",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -790956.306,
+          -987300.677
+        ]
+      },
+      "properties": {
+        "id": "lampa-skola",
+        "title": "Krátká nástěnná lampa školy čp. 153",
+        "category": "svetla",
+        "epoch": "c1968",
+        "source": "S11",
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "exactModelId": null,
+          "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
+          "date": "2026-11-11"
+        },
+        "positionUncertaintyM": 2,
+        "observed": "Ploché podlouhlé svítidlo na krátké konzole na rohu školní zdi.",
+        "hypothesis": "Výška a rozměry odhadnuté ze snímku; škola je v městském GIS vedena jako společný objekt čp. 150.",
+        "status": "provisional",
+        "locked": false
+      }
+    }
+  ]
+}

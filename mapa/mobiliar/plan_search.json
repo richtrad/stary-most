@@ -1,0 +1,48 @@
+{
+  "firstStep": "Vyhledání plánů domů, sousedů a celé Kulové včetně PLANE,BW; otevření plánů a původních fotografií před modelováním.",
+  "scope": "Uliční mobiliář a vozidla Kulové; domovní fasády se v této dávce nemění.",
+  "currentApi": {
+    "url": "https://libuse.vugtk.cz:3000/areas/f471058c-fd9e-4f61-aa16-551feff64b5e",
+    "error": "<urlopen error [WinError 10061] Nemohlo být vytvořeno žádné připojení, protože cílový počítač je aktivně odmítl>",
+    "status": "unavailable",
+    "checkedUtc": "2026-11-11T04:43:12.997803+00:00"
+  },
+  "snapshots": [
+    {
+      "date": "2026-10-17",
+      "attachments": 104,
+      "structures": 26
+    },
+    {
+      "date": "2026-11-05",
+      "source": "Claude closure plan_search + area_live snapshot"
+    }
+  ],
+  "status": "found_in_dated_local_snapshot; live_scope_unavailable",
+  "plansVisuallyOpened": [
+    {
+      "sourceKey": "S15",
+      "reading": "Blok 260,261,262,263; průčelí do Kulové a Dobrovolců za rohovým 260. Bez doloženého měřítka či data; zdroj orientace a sousednosti, nikoli metrické měření."
+    },
+    {
+      "sourceKey": "S31",
+      "reading": "Blok 256,257; Kulová při bočním průčelí 257, čelo 257 do Šmeralova náměstí. Zahrady a dvory za domy; bez doloženého měřítka/data."
+    }
+  ],
+  "furnitureConstructionPlans": "not_found_in_searched_scope",
+  "placementPolicy": "GIS půdorysy + sousednost z plánů + fotografická vazba na fasády. Rozměry a odlehlé polohy jsou model_hypothesis, provisional, locked:false.",
+  "registrationCorrections": [
+    {
+      "source": "S16",
+      "finding": "Pohled z horního konce směrem k náměstí. Zleva v hloubce jdou 260, nízký 261, vysoký 262, 263. Nástěnná lampa v levém popředí patří čp.260, nikoli262."
+    }
+  ],
+  "next": [
+    "Převzetí jen samostatně hashově ověřených Claudeových objektů, kontrola fotografie",
+    "Nové nízkopolygonové modely podle viditelné siluety; žádné domyšlené nápisy",
+    "Samostatná fotografická období a nejistota každého objektu",
+    "Vizuální QA v prohlížeči, kontrola kliknutí a pramene",
+    "Publikace modelů a metadat, soukromé originály zůstávají mimo veřejný repozitář",
+    "SHA-256 zálohy E/F"
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Starý Most | Ulice, parky a dobové fotografie</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
-<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css">
+<link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css"><link rel="stylesheet" href="mobiliar/mobiliar.css">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -30,7 +30,20 @@
 <label class="sr-only" for="city-features">Prvky vybrané ulice</label><select id="city-features"></select>
 <details class="street-reading"><summary>Stav průzkumu ulice</summary><p class="tree-note" id="street-review"></p><p class="tree-note">Přehledový průchod ortofotem proběhl ve všech 132 uličních úsecích. Podrobný soupis drobných objektů pokračuje.</p></details>
 </section>
-<details class="control tree-controls" id="detail-controls" open>
+<details class="control tree-controls" id="furniture-controls" open>
+<summary><strong>Kulová · mobiliář z fotografií</strong><span id="furniture-count"></span></summary>
+<label class="tree-check"><input type="checkbox" id="furniture-enabled" checked> Zobrazit mobiliář a vozidla</label>
+<label class="tree-field" for="furniture-epoch">Fotografická scéna</label><select id="furniture-epoch"></select>
+<div id="furniture-filters" aria-label="Druhy mobiliáře"></div>
+<label class="tree-field" for="furniture-author">Autor geometrie mobiliáře</label><select id="furniture-author"><option value="all">Claude i GPT</option><option value="claude">Claude · Opus 5.5</option><option value="gpt">OpenAI · Codex (GPT-6)</option></select>
+<label class="sr-only" for="furniture-select">Přiblížit mobiliář Kulové</label>
+<div class="tree-choice"><select id="furniture-select"></select><button type="button" id="furniture-open" disabled>Fotografie ↗</button></div>
+<p id="furniture-selected" class="tree-note"></p>
+<p class="tree-note">Období mění tuto vrstvu. Okolní město kombinuje různé podklady, zejména rok 1964. Polohy a nedoložené podrobnosti mají uvedenou nejistotu.</p>
+<details><summary>Připojit vlastní archivní snímky</summary><p class="tree-note">Vyberte jednou původní fotografie z Libuše. Po ověření SHA-256 je otevře kliknutí na příslušný prvek. Snímky se nikam neodesílají.</p><label class="tree-field" for="furniture-import">Původní fotografie</label><input type="file" id="furniture-import" accept="image/*" multiple><p id="furniture-import-status" role="status"></p></details>
+<p class="tree-note"><a href="mobiliar/mobiliar.geojson" download>Mobiliář pro GIS ↗</a> · <a href="mobiliar/README.md">Prameny a autorství ↗</a></p>
+</details>
+<details class="control tree-controls" id="detail-controls">
 <summary><strong>Dvory, zahrady a drobné prvky</strong><span id="detail-summary"></span></summary>
 <div id="detail-filters" class="detail-filters" aria-label="Druhy drobných prvků"></div>
 <label class="tree-field" for="detail-sector">Procházet město po oblastech</label>
@@ -65,7 +78,7 @@
 <div class="tree-choice"><select id="land-feature" aria-label="Jednotlivý povrch nebo uliční prvek"></select><button type="button" id="land-open" disabled>Pramen ↗</button></div>
 <p class="tree-note">Odečet a model sadů vytvořil OpenAI · Codex (GPT-6). Vozovku, chodníky a obruby Kulové modeloval Claude Opus 5.5.</p>
 <div class="land-links"><a href="./letecke-snimky/?prostor=1#soupis">Porovnat s ortofotem ↗</a><a href="./prostor/prostor.geojson" download>GeoJSON</a></div>
-<details class="land-candidate"><summary>Lampa na uliční fotografii</summary><p class="tree-note">Vlevo na fasádě je svítidlo na zahnuté konzole. Přesné umístění držáku a rok snímku zůstávají otevřené.</p><a href="https://libuse.vugtk.cz:3004/manager/streets">Archivní evidence v Libuši</a></details>
+<p class="tree-note"><a href="?view=street&amp;obdobi=undated&amp;mobiliar=lampa-260">Lampa doložená na čp. 260 ↗</a></p>
 </details>
 <section class="control tree-controls" id="tree-controls" aria-labelledby="tree-label">
 <div class="tree-head"><h2 id="tree-label">Stromy</h2><span id="tree-summary"></span></div>
@@ -93,6 +106,14 @@
 <p id="context">Městský GIS obsahuje 1 400 půdorysů a 132 uličních úseků. Objemové domy mají orientační výšku. Podrobné modely tří domů v Kulové otevřete tlačítkem Fasáda.</p>
 </aside>
 </main>
+<dialog id="furniture-source" aria-labelledby="furniture-title">
+<div class="doc-head"><div><p class="kicker" id="furniture-source-kind"></p><h2 id="furniture-title"></h2></div><button type="button" id="furniture-close" aria-label="Zavřít fotografii mobiliáře">×</button></div>
+<img id="furniture-scan" alt="" hidden>
+<section id="furniture-local-needed"><strong>Původní fotografie v Libuši</strong><p>Originál je v projektovém archivu. Máte-li jej uložený, otevřete ho zde; prohlížeč ověří shodu podle SHA-256.</p><label for="furniture-file">Vybrat původní snímek</label> <input id="furniture-file" type="file" accept="image/*"></section>
+<div class="doc-foot"><p id="furniture-source-status" role="status"></p><p id="furniture-observed"></p><p id="furniture-hypothesis"></p>
+<div class="furniture-links"><a id="furniture-original" target="_blank" rel="noopener" hidden>Celý originál ↗</a><a id="furniture-libuse" target="_blank" rel="noopener">Otevřít Libuši ↗</a><a id="furniture-type-reference" target="_blank" rel="noopener" hidden></a></div>
+<p id="furniture-source-author"></p><details><summary>Poloha a identita pramene</summary><p id="furniture-position"></p><p id="furniture-file-id"></p></details></div>
+</dialog>
 <dialog id="city-source" aria-labelledby="city-title">
 <div class="doc-head"><div><p class="kicker" id="city-source-kind"></p><h2 id="city-title"></h2></div><button type="button" id="city-close" aria-label="Zavřít městský pramen">×</button></div>
 <div id="city-source-options"><label for="city-source-layer">Podklad</label><select id="city-source-layer"><option value="ortho64">Ortofoto 1964</option><option value="cenia">Historické ortofoto CENIA</option><option value="plan50">Orientační plán · 50. léta</option><option value="plan38">Plán 1938</option><option value="plan30">Granznerův plán · 30. léta</option></select><label class="tree-check"><input type="checkbox" id="city-outline" checked> Vyznačit zákres</label></div>
