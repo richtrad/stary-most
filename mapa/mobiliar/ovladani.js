@@ -55,7 +55,11 @@ export function furnitureInterface(catalog,actions){
     }
     const msg=found?'Připojeno '+found+' ověřených snímků. Soubory zůstávají pouze v tomto prohlížeči.':'Žádný soubor neodpovídá velikostí a SHA-256 původním snímkům této vrstvy.';
     q('#furniture-import-status').textContent=msg;q('#furniture-source-status').textContent=msg;
-    if(shown)show(shown,true);
+    if(shown){
+      await show(shown,true);
+      const source=sources[records.get(shown).source];
+      if(!local.has(source.id))q('#furniture-source-status').textContent=found?msg+' Výběr neobsahoval pramen právě vybraného objektu.':msg;
+    }
   }
   for(const id of ['#furniture-import','#furniture-file'])q(id).onchange=e=>acceptFiles([...e.target.files]).catch(()=>q('#furniture-source-status').textContent='Snímek se nepodařilo ověřit.');
   async function show(id,refresh=false){
