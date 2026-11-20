@@ -11,7 +11,7 @@ let catalog,house,street,active,neighbors,camera,renderer,controls,request=0;
 let streetHouses=[];
 let pickedMode=['auto','relief','foto'].includes(query.get('lod'))?query.get('lod'):'auto';
 let layer=query.get('layer')==='claude'?'claude':'gpt',wide=false,frame=0;
-let currentDialog=null, sourceGeneration=0;
+let currentDialog=null, reopenAfterPack=null, sourceGeneration=0;
 const localHost=['127.0.0.1','localhost','[::1]'].includes(location.hostname);
 
 async function json(url) {
@@ -176,6 +176,8 @@ async function readPack(file){
   const status=$('#pack-notice');
   try{
     status.textContent='Ověřuji fotografie a jejich kontrolní součty…';
+    const maxSize=4096+[...officialFiles.values()].reduce((sum,rec)=>sum+4*Math.ceil(rec.bytes/3)+120,0);
+    if(file.size>maxSize)throw Error('Soubor je větší než celý archiv tohoto pilotu.');
     const pack=JSON.parse(await file.text());
     if(pack.schema!=='most-front-1'||!Array.isArray(pack.images)||pack.images.length>officialFiles.size)throw Error('Soubor není archivní balíček tohoto pilotu.');
     const verified=new Map();
@@ -191,7 +193,9 @@ async function readPack(file){
     for(const [id,blob] of verified)if(!localFiles.has(id))localFiles.set(id,{url:URL.createObjectURL(blob)});
     for(const obj of streetHouses)if(obj.photoMat.userData.failed)obj.requestedURL=null;
     status.textContent='Ověřeno '+localFiles.size+' souborů. Archiv je připraven.';
-    if($('#viewer').open)showOriginal(currentDialog);invalidate();
+    if($('#viewer').open)showOriginal(currentDialog);
+    else if(reopenAfterPack)showOriginal(reopenAfterPack);
+    reopenAfterPack=null;invalidate();
   }catch(error){status.textContent=error.message||'Balíček se nepodařilo otevřít.'}
 }
 function report(err){$('#lod-status').textContent=err.message||'Zobrazení modelu se nepodařilo načíst.'}
@@ -235,7 +239,8 @@ async function main(){
   $('#source').onclick=()=>showOriginal();
   $('#close').onclick=()=>{currentDialog=null;sourceGeneration++;$('#viewer').close()};
   $('#viewer').addEventListener('close',()=>{currentDialog=null;sourceGeneration++});
-  $('#choose-pack').onclick=()=>{$('#viewer').close();$('#pack').click()};
+  $('#choose-pack').onclick=()=>{reopenAfterPack=currentDialog;$('#viewer').close();$('#pack').click()};
+  $('#pack').addEventListener('cancel',()=>{if(reopenAfterPack)showOriginal(reopenAfterPack);reopenAfterPack=null});
   $('#pack').onchange=()=>{const f=$('#pack').files[0];if(f)readPack(f);$('#pack').value=''};
   const streetStart=catalog.houses.find(h=>h.streetId===Number(query.get('street')));
   await selectHouse(query.get('cp')||streetStart?.cp||'266');
