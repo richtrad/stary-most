@@ -1,4 +1,5 @@
 import {roofModels} from './strechy/modely.js?v=20261120-vzhled';
+import {placeFront} from './pruceli/model.js';
 import {buildFurniture} from './mobiliar/modely.js?v=20261120-vzhled';
 import {cityEnvironment} from './mesto/scena.js?v=20261120-vzhled';
 import * as T from 'three';
@@ -100,7 +101,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       const plinth = new T.Mesh(shell(parts,Math.max(0.01,houses[cp].position[1])),plinthMat);
       plinth.receiveShadow=true;
       scene.add(plinth);
-      pilots[cp] = {proxy, anchor:vec(...houses[cp].position), models:{}};
+      pilots[cp] = {proxy, plinth, anchor:vec(...houses[cp].position), models:{}, fronts:{}, active:null};
       continue;
     }
     if(roofIds.has(id)){geo.dispose();continue}
@@ -158,7 +159,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   const loader=new GLTFLoader(), ray=new T.Raycaster();
   const axisY=vec(0,1,0);
   const pending=new Map(), failures=new Set();
-  let cp='262',layer='claude',view='city',flight=null,handMoved=false,usingDetails=false,dirty=false;
+  let cp='262',layer='claude',view='city',houseLevel='pruceli',flight=null,handMoved=false,usingDetails=false,dirty=false;
   let injectedStatus='', lastStatus='', needsRender=true;
   const roofs=roofData?roofModels(scene,roofData,city,()=>{needsRender=true},appearance,roofIds):null;
   let roofFocus=null,roofContext=true;
@@ -179,7 +180,12 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     return {center,normal:normal.applyAxisAngle(axisY,rad(h.yaw)),len};
   }
   function status() {
-    const key=cp+'-'+layer, item=pilots[cp].models[layer];
+    const key=modelKey(cp,layer), item=pilots[cp].active;
+    if(view==='facade' && houseLevel!=='detail' && !houses[cp].frontModel?.variants[layer]){
+      const s='Průčelí tohoto domu čeká na zaměření. Kliknutím otevřete dostupný pramen.';
+      if(s!==lastStatus){message(s);lastStatus=s}
+      return;
+    }
     const s=injectedStatus || (view==='facade' && usingDetails ? (failures.has(key) ? 'Model se nepodařilo načíst. Znovu otevřete vrstvu.' : item ? 'Kliknutím na doložené průčelí otevřete původní fotografii.' : 'Načítám model domu…') : view==='prostor'?(land?.status()==='error'?'3D povrchy se nepodařilo načíst. Otevřete mapu na ortofotu.':'Kliknutím na cestu, trávník nebo uliční prvek otevřete jeho pramen.'):view==='trees'?(treeMode==='off'?'Vrstva stromů je skrytá.':'Kliknutím na strom otevřete jeho letecký pramen.'):view==='street'?'Kliknutím na povrch, strom nebo značku fotografie otevřete pramen.':'Tažení otáčí pohled. Kolečkem nebo dvěma prsty změníte měřítko.');
     if(s!==lastStatus){message(s);lastStatus=s}
   }
@@ -212,12 +218,22 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       binding.mesh.material=next==='materials'?binding.plain:binding.original;
     needsRender=true;
   }
+  function modelKey(code,key) {return code+'-'+key+(houseLevel==='detail'?'':'-pruceli')}
   async function loadModel(code,key) {
-    const data=houses[code], p=pilots[code], token=code+'-'+key;
-    if(p.models[key] || pending.has(token) || failures.has(token)) return;
+    const data=houses[code], p=pilots[code], token=modelKey(code,key);
+    const full=houseLevel==='detail', variant=full?data.variants[key]:data.frontModel?.variants[key];
+    if(!variant)return;
+    if((full?p.models[key]:p.fronts[key]) || pending.has(token) || failures.has(token)) return;
     pending.set(token,true);
     try {
-      const file=await loader.loadAsync(data.variants[key].url);
+      const file=await loader.loadAsync(variant.url);
+      if(!full){
+        const result=placeFront(file,data,variant,appearance);
+        groups[key].add(result.group);
+        result.group.updateMatrixWorld(true);
+        p.fronts[key]=result;
+        return;
+      }
       const group=new T.Group();
       group.position.copy(p.anchor);
       group.rotation.y=rad(data.yaw);
@@ -246,19 +262,31 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   }
   function updateLevel() {
     const target=controls.target;
-    const near=view==='facade' && camera.position.distanceTo(target)<350 && Math.hypot(target.x+27,target.z+120)<235;
+    const distance=camera.position.distanceTo(target);
+    const full=houseLevel==='detail';
+    const inPilot=Math.hypot(target.x+27,target.z+120)<235;
+    const near=inPilot && distance<(full?350:720);
     if(near===usingDetails && !dirty) return;
     dirty=false;usingDetails=near;
     appearance.changed();
-    if(near)loadGround();
-    streetGround.visible=near&&surfaceState==='ready';coarseKulova.visible=!streetGround.visible;
+    if(near&&full)loadGround();
+    streetGround.visible=near&&full&&surfaceState==='ready';coarseKulova.visible=!streetGround.visible;
     land?.setNear(streetGround.visible);
     for(const key of LAYERS) groups[key].visible=near && key===layer;
+    const hidden=new Set();
     for(const [code,p] of Object.entries(pilots)) {
       if(near) loadModel(code,layer);
-      p.proxy.visible=!(near && p.models[layer]) && !roofs?.has(code);
+      p.active=near?(full?p.models[layer]:p.fronts[layer]?.group):null;
+      for(const model of Object.values(p.models))model.visible=model===p.active;
+      for(const front of Object.values(p.fronts)){
+        front.group.visible=front.group===p.active;
+        if(front.group.visible)front.setLevel(houseLevel);
+      }
+      p.plinth.visible=!!p.active;
+      p.proxy.visible=!p.active && !roofs?.has(code);
+      if(p.active)hidden.add(code);
     }
-    roofs?.configure(layer,new Set(near?Object.entries(pilots).filter(([,p])=>p.models[layer]).map(([code])=>code):[]),contextMat.clippingPlanes,roofContext);
+    roofs?.configure(layer,hidden,contextMat.clippingPlanes,roofContext);
     status();
   }
   function pilotDestination(cornerOnly) {
@@ -368,8 +396,10 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     }
     return [t,t.clone().addScaledVector(dir,dist)];
   }
-  function setHouse(code,key,mode,instant=false,preserve=false) {
+  function setHouse(code,key,mode,instant=false,preserve=false,nextLevel=houseLevel) {
     const prev=cp, prevMode=view, oldLayer=layer;
+    if(houseLevel!==nextLevel || oldLayer!==key) failures.delete(code+'-'+key+(nextLevel==='detail'?'':'-pruceli'));
+    houseLevel=nextLevel;
     cp=code;layer=key;view=mode;injectedStatus='';
     if(oldLayer!==layer && failures.has(cp+'-'+layer)) failures.delete(cp+'-'+layer);
     const h=houses[cp], f=face(h);
@@ -461,13 +491,16 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     }
   }
   function hitFace(code,hits) {
+    if(hits.object.userData.photoFront===false)return false;
     const h=houses[code];
-    const toLocal=p=>p.clone().sub(pilots[code].anchor).applyAxisAngle(axisY,-rad(h.yaw));
+    const anchor=pilots[code].anchor.clone();
+    if(!pilots[code].active)anchor.y=0;
+    const toLocal=p=>p.clone().sub(anchor).applyAxisAngle(axisY,-rad(h.yaw));
     const [[ax,az],[bx,bz]]=h.edge, dx=bx-ax,dz=bz-az,len=Math.hypot(dx,dz);
     const localCamera=toLocal(camera.position);
     if((-(localCamera.x-ax)*dz+(localCamera.z-az)*dx)/len<=0.1) return false;
     const worldNormal=hits.face.normal.clone().applyNormalMatrix(new T.Matrix3().getNormalMatrix(hits.object.matrixWorld));
-    if(worldNormal.y>.65)return false;
+    if(worldNormal.y>.65 && !hits.object.userData.photoFront)return false;
     const p=toLocal(hits.point);
     const along=((p.x-ax)*dx+(p.z-az)*dz)/len;
     const depth=(-(p.x-ax)*dz+(p.z-az)*dx)/len;
@@ -482,8 +515,12 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     if(Math.hypot(e.clientX-start[0],e.clientY-start[1])>5)return;
     const r=canvas.getBoundingClientRect();
     ray.setFromCamera(new T.Vector2((e.clientX-r.left)*2/r.width-1,1-(e.clientY-r.top)*2/r.height),camera);
-    const targets=Object.values(pilots).map(p=>p.proxy.visible?p.proxy:usingDetails&&p.models[layer]).filter(Boolean);
-    const hit=ray.intersectObjects(targets,true)[0];
+    const targets=[];
+    for(const p of Object.values(pilots)){
+      if(p.proxy.visible)targets.push(p.proxy);
+      else p.active?.traverseVisible(o=>{if(o.isMesh)targets.push(o)});
+    }
+    const hit=ray.intersectObjects(targets,false)[0];
     const tree=vegetation?.pick(ray);
     const item=land?.pick(ray);
     const cityHit=environment?.pick(ray);
@@ -548,5 +585,5 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     appearance.set(name);
     needsRender = true;
   }
-  return {setAppearance,focusBridge,setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({appearance:appearance.name,roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {setAppearance,focusBridge,setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({appearance:appearance.name,roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,houseLevel,activeHouses:Object.keys(pilots).filter(code=>pilots[code].active),frontReady:Object.fromEntries(Object.entries(pilots).map(([code,p])=>[code,Object.keys(p.fronts)])),surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }

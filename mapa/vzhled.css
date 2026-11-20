@@ -16,7 +16,8 @@
 .looks [aria-pressed="true"] .swatch { border-color: #e6e7cd99; }
 #appearance-note { margin: 5px 0 0; line-height: 1.35; }
 .pilot-row { display: grid; grid-template-columns: 48px 1fr; align-items: center; gap: 7px; margin-top: 9px; }
-.pilot-row > span { font-size: 12px; font-weight: 650; }
+.pilot-row > span, .pilot-row > label { font-size: 12px; font-weight: 650; }
+.pilot-row select { min-width: 0; width: 100%; padding: 7px 9px; min-height: 34px; color: #223d32; background: #fffdf5; border: 1px solid #acb8a9; border-radius: 5px; font: inherit; font-size: 13px; }
 .pilot-row .segmented button { font-size: 12px; min-height: 33px; padding: 4px; }
 .pin::before {
   content: ''; position: absolute; top: calc(100% + 4px); left: 50%;

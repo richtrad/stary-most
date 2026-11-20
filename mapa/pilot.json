@@ -36,6 +36,16 @@
         "recordId": "cp_261,262,263_001.jpg",
         "sha256": "9e44e922e859484911fb530cffaba6a2bc3bd536c743bbcf52404054c2481564",
         "bytes": 796812
+      },
+      {
+        "url": "https://raw.githubusercontent.com/richtrad/most/7ab5374b7a93714dc41d683c7089e2e9c63d479d/kulova/assets/src/8422592be67258a9.jpg",
+        "title": "Čp. 261 v řadě domů v Kulové",
+        "short": "Průčelí čp. 261",
+        "note": "Čp. 261 je nízký dům u levého okraje snímku. Šikmý záběr zachycuje také krajní okna a vstup ve druhé ose. Otevírá se zveřejněná reprodukce původní fotografie.",
+        "collection": "Projekt MOST · zveřejněná reprodukce",
+        "recordId": "0f962278-bb6e-4f48-b7d6-6e3b67e7e861",
+        "sha256": "6b7cbf0af9cf6e143f7651be1c7e4c02ffdcb6e5a36662399f48a62488bea9b0",
+        "openLabel": "Otevřít celou fotografii ↗"
       }
     ],
     "plans": [
@@ -77,6 +87,67 @@
           "GENERATED_PLASTER": "#71644e",
           "GENERATED_ROOF": "#6f4c37",
           "SOURCE_PAINTED_WINDOW_TIMBER": "#c0c2c4"
+        }
+      }
+    },
+    "frontModel": {
+      "photo": 1,
+      "maker": "OpenAI Codex · GPT-6.2 Astra",
+      "scope": "Šest oken v patře a čtyři v přízemí. Uliční fotografie a zaměření z roku 1965 kladou vstup do druhé osy zleva.",
+      "variants": {
+        "gpt": {
+          "url": "pruceli/261-gpt-pruceli-v1.glb",
+          "roofAuthor": "OpenAI Codex · rodina GPT-6 (přesná verze nedoložena)",
+          "roofRevision": "gpt-20261111-v1",
+          "sha256": "98a4d5dac339436bd9def524bd80ceea5d27ac0154dabc2aaffe88b96e21010b",
+          "bytes": 48864,
+          "outline": [
+            [
+              [
+                0.0,
+                -0.0002
+              ],
+              [
+                -0.0001,
+                7.1002
+              ],
+              [
+                13.7491,
+                7.1001
+              ],
+              [
+                13.749,
+                -0.0002
+              ]
+            ]
+          ]
+        },
+        "claude": {
+          "url": "pruceli/261-claude-pruceli-v1.glb",
+          "roofAuthor": "Claude Opus 5.5",
+          "roofRevision": "r7m",
+          "sha256": "45343792a542fdc058f72184a1cc388f52e5e6553dfe6a77749bbce131babe76",
+          "bytes": 77920,
+          "outline": [
+            [
+              [
+                13.7462,
+                0.0
+              ],
+              [
+                -0.0001,
+                -0.0002
+              ],
+              [
+                -0.0002,
+                7.1001
+              ],
+              [
+                13.7461,
+                7.1002
+              ]
+            ]
+          ]
         }
       }
     }
@@ -164,7 +235,68 @@
         }
       }
     },
-    "parcel1937": "152"
+    "parcel1937": "152",
+    "frontModel": {
+      "photo": 0,
+      "maker": "OpenAI Codex · GPT-6.2 Astra",
+      "scope": "Pět přízemních oken a průjezd vlevo, v každém patře šest oken. V atice jsou čtyři okénka a dvě slepá pole. Tvary nadokenních říms vycházejí z pohledu z věže.",
+      "variants": {
+        "gpt": {
+          "url": "pruceli/262-gpt-pruceli-v1.glb",
+          "roofAuthor": "OpenAI Codex · rodina GPT-6 (přesná verze nedoložena)",
+          "roofRevision": "gpt-20261111-v1",
+          "sha256": "9934c29b1aa84980329e12aabdf4e649eae73ee1744a4c967fc2e91fb85a7614",
+          "bytes": 238556,
+          "outline": [
+            [
+              [
+                -0.0,
+                13.9002
+              ],
+              [
+                16.9013,
+                13.9002
+              ],
+              [
+                16.9014,
+                -0.0001
+              ],
+              [
+                -0.0001,
+                -0.0002
+              ]
+            ]
+          ]
+        },
+        "claude": {
+          "url": "pruceli/262-claude-pruceli-v1.glb",
+          "roofAuthor": "Claude Opus 5.5",
+          "roofRevision": "r7m",
+          "sha256": "c223ff409f2ed7face0eb51f2010ababaa0fa414f65758a8e682b13832eaa3a6",
+          "bytes": 248056,
+          "outline": [
+            [
+              [
+                16.5002,
+                0.0
+              ],
+              [
+                -0.0001,
+                -0.0002
+              ],
+              [
+                -0.0002,
+                13.9001
+              ],
+              [
+                16.5001,
+                13.9002
+              ]
+            ]
+          ]
+        }
+      }
+    }
   },
   "267": {
     "id": 14,
@@ -263,6 +395,79 @@
     },
     "parcel1937": "170",
     "trueBearing": 158.5,
-    "gridBearing": 166.86
+    "gridBearing": 166.86,
+    "frontModel": {
+      "photo": 1,
+      "maker": "OpenAI Codex · GPT-6.2 Astra",
+      "scope": "Dvě patra po šesti oknech. V přízemí do Šmeralova náměstí jsou tři okna, dva vstupy a výloha. Karta z let 1957–58 zachycuje jen část navazující boční fasády.",
+      "variants": {
+        "gpt": {
+          "url": "pruceli/267-gpt-pruceli-v1.glb",
+          "roofAuthor": "OpenAI Codex · rodina GPT-6 (přesná verze nedoložena)",
+          "roofRevision": "gpt-20261111-v1",
+          "sha256": "7f9f7d455dcff98ac976238e0a8cf7b389ff1c1a2d57abd68dd7a2bc60acfa16",
+          "bytes": 150188,
+          "outline": [
+            [
+              [
+                -0.0034,
+                12.2
+              ],
+              [
+                0.3929,
+                12.484
+              ],
+              [
+                9.5973,
+                12.2143
+              ],
+              [
+                10.1256,
+                12.5567
+              ],
+              [
+                17.5974,
+                12.2002
+              ],
+              [
+                17.5975,
+                -0.0001
+              ],
+              [
+                -0.0033,
+                -0.0002
+              ]
+            ]
+          ]
+        },
+        "claude": {
+          "url": "pruceli/267-claude-pruceli-v1.glb",
+          "roofAuthor": "Claude Opus 5.5",
+          "roofRevision": "r7",
+          "sha256": "29deac55989b2650a8b4c92ad2506c5247d29184c8a06065d26514522f5e0c6f",
+          "bytes": 154716,
+          "outline": [
+            [
+              [
+                16.7473,
+                0.0
+              ],
+              [
+                -0.0001,
+                -0.0002
+              ],
+              [
+                -0.0002,
+                12.2001
+              ],
+              [
+                16.7472,
+                12.2002
+              ]
+            ]
+          ]
+        }
+      }
+    }
   }
 }

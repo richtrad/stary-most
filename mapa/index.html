@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Starý Most | Ulice, parky a dobové fotografie</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
 <link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css"><link rel="stylesheet" href="mobiliar/mobiliar.css"><link rel="stylesheet" href="strechy/strechy.css">
-<link rel="stylesheet" href="vzhled.css">
+<link rel="stylesheet" href="vzhled.css?v=20261120-pruceli1">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -29,6 +29,7 @@
   <p class="tree-note" id="appearance-note" hidden>Barvy diorámatu jsou výtvarnou interpretací.</p>
   <div class="pilot-row"><span id="shot-label">Záběr</span><div class="segmented" role="group" aria-labelledby="shot-label"><button type="button" data-shot="street">Celá Kulová</button><button type="button" data-shot="corner">Ústí do náměstí</button></div></div>
   <div class="pilot-row"><span id="maker-label">Modely</span><div class="segmented" role="group" aria-labelledby="maker-label"><button type="button" data-layer="claude">Claude</button><button type="button" data-layer="gpt">GPT · Codex</button></div></div>
+  <div class="pilot-row"><label for="house-level">Domy</label><select id="house-level"><option value="hmota">Jen hmota domu</option><option value="pruceli" selected>Průčelí podle fotografií</option><option value="detail">Podrobný model</option></select></div>
 </section>
 <nav aria-label="Měřítko pohledu"><button data-view="city">Celý Most</button><button data-view="street">Ulice</button><button data-view="facade">Fasáda</button><button data-view="trees">Stromy</button><button data-view="prostor">Povrchy</button></nav>
 <section class="control tree-controls city-streets" aria-labelledby="street-label">
@@ -120,14 +121,14 @@
 <button data-cp="267"><b>Čp. 267</b><span>Nároží Šmeralova náměstí</span></button>
 </div></section>
 <section class="control" aria-label="Povrch a autor vybraného domu">
-<div class="surface-picker"><h2 id="surface-label">Povrch budov</h2>
+<div class="surface-picker" id="full-surface" hidden><h2 id="surface-label">Povrch podrobného modelu</h2>
 <div class="segmented" role="group" aria-labelledby="surface-label"><button type="button" data-surface="original">S texturami</button><button type="button" data-surface="materials">Jen materiály</button></div>
 <p id="surface-note" hidden></p></div>
-<div id="credit" aria-live="polite"><strong></strong><p></p><details><summary>Verze a stav ověření</summary><p class="scope"></p><code></code></details></div></section>
+<div id="credit" aria-live="polite"><strong></strong><p></p><details><summary>Verze a stav ověření</summary><p class="scope"></p><p id="front-measurements"><a href="pruceli/mereni.json" target="_blank" rel="noopener">Zaměření otvorů na fotografiích ↗</a></p><code></code></details></div></section>
 <section class="control"><h2>Archivní prameny</h2><p class="address" id="address"></p><div class="source-actions"><button id="photo">Původní fotografie <span aria-hidden="true">↗</span></button><button id="plan">Situační plán</button></div>
 <p class="address"><a style="color:inherit" href="./letecke-snimky/" target="_blank" rel="noopener">Letecké snímky, povrchy a stromy ↗</a></p>
 <details class="registration"><summary>Jak je dům usazený</summary><p id="registration"></p><p>Čísla za lomítkem jsou označení zakreslená na listech. Parcelní čísla vycházejí ze situace z roku 1937. Terén a chodníky pro obě vrstvy vytvořil Claude Opus 5.5. Výšku prahů určuje předpokládaný dvouprocentní sklon ulice.</p></details></section>
-<p id="context">Městský GIS obsahuje 1 400 půdorysů a 132 uličních úseků. Objemové domy mají orientační výšku. Podrobné modely tří domů v Kulové otevřete tlačítkem Fasáda.</p>
+<p id="context">Městský GIS obsahuje 1 400 půdorysů a 132 uličních úseků. Objemové domy mají orientační výšku. U čp. 261, 262 a 267 můžete přepnout podrobnost domu a kliknout na průčelí pro dobovou fotografii.</p>
 </aside>
 </main>
 <dialog id="furniture-source" aria-labelledby="furniture-title">
@@ -166,7 +167,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js?v=20261120-vzhled"></script>
+<script type="module" src="./mapa.js?v=20261120-pruceli1"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>

@@ -22,6 +22,7 @@ function parse() {
   const type=['photos','plans'].includes(p.get('doc'))?p.get('doc'):null;
   const page=type?Math.min(houses[cp][type].length-1,Math.max(0,parseInt(p.get('page'),10)||0)):0;
   const surface=p.get('surface')==='materials'?'materials':'original';
+  const houseLevel=['hmota','pruceli','detail'].includes(p.get('domy'))?p.get('domy'):surface==='materials'?'detail':'pruceli';
   const vegetation=['off','branches','crowns'].includes(p.get('vegetation'))?p.get('vegetation'):view==='prostor'?'branches':'crowns';
   const quality=p.get('quality')==='distinct'?'distinct':'all';
   let tree=p.get('tree');
@@ -42,13 +43,14 @@ function parse() {
   const street=detailFocus?String(detail.streetId):sectorStreet&&!p.has('street')?String(sectorStreet):vehicleFocus?String(focus.streetId):cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
   const cityItem=cityUI?.has(p.get('element'))?p.get('element'):null;
   const enabled=p.has('mesto')?p.get('mesto').split(','):cityGroups;
-  return {appearance,roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
+  return {appearance,houseLevel,roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
   const url=new URL(location.href),capture=url.searchParams.get('capture')==='1';
   url.search='';
   if(capture)url.searchParams.set('capture','1');
   url.searchParams.set('styl',state.appearance);
+  url.searchParams.set('domy',state.houseLevel);
   if(state.roofFocus)url.searchParams.set('roof',state.roofFocus);
   if(!state.roofContext)url.searchParams.set('roofcontext','0');
   for(const k of ['cp','layer','view']) url.searchParams.set(k,state[k]);
@@ -90,17 +92,28 @@ function update(instant=false,preserve=false) {
     all('[data-'+key+']').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset[key]===selected)));
   }
   const note=q('#surface-note');
+  q('#house-level').value=state.houseLevel;
+  q('#full-surface').hidden=state.houseLevel!=='detail';
   note.hidden=state.surface!=='materials'||view==='city';
   note.textContent=Object.keys(v.textureSwatches||{}).length ? 'Texturované plochy mají v tomto pohledu jeden odstín.' : 'Tato verze domu už používá jen materiály.';
-  q('#credit strong').textContent=v.maker+' · '+v.revision;
-  q('#credit>p').textContent=v.credit;
-  q('.scope').textContent=v.scope;
-  q('#credit code').textContent='SHA-256 '+v.sha256;
+  const front=h.frontModel, massing=front?.variants[layer], full=state.houseLevel==='detail';
+  q('#front-measurements').hidden=full||!massing;
+  if(full){
+    q('#credit strong').textContent=v.maker+' · '+v.revision;
+    q('#credit>p').textContent=v.credit;
+    q('.scope').textContent=v.scope;
+    q('#credit code').textContent='SHA-256 '+v.sha256;
+  }else{
+    q('#credit strong').textContent=massing && state.houseLevel==='pruceli'?'Průčelí podle fotografie · '+front.maker:'Hmota domu';
+    q('#credit>p').textContent=massing?'Hmota a střecha · '+massing.roofAuthor+' · '+massing.roofRevision:'Průčelí tohoto domu čeká na zaměření.';
+    q('.scope').textContent=massing?front.scope+' Odstíny materiálů a hloubky profilu jsou odhady.':h.placement;
+    q('#credit code').textContent=massing?'SHA-256 '+massing.sha256:'';
+  }
   q('#registration').textContent=h.identity+'. '+h.placement+' Azimut průčelí '+h.trueBearing.toLocaleString('cs-CZ')+'° od zeměpisného severu.';
   q('#plan').textContent='Plán parcely '+h.parcel1937;
   q('#address').textContent='Čp. '+cp+' · '+h.address;
   q('#place').textContent=view==='city'?'Starý Most':view==='street'?'Kulová a okolí':'Čp. '+cp;
-  q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+v.maker;
+  q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+(full?v.maker:state.houseLevel==='pruceli'?'Průčelí podle fotografie':'Hmota domu');
   if(view==='trees' && catalog){
     q('#place').textContent=state.tree?'Strom '+state.tree:(catalog.metadata.areas[state.area]||'Stromy kolem Kulové');
     q('#scale').textContent=state.tree&&!treeUI.get(state.tree)?.city_reading?'Starý Most · letecký snímek z 16. dubna 1964':'Starý Most · ortofoto 1964';
@@ -122,7 +135,7 @@ function update(instant=false,preserve=false) {
   q('[data-shot="corner"]').setAttribute('aria-pressed',String(corner));
   if(corner){q('#place').textContent='Šmeralovo náměstí';q('#scale').textContent='Ústí Kulové · nárožní dům čp. 267'}
   if(fullStreet){q('#place').textContent='Kulová';q('#scale').textContent='Severní fronta a ústí do Šmeralova náměstí'}
-  if(map){map.setRoofs(state.roofFocus,state.roofContext);map.setFurniture({epoch:state.furnitureEpoch,enabled:state.furnitureEnabled,kinds:state.furnitureKinds,author:state.furnitureAuthor},state.furnitureFocus);map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
+  if(map){map.setRoofs(state.roofFocus,state.roofContext);map.setFurniture({epoch:state.furnitureEpoch,enabled:state.furnitureEnabled,kinds:state.furnitureKinds,author:state.furnitureAuthor},state.furnitureFocus);map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve,state.houseLevel)}
 }
 function choose(change) {
   const onlyLayer=Object.keys(change).length===1&&'layer' in change;
@@ -158,7 +171,9 @@ function renderDoc() {
 }
 function openDoc(type,code=state.cp) {
   if(state.cp!==code){state.cp=code;update(false,true)}
-  state.cityItem=null;state.landDoc=false;state.treeDoc=false;state.type=type;state.page=0;writeLink();renderDoc();
+  state.cityItem=null;state.landDoc=false;state.treeDoc=false;state.type=type;
+  state.page=type==='photos' && state.houseLevel!=='detail'?(houses[code].frontModel?.photo??0):0;
+  writeLink();renderDoc();
 }
 function dismiss(){state.type=null;state.page=0;writeLink();renderDoc()}
 q('#close-doc').onclick=dismiss;
@@ -292,6 +307,7 @@ async function boot(){
   all('[data-cp]').forEach(b=>b.onclick=()=>choose({cp:b.dataset.cp,view:'facade'}));
   all('[data-view]').forEach(b=>b.onclick=()=>choose({view:b.dataset.view}));
   all('[data-layer]').forEach(b=>b.onclick=()=>choose({layer:b.dataset.layer}));
+  q('#house-level').onchange=e=>{state.houseLevel=e.target.value;writeLink();update(false,true)};
   all('[data-surface]').forEach(b=>b.onclick=()=>{
     if(state.surface===b.dataset.surface)return;
     state.surface=b.dataset.surface;
@@ -303,7 +319,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-vzhled'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-pruceli1'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));
