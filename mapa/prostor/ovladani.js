@@ -6,7 +6,6 @@ export function publicInterface(data,actions){
   const controls=q('#land-controls'),zones=q('#land-zone'),choice=q('#land-feature'),dialog=q('#land-dialog'),canvas=q('#land-scan');
   let current=null,lastView=null,signature='';
   const img=new Image();
-  img.src=new URL(meta.municipal.image, new URL('stromy/', document.baseURI)).href;
   const option=(value,label)=>new Option(label,value);
   for(const [key,name] of Object.entries(meta.zones))zones.add(option(key,name));
   const checks=groups.map(key=>{
@@ -47,6 +46,7 @@ export function publicInterface(data,actions){
     current=items.get(id);
     if(!current){if(dialog.open)dialog.close();return}
     const p=current;
+    if(!img.hasAttribute('src'))img.src=new URL(meta.municipal.image, new URL('stromy/', document.baseURI)).href;
     q('#land-title').textContent=p.title;
     q('#land-place').textContent=meta.zones[p.zone]+' · 16. dubna 1964';
     q('#land-reading').textContent=p.reading;

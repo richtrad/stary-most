@@ -1,9 +1,9 @@
-import {loadRoofData} from './strechy/modely.js?v=20261111-blocks2';
+import {loadRoofData} from './strechy/modely.js?v=20261120-vzhled';
 import {roofInterface} from './strechy/ovladani.js?v=20261111-blocks2';
 import {furnitureInterface} from './mobiliar/ovladani.js';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
 import {normalizeCity} from './public-client.js';
-import {publicInterface} from './prostor/ovladani.js';
+import {publicInterface} from './prostor/ovladani.js?v=20261120-vzhled';
 import {treeInterface} from './stromy/ovladani.js?v=20261111-mosty2';
 import {showArchiveRecord} from './archive-access.js';
 const q=s=>document.querySelector(s);
@@ -15,6 +15,7 @@ let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData,furnitureUI,fur
 const status=t=>q('#map-status').textContent=t;
 function parse() {
   const p=new URLSearchParams(location.search);
+  const appearance=p.get('styl')==='atlas'?'atlas':'minimapa';
   const cp=Object.hasOwn(houses,p.get('cp'))?p.get('cp'):'262';
   const layer=p.get('layer')==='claude'?'claude':'gpt';
   const view=['city','street','facade',...(treeUI?['trees']:[]),...(landUI?['prostor']:[])].includes(p.get('view'))?p.get('view'):'city';
@@ -41,12 +42,13 @@ function parse() {
   const street=detailFocus?String(detail.streetId):sectorStreet&&!p.has('street')?String(sectorStreet):vehicleFocus?String(focus.streetId):cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
   const cityItem=cityUI?.has(p.get('element'))?p.get('element'):null;
   const enabled=p.has('mesto')?p.get('mesto').split(','):cityGroups;
-  return {roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
+  return {appearance,roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
   const url=new URL(location.href),capture=url.searchParams.get('capture')==='1';
   url.search='';
   if(capture)url.searchParams.set('capture','1');
+  url.searchParams.set('styl',state.appearance);
   if(state.roofFocus)url.searchParams.set('roof',state.roofFocus);
   if(!state.roofContext)url.searchParams.set('roofcontext','0');
   for(const k of ['cp','layer','view']) url.searchParams.set(k,state[k]);
@@ -76,7 +78,13 @@ function writeLink() {
   if(state.type){url.searchParams.set('doc',state.type);if(state.page)url.searchParams.set('page',state.page)}
   if(url.href!==location.href)history.pushState(null,'',url);
 }
+function updateAppearance() {
+  for(const b of all('[data-appearance]'))b.setAttribute('aria-pressed',String(b.dataset.appearance===state.appearance));
+  q('#appearance-note').hidden=state.appearance!=='minimapa';
+  map?.setAppearance(state.appearance);
+}
 function update(instant=false,preserve=false) {
+  updateAppearance();
   const {cp,layer,view}=state, h=houses[cp], v=h.variants[layer];
   for(const [key,selected] of Object.entries({cp,layer,view,surface:state.surface})){
     all('[data-'+key+']').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset[key]===selected)));
@@ -107,6 +115,13 @@ function update(instant=false,preserve=false) {
   treeUI?.update(state);
   furnitureUI?.update(state);
   roofUI?.update(state);
+  const inStreet=view==='street'&&!state.detailFocus&&!state.detailSector&&!state.vehicleFocus&&!state.furnitureFocus;
+  const corner=inStreet&&state.street==='112'&&state.roofFocus==='267';
+  const fullStreet=inStreet&&state.street==='24'&&!state.roofFocus;
+  q('[data-shot="street"]').setAttribute('aria-pressed',String(fullStreet));
+  q('[data-shot="corner"]').setAttribute('aria-pressed',String(corner));
+  if(corner){q('#place').textContent='Šmeralovo náměstí';q('#scale').textContent='Ústí Kulové · nárožní dům čp. 267'}
+  if(fullStreet){q('#place').textContent='Kulová';q('#scale').textContent='Severní fronta a ústí do Šmeralova náměstí'}
   if(map){map.setRoofs(state.roofFocus,state.roofContext);map.setFurniture({epoch:state.furnitureEpoch,enabled:state.furnitureEnabled,kinds:state.furnitureKinds,author:state.furnitureAuthor},state.furnitureFocus);map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve)}
 }
 function choose(change) {
@@ -267,6 +282,13 @@ async function boot(){
     });
   }catch(e){q('#land-controls').hidden=true;q('[data-view="prostor"]').hidden=true;console.warn('Veřejný prostor není dostupný.',e)}
   Object.assign(state,parse());
+  all('[data-appearance]').forEach(button=>button.onclick=()=>{
+    if(state.appearance===button.dataset.appearance)return;
+    state.appearance=button.dataset.appearance;
+    updateAppearance();writeLink();
+  });
+  q('[data-shot="street"]').onclick=()=>choose({view:'street',street:'24',cp:'262'});
+  q('[data-shot="corner"]').onclick=()=>choose({view:'street',street:'112',cp:'267',roofFocus:'267'});
   all('[data-cp]').forEach(b=>b.onclick=()=>choose({cp:b.dataset.cp,view:'facade'}));
   all('[data-view]').forEach(b=>b.onclick=()=>choose({view:b.dataset.view}));
   all('[data-layer]').forEach(b=>b.onclick=()=>choose({layer:b.dataset.layer}));
@@ -281,7 +303,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261111-mosty2'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-vzhled'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));

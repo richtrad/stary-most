@@ -2,13 +2,15 @@ import * as T from 'three';
 
 // Crown positions within surveyed stands are illustrative, not individual readings.
 // A click always opens the source polygon and its uncertainty, never a fake tree ID.
-export function buildCanopyStands(records) {
+export function buildCanopyStands(records,appearance) {
   const root=new T.Group();root.name='Porosty z ortofota 1964';
   const instances=records.flatMap(record=>(record.canopyPoints||[]).map(p=>({record,p})));
   const n=instances.length, dummy=new T.Object3D(), color=new T.Color();
   const leaf=new T.MeshLambertMaterial({flatShading:true});
   const bark=new T.MeshLambertMaterial({color:0x75694e,flatShading:true});
   const crowns=new T.InstancedMesh(new T.IcosahedronGeometry(1,1),leaf,n);
+  appearance.crowns(crowns);
+  appearance.tint(leaf,0xc0d89d);
   const trunks=new T.InstancedMesh(new T.CylinderGeometry(.65,1,1,5),bark,n);
   const branches=new T.InstancedMesh(new T.CylinderGeometry(.35,1,1,4),bark,n*3);
   for(const mesh of [crowns,trunks,branches]){mesh.frustumCulled=false;root.add(mesh)}

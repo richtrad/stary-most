@@ -1,9 +1,10 @@
 import * as T from 'three';
 import {buildVehicles} from '../vozidla/modely.js';
 import {buildSmallFeatures} from '../prvky/modely.js';
-import {buildCanopyStands} from './porosty.js?v=20261111-zelen2';
+import {buildCanopyStands} from './porosty.js?v=20261120-vzhled';
 import {buildBridges} from '../mosty/modely.js?v=20261111-mosty2';
 const colors={ulice:0xb6b3a3,zelen:0x99ad7e,voda:0x739c9d,cesta:0xd7c9a7,porost:0x78926b,kolejiste:0xa29685,otevrena:0xc6b995};
+const painted={ulice:0xc8bcaa,zelen:0x91b969,voda:0x5badae,cesta:0xdbc599,porost:0x719453,kolejiste:0xa69782,otevrena:0xd9c8a5};
 const heights={ulice:.046,zelen:.002,voda:.012,cesta:.032,porost:.003,kolejiste:.01,otevrena:.018};
 
 function inside(point, ring) {
@@ -18,12 +19,12 @@ function inside(point, ring) {
 function onSurface(point, rings) {
   return inside(point,rings[0]) && !rings.slice(1).some(ring=>inside(point,ring));
 }
-export function cityEnvironment(scene,data,invalidate) {
+export function cityEnvironment(scene,data,invalidate,appearance) {
   const items=new Map(data.surfaces.map(r=>[r.id,r]));
   const meshes=[];
   const bridges=buildBridges(data.surfaces.filter(r=>r.kind==='most'));scene.add(bridges.root);
   const surveyedStands=data.surfaces.filter(r=>r.canopySurvey);
-  const stands=buildCanopyStands(surveyedStands);scene.add(stands.root);
+  const stands=buildCanopyStands(surveyedStands,appearance);scene.add(stands.root);
   const details=buildSmallFeatures(data.details||[]);scene.add(details.root);
   const vehicles=buildVehicles(data.vehicles||[]);scene.add(vehicles.root);
   const materials=Object.fromEntries(Object.entries(colors).map(([kind,color])=>[kind,new T.MeshBasicMaterial({color,side:T.DoubleSide,toneMapped:false})]));
@@ -37,6 +38,7 @@ export function cityEnvironment(scene,data,invalidate) {
     const mesh=new T.Mesh(new T.ShapeGeometry(shape).rotateX(-Math.PI/2),materials[record.kind]);
     mesh.position.y=record.canopySurvey ? .067 : heights[record.kind];
     mesh.userData.item=record;
+    appearance.ground(mesh,painted[record.kind]);
     scene.add(mesh);meshes.push(mesh);
     if(record.kind!=='porost'||record.canopySurvey)continue;
     const xs=rings[0].map(p=>p[0]),zs=rings[0].map(p=>p[1]);
@@ -51,6 +53,8 @@ export function cityEnvironment(scene,data,invalidate) {
   }
   const canopy=new T.InstancedMesh(new T.IcosahedronGeometry(1,1),new T.MeshLambertMaterial({flatShading:true}),woods.length);
   canopy.frustumCulled=false;
+  appearance.crowns(canopy);
+  appearance.tint(canopy.material,0xafcf96);
   const dummy=new T.Object3D(),color=new T.Color();
   woods.forEach((w,i)=>{
     const f=Math.sin(w.x*.17+w.z*.23);
@@ -58,6 +62,9 @@ export function cityEnvironment(scene,data,invalidate) {
     canopy.setMatrixAt(i,dummy.matrix);canopy.setColorAt(i,color.setHex(i%3===0?0x688456:i%3===1?0x73905c:0x608055));
   });
   scene.add(canopy);
+  for(const group of [details.root,bridges.root,vehicles.root]){
+    group.traverse(object=>{if(object.isMesh)object.castShadow=object.receiveShadow=true});
+  }
   const markerCanvas=document.createElement('canvas');markerCanvas.width=64;markerCanvas.height=64;
   const c=markerCanvas.getContext('2d');c.fillStyle='#315449';c.beginPath();c.arc(32,32,27,0,Math.PI*2);c.fill();
   c.strokeStyle='#fff7df';c.lineWidth=3;c.strokeRect(14,22,36,24);c.strokeRect(23,17,13,5);c.beginPath();c.arc(32,34,7,0,Math.PI*2);c.stroke();
@@ -65,6 +72,12 @@ export function cityEnvironment(scene,data,invalidate) {
   const pins=data.photos.map(record=>{
     const sprite=new T.Sprite(markerMaterial);sprite.position.set(record.at[0],21,record.at[1]);sprite.scale.set(11,11,1);
     sprite.userData.item=record;sprite.renderOrder=5;scene.add(sprite);return sprite;
+  });
+  appearance.onChange(active=>{
+    markerMaterial.sizeAttenuation = !active;
+    markerMaterial.toneMapped = !active;
+    markerMaterial.needsUpdate = true;
+    if(!active)for(const pin of pins)pin.scale.set(11,11,1);
   });
   const outline=new T.LineSegments(new T.BufferGeometry(),new T.LineBasicMaterial({color:0xb98439,toneMapped:false,transparent:true,opacity:.9}));
   scene.add(outline);
@@ -91,9 +104,13 @@ export function cityEnvironment(scene,data,invalidate) {
     outline.geometry.dispose();outline.geometry=new T.BufferGeometry();outline.geometry.setAttribute('position',new T.Float32BufferAttribute(points,3));
     invalidate();
   }
-  function frame(target,distance){
+  function frame(target,distance,height,fov){
     const near=distance<750, span=Math.max(100,distance*.8);
-    for(const pin of pins)pin.visible=active.has('photos')&&near&&Math.hypot(pin.position.x-target.x,pin.position.z-target.z)<span;
+    const paintedSize = 32 * 2 * Math.tan(T.MathUtils.degToRad(fov/2)) / Math.max(1,height);
+    for(const pin of pins){
+      pin.visible=active.has('photos')&&near&&Math.hypot(pin.position.x-target.x,pin.position.z-target.z)<span;
+      if(appearance.name==='minimapa')pin.scale.set(paintedSize,paintedSize,1);
+    }
   }
   function pick(ray){
     const photo=ray.intersectObjects(pins.filter(m=>m.visible),false)[0];

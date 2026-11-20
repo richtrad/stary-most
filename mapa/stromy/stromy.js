@@ -2,13 +2,14 @@ import * as T from 'three';
 
 const Y = new T.Vector3(0,1,0);
 const palettes = ['#658249','#758b50','#59794b','#728849','#68875b','#829454'];
+const paintedLeaves = new Map(palettes.map((tone,i)=>[tone,[0x6c9e47,0x97b945,0x4c874b,0x82a344,0x579259,0xa0b455][i]]));
 function noise(id) {
   let n=2166136261;
   for(const c of id)n=Math.imul(n ^ c.charCodeAt(0),16777619);
   return ()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296};
 }
 
-export function buildTrees(scene,city,catalog) {
+export function buildTrees(scene,city,catalog,appearance) {
   const root=new T.Group();root.name='Stromy 1964 · OpenAI Codex (GPT-6)';scene.add(root);
   const [ox,oy]=city.crs.origin5514;
   const trees=catalog.features.map(({id,properties:p})=>{
@@ -68,28 +69,32 @@ export function buildTrees(scene,city,catalog) {
     root.add(mesh);return mesh;
   }
   const crowns=instanced(new T.IcosahedronGeometry(1,1),leafMat,leaves);
+  appearance.crowns(crowns);
   const stems=instanced(new T.CylinderGeometry(.68,1,1,6),woodMat,wood);
   const twigs=instanced(new T.CylinderGeometry(.43,1,1,4),woodMat,tips);
   const shade=instanced(new T.CircleGeometry(1,13),sm,shadows);
   const objects=[crowns,stems,twigs,shade], color=new T.Color();
+  stems.castShadow=twigs.castShadow=true;
   let style,quality,count;
+  function fill(obj,filter) {
+    let i=0;const ids=[];
+    for(const b of obj.userData.records){
+      if(filter==='distinct' && b.tree.p.confidence!=='distinct')continue;
+      const tone=obj===crowns && appearance.name==='minimapa' ? paintedLeaves.get(b.color) : b.color;
+      obj.setMatrixAt(i,b.matrix);obj.setColorAt(i,color.set(tone));ids.push(b.tree.id);i++;
+    }
+    obj.count=i;obj.userData.ids=ids;obj.instanceMatrix.needsUpdate=true;
+    if(obj.instanceColor)obj.instanceColor.needsUpdate=true;
+    if(typeof obj.computeBoundingSphere==='function')obj.computeBoundingSphere();
+  }
   function configure(mode,filter){
     if(style===mode && quality===filter)return;
     style=mode;quality=filter;
     const include=t=>filter!=='distinct'||t.p.confidence==='distinct';
     count=mode==='off'?0:trees.filter(include).length;
     root.visible=mode!=='off';
-    crowns.visible=mode==='crowns';twigs.visible=mode==='branches';shade.visible=mode==='crowns';
-    for(const obj of objects){
-      let i=0;const ids=[];
-      for(const b of obj.userData.records){
-        if(!include(b.tree))continue;
-        obj.setMatrixAt(i,b.matrix);obj.setColorAt(i,color.set(b.color));ids.push(b.tree.id);i++;
-      }
-      obj.count=i;obj.userData.ids=ids;obj.instanceMatrix.needsUpdate=true;
-      if(obj.instanceColor)obj.instanceColor.needsUpdate=true;
-      if(typeof obj.computeBoundingSphere==='function')obj.computeBoundingSphere();
-    }
+    crowns.visible=mode==='crowns';twigs.visible=mode==='branches';shade.visible=mode==='crowns'&&appearance.name==='atlas';
+    for(const obj of objects)fill(obj,filter);
   }
   function bounds(area,focus) {
     const picked=byId.get(focus);
@@ -109,5 +114,9 @@ export function buildTrees(scene,city,catalog) {
     return {style,quality,count,examples:trees.filter(t=>quality!=='distinct'||t.p.confidence==='distinct').map(t=>({id:t.id,...project(t.center.clone().addScaledVector(Y,t.height*.72))})).filter(p=>p.visible)};
   }
   configure('crowns','all');
+  appearance.onChange(active=>{
+    shade.visible=style==='crowns'&&!active;
+    fill(crowns,quality);
+  });
   return {configure,bounds,pick,diagnostic};
 }

@@ -156,7 +156,7 @@ export function buildFurniture(scene,catalog,onChange,landData){
   const records=catalog.objects;
   for(const r of records){
     const g=new T.Group();g.name=r.id;g.userData.record=r;g.position.set(r.at[0],(r.heightBase||.085)+groundHeight(...r.at)-.075,r.at[1]);g.rotation.y=(r.yaw||0)*Math.PI/180;root.add(g);groups.set(r.id,g);
-    function register(){g.traverse(o=>{if(o.isMesh){o.userData.furniture=r.id;meshes.push(o)}});g.updateMatrixWorld(true);onChange();}
+    function register(){g.traverse(o=>{if(o.isMesh){o.userData.furniture=r.id;o.castShadow=o.receiveShadow=true;meshes.push(o)}});g.updateMatrixWorld(true);onChange();}
     if(r.asset){
       pending.add(r.id);
       loader.loadAsync(r.asset.url).then(file=>{

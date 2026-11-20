@@ -5,7 +5,8 @@ export function parts(g) {
   return g.type==='MultiPolygon'?g.coordinates:[g.coordinates];
 }
 
-export function publicSpace(scene, catalog, invalidate, failure) {
+export function publicSpace(scene, catalog, invalidate, appearance) {
+  const painted={vozovky:0xb9b3a9,pesiny:0xdfcaa2,travniky:0x96bc66,prvky:0xc2ad89};
   const records=new Map(catalog.features.map(f=>[f.id,f.properties]));
   const names=new Map(catalog.features.filter(f=>f.properties.source_node).map(f=>[f.properties.source_node,f.id]));
   const survey=new Map(), street=new Map(),areaTargets=new Map();
@@ -34,6 +35,7 @@ export function publicSpace(scene, catalog, invalidate, failure) {
     const material=new T.MeshBasicMaterial({color:catalog.metadata.colors[record.group],side:T.DoubleSide,toneMapped:false});
     const height=record.display_thickness ?? (record.group==='prvky'?.18:record.group==='vozovky'?.06:record.group==='pesiny'?.04:.015);
     const mesh=new T.Mesh(new T.ExtrudeGeometry(shapes,{depth:height,bevelEnabled:false}).rotateX(-Math.PI/2),material);
+    appearance.ground(mesh,painted[record.group]);
     if(record.surface_plane){
       const [a,b,c]=record.surface_plane;
       mesh.geometry.applyMatrix4(new T.Matrix4().set(1,0,0,0, a,1,b,c, 0,0,1,0, 0,0,0,1));

@@ -4,6 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Starý Most | Ulice, parky a dobové fotografie</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
 <link rel="stylesheet" href="mapa.css"><link rel="stylesheet" href="prostor/mapa.css"><link rel="stylesheet" href="mesto/mesto.css"><link rel="stylesheet" href="mobiliar/mobiliar.css"><link rel="stylesheet" href="strechy/strechy.css">
+<link rel="stylesheet" href="vzhled.css">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -19,6 +20,16 @@
 </section>
 <aside>
 <div class="panel-head"><p class="kicker">MĚSTO PŘED DEMOLICÍ</p><h1 id="street-name">Starý Most</h1><p class="lede">Ulice, dvory, zahrady a stromy podle dobových pramenů.</p></div>
+<section class="pilot-controls" aria-label="Vzhled mapy a pohledy na Kulovou">
+  <h2 id="appearance-label">Vzhled mapy</h2>
+  <div class="looks" role="group" aria-labelledby="appearance-label">
+    <button type="button" data-appearance="atlas"><span class="swatch" aria-hidden="true"></span>Původní atlas</button>
+    <button type="button" data-appearance="minimapa"><span class="swatch" aria-hidden="true"></span>Styl Minimapy</button>
+  </div>
+  <p class="tree-note" id="appearance-note" hidden>Barvy diorámatu jsou výtvarnou interpretací.</p>
+  <div class="pilot-row"><span id="shot-label">Záběr</span><div class="segmented" role="group" aria-labelledby="shot-label"><button type="button" data-shot="street">Celá Kulová</button><button type="button" data-shot="corner">Ústí do náměstí</button></div></div>
+  <div class="pilot-row"><span id="maker-label">Modely</span><div class="segmented" role="group" aria-labelledby="maker-label"><button type="button" data-layer="claude">Claude</button><button type="button" data-layer="gpt">GPT · Codex</button></div></div>
+</section>
 <nav aria-label="Měřítko pohledu"><button data-view="city">Celý Most</button><button data-view="street">Ulice</button><button data-view="facade">Fasáda</button><button data-view="trees">Stromy</button><button data-view="prostor">Povrchy</button></nav>
 <section class="control tree-controls city-streets" aria-labelledby="street-label">
 <div class="tree-head"><h2 id="street-label">Prozkoumat ulici</h2><button type="button" id="street-next" title="Další ulice" aria-label="Přejít na další ulici">→</button></div>
@@ -108,9 +119,9 @@
 <button data-cp="262"><b>Čp. 262</b><span>Okresní nemocenská pokladna</span></button>
 <button data-cp="267"><b>Čp. 267</b><span>Nároží Šmeralova náměstí</span></button>
 </div></section>
-<section class="control"><h2>Vrstva modelů</h2><div class="segmented" role="group" aria-label="Autorská vrstva"><button data-layer="claude">Claude</button><button data-layer="gpt">GPT · Codex</button></div>
+<section class="control" aria-label="Povrch a autor vybraného domu">
 <div class="surface-picker"><h2 id="surface-label">Povrch budov</h2>
-<div class="segmented" role="group" aria-labelledby="surface-label"><button type="button" data-surface="original">Původní vzhled</button><button type="button" data-surface="materials">Jen materiály</button></div>
+<div class="segmented" role="group" aria-labelledby="surface-label"><button type="button" data-surface="original">S texturami</button><button type="button" data-surface="materials">Jen materiály</button></div>
 <p id="surface-note" hidden></p></div>
 <div id="credit" aria-live="polite"><strong></strong><p></p><details><summary>Verze a stav ověření</summary><p class="scope"></p><code></code></details></div></section>
 <section class="control"><h2>Archivní prameny</h2><p class="address" id="address"></p><div class="source-actions"><button id="photo">Původní fotografie <span aria-hidden="true">↗</span></button><button id="plan">Situační plán</button></div>
@@ -155,7 +166,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js?v=20261111-mosty2"></script>
+<script type="module" src="./mapa.js?v=20261120-vzhled"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>
