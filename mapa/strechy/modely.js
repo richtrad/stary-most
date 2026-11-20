@@ -1,10 +1,27 @@
 import * as T from 'three';
 import {autumnGround, roofTones, wallTones, toneFor} from '../vzhled.js?v=20261120-podzim';
+async function loadSchematicCatalog(){
+ const directory=new URL('pruceli/schema/',document.baseURI);
+ const mirrors=[directory];
+ // The long-running local atlas preview can still have an older file inventory.
+ if(['127.0.0.1','localhost'].includes(location.hostname))mirrors.push(new URL('https://richtrad.github.io/stary-most/mapa/pruceli/schema/'));
+ for(const base of mirrors){
+  try{
+   const response=await fetch(new URL('domy.json',base));
+   if(response.ok)return {...await response.json(),base:base.href};
+  }catch(error){console.warn('Katalog schematických průčelí není na této adrese dostupný.',error)}
+ }
+ return null;
+}
 export async function loadRoofData(){
  const names=['manifest','gpt-roofs','claude-roofs','mesto-strechy','prameny'];
- const values=await Promise.all(names.map(async n=>{const r=await fetch('strechy/'+n+'.json',{cache:'no-cache'});if(!r.ok)throw Error('Chybí vrstva střech: '+n);return r.json()}));
- const schema=await fetch('pruceli/schema/domy.json').then(r=>r.ok?r.json():null).catch(()=>null);
- return {manifest:values[0],gpt:values[1],claude:values[2],context:values[3],sources:{...values[4],...schema?.sources},schema};
+ const files=names.map(async name=>{
+  const response=await fetch('strechy/'+name+'.json',{cache:'no-cache'});
+  if(!response.ok)throw Error('Chybí vrstva střech: '+name);
+  return response.json();
+ });
+ const [manifest,gpt,claude,context,sources,schema]=await Promise.all([...files,loadSchematicCatalog()]);
+ return {manifest,gpt,claude,context,sources:{...sources,...schema?.sources},schema};
 }
 export function roofModels(scene,data,city,changed,appearance,ids){
  const group=new T.Group();group.name='Střechy a dvory · oddělené autorské verze';scene.add(group);

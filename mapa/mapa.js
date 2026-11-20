@@ -1,4 +1,4 @@
-import {loadRoofData} from './strechy/modely.js?v=20261120-schema1';
+import {loadRoofData} from './strechy/modely.js?v=20261120-schema2';
 import {roofInterface} from './strechy/ovladani.js?v=20261120-schema1';
 import {furnitureInterface} from './mobiliar/ovladani.js';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
@@ -23,7 +23,9 @@ function parse() {
   const type=['photos','plans'].includes(p.get('doc'))?p.get('doc'):null;
   const page=type?Math.min(houses[cp][type].length-1,Math.max(0,parseInt(p.get('page'),10)||0)):0;
   const surface=p.get('surface')==='materials'?'materials':'original';
-  const houseLevel=['hmota','schema','pruceli','detail'].includes(p.get('domy'))?p.get('domy'):surface==='materials'?'detail':'schema';
+  const levels=roofData?.schema?['hmota','schema','pruceli','detail']:['hmota','pruceli','detail'];
+  const defaultLevel=surface==='materials'?'detail':roofData?.schema?'schema':'pruceli';
+  const houseLevel=levels.includes(p.get('domy'))?p.get('domy'):defaultLevel;
   const vegetation=['off','branches','crowns','autumn'].includes(p.get('vegetation'))?p.get('vegetation'):defaultVegetation;
   const autumn=vegetation==='autumn' || (vegetation==='off' && p.get('season')==='autumn');
   const quality=p.get('quality')==='distinct'?'distinct':'all';
@@ -105,6 +107,7 @@ function update(instant=false,preserve=false) {
   const note=q('#surface-note');
   q('#house-level').value=state.houseLevel;
   const schema=roofData?.schema, schematic=state.houseLevel==='schema';
+  q('#house-level option[value="schema"]').disabled=!schema;
   q('#schema-controls').hidden=!schematic||!schema;
   const focused=state.roofFocus || (view==='facade'?cp:null);
   q('#schema-focus').value=focused&&schema?.houses[focused]?focused:'';
@@ -114,7 +117,7 @@ function update(instant=false,preserve=false) {
   note.textContent=Object.keys(v.textureSwatches||{}).length ? 'Texturované plochy mají v tomto pohledu jeden odstín.' : 'Tato verze domu už používá jen materiály.';
   const front=h.frontModel, massing=front?.variants[layer], full=state.houseLevel==='detail';
   q('#front-measurements').hidden=full||!massing;
-  q('#front-measurements a').href=schematic?'pruceli/schema/domy.json':'pruceli/mereni.json';
+  q('#front-measurements a').href=schematic&&schema?new URL('domy.json',schema.base).href:'pruceli/mereni.json';
   if(full){
     q('#credit strong').textContent=v.maker+' · '+v.revision;
     q('#credit>p').textContent=v.credit;
@@ -356,7 +359,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-schema1'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-schema2'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));

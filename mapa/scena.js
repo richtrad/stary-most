@@ -1,6 +1,5 @@
-import {roofModels} from './strechy/modely.js?v=20261120-schema1';
-import {schematicFronts} from './pruceli/schema.js?v=1';
-import {placeFront} from './pruceli/model.js';
+import {roofModels} from './strechy/modely.js?v=20261120-schema2';
+import {placeFront, schematicFronts} from './pruceli/model.js?v=20261120-schema2';
 import {buildFurniture} from './mobiliar/modely.js?v=20261120-vzhled';
 import {cityEnvironment} from './mesto/scena.js?v=20261120-podzim';
 import * as T from 'three';
