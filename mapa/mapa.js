@@ -50,6 +50,12 @@ function parse() {
   return {appearance,houseLevel,roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,autumn,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
+  const pilotUrl=new URL('front-lod/',location.href);
+  pilotUrl.searchParams.set('layer',state.layer);
+  pilotUrl.searchParams.set('street',state.street);
+  if(state.roofFocus)pilotUrl.searchParams.set('cp',state.roofFocus);
+  const pilotLink=q('#front-lod-link');
+  if(pilotLink)pilotLink.href=pilotUrl.href;
   const url=new URL(location.href),capture=url.searchParams.get('capture')==='1';
   url.search='';
   if(capture)url.searchParams.set('capture','1');
