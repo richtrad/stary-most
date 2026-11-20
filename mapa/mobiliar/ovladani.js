@@ -28,7 +28,7 @@ export function furnitureInterface(catalog,actions){
   dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)actions.close()}});
   function update(state){
     current=state;
-    if(state.street==='24')q('#street-counts').textContent=q('#street-counts').textContent.replace('Fotografie','Veřejné fotografie')+' · Mobiliář 19 / 6 archivních snímků';
+    if(state.street==='24')q('#street-counts').textContent=q('#street-counts').textContent.replace('Fotografie','Veřejné fotografie')+' · Mobiliář '+records.size+' / '+Object.keys(sources).length+' archivních snímků';
     q('#furniture-epoch').value=state.furnitureEpoch;
     q('#furniture-enabled').checked=state.furnitureEnabled;
     q('#furniture-author').value=state.furnitureAuthor;

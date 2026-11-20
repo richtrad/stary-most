@@ -8,19 +8,23 @@ function box(g,m,w,h,d,x=0,y=0,z=0){const o=new T.Mesh(unit,m);o.scale.set(w,h,d
 function cyl(g,m,r,h,x=0,y=0,z=0,n=12,rTop=r){const o=new T.Mesh(new T.CylinderGeometry(rTop,r,h,n),m);o.position.set(x,y,z);g.add(o);return o}
 function tube(g,a,b,r=.035,m=M.iron){a=V(...a);b=V(...b);const d=b.clone().sub(a),o=cyl(g,m,r,d.length());o.position.copy(a.add(b).multiplyScalar(.5));o.quaternion.setFromUnitVectors(V(0,1,0),d.normalize());return o}
 function sphere(g,m,r,x,y,z){const o=new T.Mesh(new T.IcosahedronGeometry(r,1),m);o.position.set(x,y,z);g.add(o);return o}
-function railing(g,{length=12,height=.9,pickets=false}={}){
-  for(let x=-length/2;x<length/2+.01;x+=Math.min(1.8,length/Math.ceil(length/1.8))){
-    tube(g,[x,0,0],[x,height,0],.035);sphere(g,M.iron,.05,x,height,0);
+function railing(g,{length=12,height=.9,spans=[[-length/2,length/2]]}={}){
+  for(const [start,end] of spans){
+    const bays=Math.ceil((end-start)/1.8);
+    for(let i=0;i<=bays;i++){
+      const x=start+(end-start)*i/bays;
+      tube(g,[x,0,0],[x,height,0],.035);
+      sphere(g,M.iron,.05,x,height,0);
+    }
+    tube(g,[start,height,0],[end,height,0],.035);
+    tube(g,[start,height*.48,0],[end,height*.48,0],.027);
   }
-  tube(g,[-length/2,height,0],[length/2,height,0],.035);
-  tube(g,[-length/2,height*.48,0],[length/2,height*.48,0],.027);
-  if(pickets)for(let x=-length/2+.2;x<length/2;x+=.2)tube(g,[x,.12,0],[x,height,0],.013);
 }
 function bench(g){
   for(let z=-.22;z<=.22;z+=.11)box(g,M.wood,1.85,.05,.085,0,.47,z);
   for(let y=.65;y<1.0;y+=.13)box(g,M.wood,1.85,.10,.045,0,y,.27);
   for(const x of [-.72,.72]){
-    tube(g,[x,.02,-.24],[x,.49,-.18],.035);tube(g,[x,.02,.31],[x,.98,.27],.035);
+    tube(g,[x,0,-.24],[x,.49,-.18],.035);tube(g,[x,0,.31],[x,.98,.27],.035);
     tube(g,[x,.48,-.25],[x,.48,.30],.035);
   }
 }
@@ -151,11 +155,22 @@ export function buildFurniture(scene,catalog,onChange,landData){
     }return height;
   }
   const root=new T.Group();root.name='Kulová · fotografický mobiliář';scene.add(root);
+  const platforms=new Map();
+  for(const p of catalog.platforms||[]){
+    const shape=new T.Shape(p.ring.map(([x,z])=>new T.Vector2(x,-z)));
+    const base=Math.max(...p.ring.map(([x,z])=>groundHeight(x,z)));
+    const geo=new T.ExtrudeGeometry(shape,{depth:p.height,bevelEnabled:false}).rotateX(-Math.PI/2);
+    const mesh=new T.Mesh(geo,[mat('#b4a98e'),mat('#7a776b')]);
+    mesh.name=p.id;mesh.position.y=base;mesh.receiveShadow=true;root.add(mesh);
+    platforms.set(p.id,{mesh,top:base+p.height});
+  }
   const groups=new Map(),meshes=[],errors=[],pending=new Set(),loader=new GLTFLoader();
   const builders={poster,railing,bench,lamp:(g,p)=>lamp(g,p?.short),pole:(g,p)=>pole(g,p?.lamp),crossarm,sign:(g,p)=>sign(g,p?.stop),bus,van,stairs};
   const records=catalog.objects;
   for(const r of records){
-    const g=new T.Group();g.name=r.id;g.userData.record=r;g.position.set(r.at[0],(r.heightBase||.085)+groundHeight(...r.at)-.075,r.at[1]);g.rotation.y=(r.yaw||0)*Math.PI/180;root.add(g);groups.set(r.id,g);
+    const g=new T.Group();g.name=r.id;g.userData.record=r;
+    const base=platforms.get(r.platform)?.top??((r.heightBase||.085)+groundHeight(...r.at)-.075);
+    g.position.set(r.at[0],base,r.at[1]);g.rotation.y=(r.yaw||0)*Math.PI/180;root.add(g);groups.set(r.id,g);
     function register(){g.traverse(o=>{if(o.isMesh){o.userData.furniture=r.id;o.castShadow=o.receiveShadow=true;meshes.push(o)}});g.updateMatrixWorld(true);onChange();}
     if(r.asset){
       pending.add(r.id);
@@ -171,13 +186,15 @@ export function buildFurniture(scene,catalog,onChange,landData){
   function visible(id){return !!groups.get(id)?.visible&&root.visible}
   function configure(next,focus){settings=next;selected=focus;root.visible=next.enabled;
     for(const r of records)groups.get(r.id).visible=r.epoch===next.epoch&&next.kinds.includes(r.category)&&(next.author==='all'||r.author.key===next.author);
+    for(const [id,p] of platforms)p.mesh.visible=records.some(r=>(r.platform===id||r.adjacentPlatform===id)&&visible(r.id));
     if(selected&&visible(selected)){outline.setFromObject(groups.get(selected));outline.visible=true}else outline.visible=false;
     onChange();
   }
   function destination(id,aspect=1){
     const r=records.find(r=>r.id===id);if(!r)return null;
     const g=groups.get(id);
-    const target=r.cameraTarget?V(...r.cameraTarget):V(r.at[0],g.position.y+(r.aimHeight||1.3),r.at[1]);
+    const framing=r.contextTarget??r.cameraTarget;
+    const target=framing?V(...framing):V(r.at[0],g.position.y+(r.aimHeight||1.3),r.at[1]);
     const offset=V(...(r.cameraOffset||[7,6,9])),dir=offset.clone().normalize(),right=V(0,1,0).cross(dir).normalize(),up=dir.clone().cross(right);
     const box=new T.Box3().setFromObject(g),tanY=Math.tan(20*Math.PI/180),tanX=tanY*aspect;
     let distance=offset.length();
@@ -192,6 +209,7 @@ export function buildFurniture(scene,catalog,onChange,landData){
     return hit?{id:hit.object.userData.furniture,distance:hit.distance}:null;
   },inspect(project){
     return {epoch:settings.epoch,enabled:root.visible,selected,pending:[...pending],errors:[...errors],total:records.length,visible:records.filter(r=>visible(r.id)).length,
+      platforms:[...platforms].map(([id,p])=>({id,visible:root.visible&&p.mesh.visible,top:p.top})),
       objects:records.map(r=>{const g=groups.get(r.id),b=new T.Box3().setFromObject(g);return {id:r.id,author:r.author.key,visible:visible(r.id),bounds:b.isEmpty()?null:[b.min.toArray(),b.max.toArray()],screen:project(r.cameraTarget?V(...r.cameraTarget):V(r.at[0],g.position.y+(r.aimHeight||1.3),r.at[1]))}})};
   }};
 }

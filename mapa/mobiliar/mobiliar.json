@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "title": "Kulová · mobiliář z původních fotografií",
   "created": "2026-11-11",
   "categories": [
@@ -153,13 +153,30 @@
       "bytes": 837719,
       "metadataSnapshot": "2026-11-05",
       "epoch": "1957-58",
-      "dateNote": "Datace 1957–58 přečtena z archivní karty.",
+      "dateNote": "Na archivní kartě 78-C2 je uvedeno 1957–58. Popis odkazuje vlevo na kartu 78-C1.",
       "access": "restricted",
       "url": null,
       "libuseUrl": "https://libuse.vugtk.cz:3004/manager/streets",
       "localPreviewPath": "/__local_most_sources/d68995f1-3bb2-4194-b384-ff5473043556",
       "collection": "Libuše · archivní fotografie Mostu",
       "visualReview": "2026-11-11: full original opened; overlays are interpretation, original bytes preserved"
+    },
+    "S27L": {
+      "key": "S27L",
+      "id": "ca5b7c43-91c1-4b22-9d2e-8c0d01310699",
+      "title": "Stanoviště před čp. 256 směrem ke kostelu, levý sousední záběr",
+      "filename": "cp_256_003.png",
+      "sha256": "404856a07bef8d85b44e972e279c917a2d4b792d0e9156bb0c61e138c568aac5",
+      "bytes": 7417992,
+      "metadataSnapshot": "2026-11-11",
+      "epoch": "1957-58",
+      "dateNote": "Datace podle sousední karty 78-C2 (1957–58). V obou záběrech se překrývají část průčelí čp. 256, sloupek v popředí a okraj stanoviště.",
+      "access": "restricted",
+      "url": null,
+      "libuseUrl": "https://libuse.vugtk.cz:3004/manager/streets",
+      "localPreviewPath": "/__local_most_sources/ca5b7c43-91c1-4b22-9d2e-8c0d01310699",
+      "collection": "Libuše · archivní fotografie Mostu",
+      "visualReview": "2026-11-20: ověřen původní soubor a otevřen detail lavičky, obruby a jednotlivých polí zábradlí."
     }
   },
   "objects": [
@@ -421,8 +438,8 @@
       "epoch": "1957-58",
       "source": "S27",
       "at": [
-        4,
-        -110.5
+        10.212,
+        -108.655
       ],
       "heightBase": 0.085,
       "author": {
@@ -441,14 +458,15 @@
       "positionUncertaintyM": 4,
       "dimensionsStatus": "model_hypothesis",
       "finishStatus": "model_hypothesis",
-      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-11",
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
       "streetId": 24,
       "cameraOffset": [
         6,
         4,
         7
       ],
-      "aimHeight": 1.8
+      "aimHeight": 1.8,
+      "platform": "ostruvek-257"
     },
     {
       "id": "zabradli-stanoviste",
@@ -458,8 +476,8 @@
       "epoch": "1957-58",
       "source": "S27",
       "at": [
-        2.8,
-        -99.9
+        8.304,
+        -99.189
       ],
       "heightBase": 0.085,
       "author": {
@@ -470,20 +488,37 @@
         "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
         "date": "2026-11-11"
       },
-      "observed": "Řada tenkých sloupků se dvěma vodorovnými příčkami před autobusem.",
-      "hypothesis": "Celková délka 14 m, výška 0,9 m a zakončení zakrytých úseků jsou odhad.",
+      "observed": "Nízké zábradlí se dvěma příčkami stojí u okraje čekacího ostrůvku. Oba záběry ukazují přerušení mezi jednotlivými poli.",
+      "hypothesis": "Průchody respektují viditelné konce polí. Výška 0,9 m, rozestupy sloupků a zakončení za chodci jsou odhad.",
       "status": "provisional",
       "locked": false,
       "placementStatus": "photo_relative_estimate",
       "positionUncertaintyM": 4,
       "dimensionsStatus": "model_hypothesis",
       "finishStatus": "model_hypothesis",
-      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-11",
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
       "streetId": 24,
-      "yaw": 77.8,
+      "yaw": -91.854,
       "params": {
-        "length": 14,
-        "height": 0.9
+        "height": 0.9,
+        "spans": [
+          [
+            11.6065,
+            22.8832
+          ],
+          [
+            6.597,
+            10.5139
+          ],
+          [
+            -1.6802,
+            4.4117
+          ],
+          [
+            -8.2978,
+            -2.8862
+          ]
+        ]
       },
       "cameraOffset": [
         11,
@@ -491,21 +526,25 @@
         6
       ],
       "cameraTarget": [
-        2.8,
-        0.65,
-        -99.9
+        8.304,
+        1.13,
+        -99.189
+      ],
+      "platform": "ostruvek-257",
+      "additionalSources": [
+        "S27L"
       ]
     },
     {
       "id": "lavicka-stanoviste-a",
-      "title": "Lavička u stanoviště · A",
+      "title": "Lavička před čp. 257 u ústí Kulové",
       "category": "sedacky",
       "model": "bench",
       "epoch": "1957-58",
       "source": "S27",
       "at": [
-        6.6,
-        -100.2
+        9.275,
+        -103.409
       ],
       "heightBase": 0.085,
       "author": {
@@ -516,34 +555,35 @@
         "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
         "date": "2026-11-11"
       },
-      "observed": "Dřevěná sedací plocha a opěradlo na tmavých kovových nohách.",
-      "hypothesis": "Rozměry 1,85 m a odstíny jsou odhad; zachycené osoby nejsou součástí modelu.",
+      "observed": "Na bližší straně zábradlí je lavička s laťovým opěradlem. Sedící muž je obrácený do prostoru náměstí.",
+      "hypothesis": "Lavička je usazena podle nohou a opěradla vůči sousednímu poli zábradlí. Délka 1,85 m, odstín a přesný odstup jsou odhad.",
       "status": "provisional",
       "locked": false,
       "placementStatus": "photo_relative_estimate",
       "positionUncertaintyM": 4,
       "dimensionsStatus": "model_hypothesis",
       "finishStatus": "model_hypothesis",
-      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-11",
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
       "streetId": 24,
-      "yaw": 77.8,
+      "yaw": -91.854,
       "cameraOffset": [
         4,
         2.6,
         3
       ],
-      "aimHeight": 0.65
+      "aimHeight": 0.65,
+      "platform": "ostruvek-257"
     },
     {
       "id": "lavicka-stanoviste-b",
-      "title": "Lavička u stanoviště · B",
+      "title": "Lavička před čp. 256 směrem ke kostelu",
       "category": "sedacky",
       "model": "bench",
       "epoch": "1957-58",
-      "source": "S27",
+      "source": "S27L",
       "at": [
-        7.4,
-        -95.8
+        8.538,
+        -83.025
       ],
       "heightBase": 0.085,
       "author": {
@@ -554,23 +594,24 @@
         "exactModelIdNote": "Přesný backendový identifikátor není v této relaci k dispozici.",
         "date": "2026-11-11"
       },
-      "observed": "Dřevěná sedací plocha a opěradlo na tmavých kovových nohách.",
-      "hypothesis": "Rozměry 1,85 m a odstíny jsou odhad; zachycené osoby nejsou součástí modelu.",
+      "observed": "Na levém záběru je vidět lavička s dítětem u označníku. Za jejím opěradlem běží zábradlí, před nohami je obruba.",
+      "hypothesis": "Poloha vychází z překryvu obou fotografií. Délka 1,85 m, odstín a přesná vzdálenost od lavičky před čp. 257 jsou odhad.",
       "status": "provisional",
       "locked": false,
       "placementStatus": "photo_relative_estimate",
       "positionUncertaintyM": 4,
       "dimensionsStatus": "model_hypothesis",
       "finishStatus": "model_hypothesis",
-      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-11",
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
       "streetId": 24,
-      "yaw": 77.8,
+      "yaw": -91.854,
       "cameraOffset": [
         4,
         2.6,
         3
       ],
-      "aimHeight": 0.65
+      "aimHeight": 0.65,
+      "platform": "ostruvek-257"
     },
     {
       "id": "oznacnik-stanoviste",
@@ -580,8 +621,8 @@
       "epoch": "1957-58",
       "source": "S27",
       "at": [
-        -0.8,
-        -108.9
+        8.909,
+        -106.481
       ],
       "heightBase": 0.085,
       "author": {
@@ -600,18 +641,19 @@
       "positionUncertaintyM": 3,
       "dimensionsStatus": "model_hypothesis",
       "finishStatus": "model_hypothesis",
-      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-11",
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
       "streetId": 24,
       "params": {
         "stop": true
       },
-      "yaw": 77.8,
+      "yaw": 88.146,
       "cameraOffset": [
         5,
         3,
         4
       ],
-      "aimHeight": 1.5
+      "aimHeight": 1.5,
+      "platform": "ostruvek-257"
     },
     {
       "id": "autobus-257",
@@ -621,8 +663,8 @@
       "epoch": "1957-58",
       "source": "S27",
       "at": [
-        -2.2,
-        -100.8
+        1.306,
+        -99.714
       ],
       "heightBase": 0.085,
       "author": {
@@ -641,18 +683,24 @@
       "positionUncertaintyM": 4,
       "dimensionsStatus": "model_hypothesis",
       "finishStatus": "model_hypothesis",
-      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-11",
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
       "streetId": 24,
       "yaw": 12.2,
       "cameraOffset": [
-        12,
-        7,
-        -13
+        31,
+        14,
+        -4
+      ],
+      "contextTarget": [
+        6.5,
+        1.3,
+        -97.7
       ],
       "aimHeight": 1.6,
       "typologyUrl": "https://expozicemhd.cz/exponaty/autobusy/skoda-706-ro/",
       "typologyTitle": "Typová analogie · Technické muzeum v Brně",
-      "vehicleIdentification": "probable"
+      "vehicleIdentification": "probable",
+      "adjacentPlatform": "ostruvek-257"
     },
     {
       "id": "znacka-267",
@@ -984,5 +1032,71 @@
     "excluded": "3 misplaced or type-mismatched bracket lamps; pole crossarms/insulators and connecting wires not visually confirmed; unspecific sign replaced from source",
     "manifestCaveat": "Aggregate sources_revisions_manifest.json differs from the declared digest. Each used GLB matches its own declared digest; provenance is limited to those individually verified files.",
     "canonicalRegistryUpdate": "Updated verified F:/MOST canonical registry target on 2026-11-11. Full task remains READY_FOR_REVIEW; only five furniture objects accepted for this working web pilot. Drive-copy sync not verified."
-  }
+  },
+  "platforms": [
+    {
+      "id": "ostruvek-257",
+      "title": "Čekací ostrůvek před čp. 256–257",
+      "epoch": "1957-58",
+      "author": {
+        "key": "gpt",
+        "name": "OpenAI · Codex",
+        "model": "rodina GPT-6",
+        "date": "2026-11-20"
+      },
+      "sources": [
+        "S27",
+        "S27L"
+      ],
+      "height": 0.14,
+      "ring": [
+        [
+          7.074,
+          -74.678
+        ],
+        [
+          8.178,
+          -108.778
+        ],
+        [
+          8.431,
+          -109.703
+        ],
+        [
+          8.975,
+          -110.332
+        ],
+        [
+          9.618,
+          -110.706
+        ],
+        [
+          10.479,
+          -110.892
+        ],
+        [
+          11.144,
+          -110.769
+        ],
+        [
+          11.595,
+          -110.283
+        ],
+        [
+          11.767,
+          -109.604
+        ],
+        [
+          10.661,
+          -75.452
+        ]
+      ],
+      "observed": "Souvislá zvýšená čekací plocha s obrubou před lavičkami a zaoblením směrem k ústí Kulové.",
+      "hypothesis": "Zobrazen je úsek doložený oběma pohledy. Přesah směrem ke kostelu, odvrácená hrana, šířka, výška obruby a materiál jsou přibližné.",
+      "positionUncertaintyM": 4,
+      "status": "provisional",
+      "locked": false,
+      "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20"
+    }
+  ]
 }

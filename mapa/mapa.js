@@ -1,6 +1,6 @@
 import {loadRoofData} from './strechy/modely.js?v=20261120-schema2';
 import {roofInterface} from './strechy/ovladani.js?v=20261120-schema1';
-import {furnitureInterface} from './mobiliar/ovladani.js';
+import {furnitureInterface} from './mobiliar/ovladani.js?v=20261120-stanoviste1';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
 import {normalizeCity} from './public-client.js';
 import {publicInterface} from './prostor/ovladani.js?v=20261120-vzhled';
@@ -260,7 +260,7 @@ async function boot(){
   }catch(e){q('#roof-controls').hidden=true;console.warn('Střechy nejsou dostupné.',e)}
 
   try{
-    const res=await fetch('mobiliar/mobiliar.json',{cache:'no-cache'});
+    const res=await fetch('mobiliar/mobiliar.json?v=20261120-stanoviste1',{cache:'no-cache'});
     if(!res.ok)throw Error('Katalog mobiliáře není dostupný.');
     furnitureCatalog=await res.json();
     furnitureUI=furnitureInterface(furnitureCatalog,{
@@ -359,7 +359,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-schema2'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-stanoviste1'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));

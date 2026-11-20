@@ -169,8 +169,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -790844.106,
-          -987298.677
+          -790837.894,
+          -987300.522
         ]
       },
       "properties": {
@@ -191,17 +191,57 @@
         "observed": "Válcový sloup, široká nízká stříška, koule na vrcholu a vrstvy plakátů.",
         "hypothesis": "Výška 3,7 m, průměr, odstíny a přesná vzdálenost od nároží jsou odhad; plakáty zůstávají bez vymyšleného textu.",
         "status": "provisional",
-        "locked": false
+        "locked": false,
+        "platform": "ostruvek-257",
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20"
       }
     },
     {
       "type": "Feature",
       "id": "zabradli-stanoviste",
       "geometry": {
-        "type": "Point",
+        "type": "MultiLineString",
         "coordinates": [
-          -790845.306,
-          -987309.277
+          [
+            [
+              -790840.542,
+              -987332.859
+            ],
+            [
+              -790840.177,
+              -987321.588
+            ]
+          ],
+          [
+            [
+              -790840.142,
+              -987320.496
+            ],
+            [
+              -790840.015,
+              -987316.581
+            ]
+          ],
+          [
+            [
+              -790839.945,
+              -987314.397
+            ],
+            [
+              -790839.748,
+              -987308.309
+            ]
+          ],
+          [
+            [
+              -790839.709,
+              -987307.103
+            ],
+            [
+              -790839.534,
+              -987301.694
+            ]
+          ]
         ]
       },
       "properties": {
@@ -219,10 +259,15 @@
           "date": "2026-11-11"
         },
         "positionUncertaintyM": 4,
-        "observed": "Řada tenkých sloupků se dvěma vodorovnými příčkami před autobusem.",
-        "hypothesis": "Celková délka 14 m, výška 0,9 m a zakončení zakrytých úseků jsou odhad.",
+        "observed": "Nízké zábradlí se dvěma příčkami stojí u okraje čekacího ostrůvku. Oba záběry ukazují přerušení mezi jednotlivými poli.",
+        "hypothesis": "Průchody respektují viditelné konce polí. Výška 0,9 m, rozestupy sloupků a zakončení za chodci jsou odhad.",
         "status": "provisional",
-        "locked": false
+        "locked": false,
+        "platform": "ostruvek-257",
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
+        "additionalSources": [
+          "S27L"
+        ]
       }
     },
     {
@@ -231,13 +276,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -790841.506,
-          -987308.9770000001
+          -790838.831,
+          -987305.768
         ]
       },
       "properties": {
         "id": "lavicka-stanoviste-a",
-        "title": "Lavička u stanoviště · A",
+        "title": "Lavička před čp. 257 u ústí Kulové",
         "category": "sedacky",
         "epoch": "1957-58",
         "source": "S27",
@@ -250,10 +295,12 @@
           "date": "2026-11-11"
         },
         "positionUncertaintyM": 4,
-        "observed": "Dřevěná sedací plocha a opěradlo na tmavých kovových nohách.",
-        "hypothesis": "Rozměry 1,85 m a odstíny jsou odhad; zachycené osoby nejsou součástí modelu.",
+        "observed": "Na bližší straně zábradlí je lavička s laťovým opěradlem. Sedící muž je obrácený do prostoru náměstí.",
+        "hypothesis": "Lavička je usazena podle nohou a opěradla vůči sousednímu poli zábradlí. Délka 1,85 m, odstín a přesný odstup jsou odhad.",
         "status": "provisional",
-        "locked": false
+        "locked": false,
+        "platform": "ostruvek-257",
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20"
       }
     },
     {
@@ -262,16 +309,16 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -790840.706,
-          -987313.377
+          -790839.568,
+          -987326.152
         ]
       },
       "properties": {
         "id": "lavicka-stanoviste-b",
-        "title": "Lavička u stanoviště · B",
+        "title": "Lavička před čp. 256 směrem ke kostelu",
         "category": "sedacky",
         "epoch": "1957-58",
-        "source": "S27",
+        "source": "S27L",
         "author": {
           "key": "gpt",
           "name": "OpenAI · Codex",
@@ -281,10 +328,12 @@
           "date": "2026-11-11"
         },
         "positionUncertaintyM": 4,
-        "observed": "Dřevěná sedací plocha a opěradlo na tmavých kovových nohách.",
-        "hypothesis": "Rozměry 1,85 m a odstíny jsou odhad; zachycené osoby nejsou součástí modelu.",
+        "observed": "Na levém záběru je vidět lavička s dítětem u označníku. Za jejím opěradlem běží zábradlí, před nohami je obruba.",
+        "hypothesis": "Poloha vychází z překryvu obou fotografií. Délka 1,85 m, odstín a přesná vzdálenost od lavičky před čp. 257 jsou odhad.",
         "status": "provisional",
-        "locked": false
+        "locked": false,
+        "platform": "ostruvek-257",
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20"
       }
     },
     {
@@ -293,8 +342,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -790848.9060000001,
-          -987300.277
+          -790839.197,
+          -987302.696
         ]
       },
       "properties": {
@@ -315,7 +364,9 @@
         "observed": "Oválná horní tabulka a malá obdélníková tabulka na tenkém sloupku.",
         "hypothesis": "Nápis ani přesný znak nelze bezpečně přečíst; tabulky zůstávají prázdné. Výška 2,7 m je odhad.",
         "status": "provisional",
-        "locked": false
+        "locked": false,
+        "platform": "ostruvek-257",
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20"
       }
     },
     {
@@ -324,8 +375,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -790850.306,
-          -987308.377
+          -790846.8,
+          -987309.463
         ]
       },
       "properties": {
@@ -346,7 +397,9 @@
         "observed": "Dlouhá oblá karoserie, řada bočních oken, čtyřdílné skládací dveře a střešní nosič.",
         "hypothesis": "Určení 706 RO je pravděpodobné. Rozměry 10,66 × 2,50 × 3,15 m převzaty jako typová analogie; odstíny, skrytá strana a drobné vybavení jsou odhad. SPZ, logo ani číslo linky nejsou doplněny.",
         "status": "provisional",
-        "locked": false
+        "locked": false,
+        "adjacentPlatform": "ostruvek-257",
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20"
       }
     },
     {
@@ -595,6 +648,84 @@
         "hypothesis": "Výška a rozměry odhadnuté ze snímku; škola je v městském GIS vedena jako společný objekt čp. 150.",
         "status": "provisional",
         "locked": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ostruvek-257",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -790841.032,
+              -987334.499
+            ],
+            [
+              -790839.928,
+              -987300.399
+            ],
+            [
+              -790839.675,
+              -987299.474
+            ],
+            [
+              -790839.131,
+              -987298.845
+            ],
+            [
+              -790838.488,
+              -987298.471
+            ],
+            [
+              -790837.627,
+              -987298.285
+            ],
+            [
+              -790836.962,
+              -987298.408
+            ],
+            [
+              -790836.511,
+              -987298.894
+            ],
+            [
+              -790836.339,
+              -987299.573
+            ],
+            [
+              -790837.445,
+              -987333.725
+            ],
+            [
+              -790841.032,
+              -987334.499
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "ostruvek-257",
+        "title": "Čekací ostrůvek před čp. 256–257",
+        "epoch": "1957-58",
+        "sources": [
+          "S27",
+          "S27L"
+        ],
+        "observed": "Souvislá zvýšená čekací plocha s obrubou před lavičkami a zaoblením směrem k ústí Kulové.",
+        "hypothesis": "Zobrazen je úsek doložený oběma pohledy. Přesah směrem ke kostelu, odvrácená hrana, šířka, výška obruby a materiál jsou přibližné.",
+        "positionUncertaintyM": 4,
+        "status": "provisional",
+        "locked": false,
+        "placementAuthor": "OpenAI · Codex (rodina GPT-6), 2026-11-20",
+        "featureRole": "support_surface",
+        "heightM": 0.14,
+        "author": {
+          "key": "gpt",
+          "name": "OpenAI · Codex",
+          "model": "rodina GPT-6",
+          "date": "2026-11-20"
+        }
       }
     }
   ]

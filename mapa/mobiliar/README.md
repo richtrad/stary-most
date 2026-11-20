@@ -1,6 +1,6 @@
 # Kulová: mobiliář z původních fotografií
 
-Pilot z 11. listopadu 2026 obsahuje **19 objektů podle šesti původních snímků Libuše**. Kliknutí na objekt otevře kartu konkrétní fotografie. Výběr fotografické scény odděluje 1957–58, nedatovaný pohled dolů Kulovou, přibližně 1968, březen 1969 a přibližně 1900–1910.
+Kulová a ústí do Šmeralova náměstí mají **19 objektů podle sedmi původních snímků Libuše**. Kliknutí na objekt otevře kartu fotografie, na které je vidět. Výběr fotografické scény odděluje 1957–58, nedatovaný pohled dolů Kulovou, přibližně 1968, březen 1969 a přibližně 1900–1910.
 
 Přepínač mění pouze tento mobiliář a vozidla. Budovy a okolní terén jsou kontext z více pramenů, zejména z roku 1964; nejde o kompletní rekonstrukci města ke každému datu.
 
@@ -25,6 +25,7 @@ Souhrnný manifest Claudeovy dávky nesouhlasil s dříve deklarovaným hashem. 
 - S11: oboustranné zábradlí a lampa schodiště za školou; na kartě ~1968.
 - S16: dlouhé nástěnné svítidlo, elektrická konzola a světlé užitkové vozidlo. Rok a typ vozidla nejsou doložené. Plán potvrdil lampu na **čp. 260**, nikoli 262; protější nároží je čp. 259.
 - S27: autobus, střešní nosič, plakátovací sloup, nízké zábradlí, lavičky a označník stanoviště; na kartě **1957–58**.
+- S27L zachycuje pokračování stanoviště před čp. 256 směrem ke kostelu. Jsou vidět lavička s dítětem, označník, přerušovaná pole zábradlí a obruba.
 
 Úplná archivní ID, názvy, počty bajtů a SHA-256 jsou v katalogu. Barevné nebo generované odvozeniny se nepoužily jako důkaz původní podoby mobiliáře.
 
@@ -38,6 +39,8 @@ Před modelováním byly otevřeny situační plány bloků 260–263 a 256–25
 
 Poloha je odečet z vazeb na fasády, běžně s odhadovanou nejistotou ±1 až ±4 m, u vzdáleného vozidla ±8 m. Výšky, nedoložené boky, barvy a skryté detaily jsou modelové hypotézy (`provisional`, `locked:false`). Barva není určena černobílým snímkem. Nečitelné plakáty, SPZ, linková čísla a loga se nevymýšlejí.
 
+Při opravě 20. listopadu 2026 byly oba pohledy na stanoviště propojeny podle překryvu u čp. 256. Lavička s mužem před čp. 257 a lavička s dítětem blíže ke kostelu stojí na čekacím ostrůvku opěradly k zábradlí. Mezery mezi poli odpovídají viditelným koncům příček. GIS poloha má odhadovanou nejistotu ±4 m. Zaoblení u Kulové je vidět na fotografii, rozsah ostrůvku za jižním okrajem zobrazeného úseku zůstává otevřený. Ostrůvek se zobrazuje s mobiliářem z let 1957–58.
+
 Schodiště je orientační podnož doloženého zábradlí: neznáme přesný výškový profil ani počet stupňů. Nadhled ukazuje úzký koridor podél školy; okolní půdorysy zahrnují i objekty z jiného období.
 
 ## Otevření původního snímku
@@ -49,7 +52,7 @@ Dočasný soukromý náhled může stejné soubory poskytovat pouze na localhost
 ## Technická podoba
 
 - `mobiliar.json`: jednotlivé objekty, epochy, autoři, zdroje a nejistoty.
-- `mobiliar.geojson`: bodové kotvy v EPSG:5514; u dlouhého zábradlí jde o kotvu, nikoli geodeticky zaměřenou stopu.
+- `mobiliar.geojson` obsahuje v EPSG:5514 bodové kotvy, jednotlivé úseky zábradlí a polygon čekacího ostrůvku. Souřadnice stanoviště jsou fotografický odhad.
 - `modely.js`: editovatelné procedurální geometrie GPT/Codexu.
 - `modely/*.glb`: pět vybraných původních Claudeových geometrií.
 - Dosednutí se vypočítává z existujících výškových rovin chodníků. Fasády zůstávají beze změny.

@@ -35,6 +35,18 @@
     {
       "source": "S16",
       "finding": "Pohled z horního konce směrem k náměstí. Zleva v hloubce jdou 260, nízký 261, vysoký 262, 263. Nástěnná lampa v levém popředí patří čp.260, nikoli262."
+    },
+    {
+      "date": "2026-11-20",
+      "sources": [
+        "S27",
+        "S27L",
+        "S31"
+      ],
+      "scope": "Čekací ostrůvek před čp. 256–257",
+      "status": "found",
+      "method": "Čelo čp. 257 podle plánu S31 a GIS, obrys a kola autobusu jako rozměrová analogie na S27, společné body obou původních fotografií pro lavičku u čp. 256. Obruba, nohy laviček, konce polí a směr sezení odečteny ve zvětšení.",
+      "limits": "Poloha v městské síti přibližně ±4 m. Ortofoto 1964 je pozdější než demolice čp. 256 a nevymezuje ostrůvek na fotografiích z let 1957–58."
     }
   ],
   "next": [
