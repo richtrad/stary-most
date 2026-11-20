@@ -3,7 +3,8 @@ import {autumnGround, roofTones, wallTones, toneFor} from '../vzhled.js?v=202611
 export async function loadRoofData(){
  const names=['manifest','gpt-roofs','claude-roofs','mesto-strechy','prameny'];
  const values=await Promise.all(names.map(async n=>{const r=await fetch('strechy/'+n+'.json',{cache:'no-cache'});if(!r.ok)throw Error('Chybí vrstva střech: '+n);return r.json()}));
- return {manifest:values[0],gpt:values[1],claude:values[2],context:values[3],sources:values[4]};
+ const schema=await fetch('pruceli/schema/domy.json').then(r=>r.ok?r.json():null).catch(()=>null);
+ return {manifest:values[0],gpt:values[1],claude:values[2],context:values[3],sources:{...values[4],...schema?.sources},schema};
 }
 export function roofModels(scene,data,city,changed,appearance,ids){
  const group=new T.Group();group.name='Střechy a dvory · oddělené autorské verze';scene.add(group);

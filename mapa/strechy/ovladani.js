@@ -11,7 +11,12 @@ export function roofInterface(data,actions){
  q('#roof-source-select').onchange=e=>displaySource(e.target.value);
  q('#roof-show-photo').onclick=()=>{const id=available().find(id=>sources[id]?.type==='photo');if(id){q('#roof-source-select').value=id;displaySource(id)}};
  q('#roof-show-plan').onclick=()=>{const id=available().find(id=>sources[id]?.type==='plan');if(id){q('#roof-source-select').value=id;displaySource(id)}};
- function available(){return shown?.kind==='context'?['city-ortho-1964']:records.get(shown?.cp)?.sources||[]}
+ function available(){
+  if(shown?.kind==='context')return ['city-ortho-1964'];
+  const ids=records.get(shown?.cp)?.sources||[];
+  const source=shown?.kind==='schematic-front'&&data.schema?.houses[shown.cp]?.source;
+  return source?[source,...ids.filter(id=>id!==source)]:ids;
+ }
  async function displaySource(id){
   const token=++generation;
   selectedSource=id;q('#roof-source-select').value=id;const s=sources[id];let url=local.get(s?.sha256);q('#roof-source-note').textContent=s?[s.title,s.date,s.note].join(' · '):'Pramen není přiřazen.';
@@ -45,9 +50,17 @@ export function roofInterface(data,actions){
   q('#roof-dialog-title').textContent=(r?label(r):hit.cp&&hit.cp!=='None'?'Čp. '+hit.cp:'Stavba GIS '+hit.id)+' · '+(hit.kind==='courtyard'?'dvůr / zahrada':'střechy a dvory');
   q('#roof-dialog-author').textContent=isContext?'Algoritmický kontext města · původní generátor projektu, přesný model autora neevidován.':state.layer==='claude'?(old?'Claude · Opus 5.5 · '+old.revision+'. Neutrální materiály a export: Codex.':'Půdorysný kontext GIS. Model Clauda pro tento dům v této vrstvě není.'):data.manifest.layerNotes.gpt;
   q('#roof-dialog-note').textContent=isContext?'Tato střecha je pouze algoritmický odhad z půdorysu. Individuální porovnání s plánem a leteckým snímkem zatím neproběhlo.':state.layer==='claude'?(old?.note||r?.note):r?.note;
+  if(hit.kind==='schematic-front'){
+   q('#roof-dialog-title').textContent='Čp. '+hit.cp+' · schematické průčelí';
+   const layer=data.schema.houses[hit.cp].layers[state.layer];
+   const maker=state.layer==='claude'?'Claude · Opus 5.5':'OpenAI · rodina GPT-6';
+   q('#roof-dialog-author').textContent='Schéma průčelí · '+data.schema.author+'. Hmota a střecha · '+maker+' · '+layer.roofRevision+'.';
+   q('#roof-dialog-note').textContent='Podklad pro rozmístění otvorů · '+data.schema.houses[hit.cp].openingMeasurementAuthor+'. '+data.schema.interpretation;
+  }
   const ids=available();q('#roof-source-select').replaceChildren(...ids.map(id=>new Option(sources[id]?.title||id,id)));
   q('#roof-show-photo').disabled=!ids.some(id=>sources[id]?.type==='photo');q('#roof-show-plan').disabled=!ids.some(id=>sources[id]?.type==='plan');
-  displaySource(ids.find(id=>sources[id]?.type==='photo'&&sources[id]?.url)||ids.find(id=>sources[id]?.type==='plan')||ids[0]);if(!dialog.open)dialog.showModal();
+  const preferred=hit.sourceType&&ids.find(id=>sources[id]?.type===hit.sourceType);
+  displaySource(preferred||ids.find(id=>sources[id]?.type==='photo'&&sources[id]?.url)||ids.find(id=>sources[id]?.type==='plan')||ids[0]);if(!dialog.open)dialog.showModal();
  }
  function update(s){
   state=s;q('#roof-select').value=s.roofFocus||'';q('#roof-source').disabled=!s.roofFocus;q('#roof-context').checked=s.roofContext;

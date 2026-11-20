@@ -1,5 +1,5 @@
-import {loadRoofData} from './strechy/modely.js?v=20261120-podzim';
-import {roofInterface} from './strechy/ovladani.js?v=20261111-blocks2';
+import {loadRoofData} from './strechy/modely.js?v=20261120-schema1';
+import {roofInterface} from './strechy/ovladani.js?v=20261120-schema1';
 import {furnitureInterface} from './mobiliar/ovladani.js';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
 import {normalizeCity} from './public-client.js';
@@ -23,7 +23,7 @@ function parse() {
   const type=['photos','plans'].includes(p.get('doc'))?p.get('doc'):null;
   const page=type?Math.min(houses[cp][type].length-1,Math.max(0,parseInt(p.get('page'),10)||0)):0;
   const surface=p.get('surface')==='materials'?'materials':'original';
-  const houseLevel=['hmota','pruceli','detail'].includes(p.get('domy'))?p.get('domy'):surface==='materials'?'detail':'pruceli';
+  const houseLevel=['hmota','schema','pruceli','detail'].includes(p.get('domy'))?p.get('domy'):surface==='materials'?'detail':'schema';
   const vegetation=['off','branches','crowns','autumn'].includes(p.get('vegetation'))?p.get('vegetation'):defaultVegetation;
   const autumn=vegetation==='autumn' || (vegetation==='off' && p.get('season')==='autumn');
   const quality=p.get('quality')==='distinct'?'distinct':'all';
@@ -88,24 +88,44 @@ function updateAppearance() {
   q('#appearance-note').hidden=state.appearance!=='minimapa';
   map?.setAppearance(state.appearance);
 }
+function focusedSchematicHouse(){
+  return state.houseLevel==='schema' && state.view==='street' && roofData?.schema?.houses[state.roofFocus] ? state.roofFocus : null;
+}
+function openHouseSource(type,code=focusedSchematicHouse()||state.cp){
+  if(houses[code])openDoc(type,code);
+  else roofUI?.show({cp:code,kind:type==='photos'?'schematic-front':'roof',sourceType:type==='photos'?'photo':'plan'});
+}
 function update(instant=false,preserve=false) {
   updateAppearance();
   const {cp,layer,view}=state, h=houses[cp], v=h.variants[layer];
-  for(const [key,selected] of Object.entries({cp,layer,view,surface:state.surface})){
+  const address=focusedSchematicHouse()||cp;
+  for(const [key,selected] of Object.entries({cp:address,layer,view,surface:state.surface})){
     all('[data-'+key+']').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset[key]===selected)));
   }
   const note=q('#surface-note');
   q('#house-level').value=state.houseLevel;
+  const schema=roofData?.schema, schematic=state.houseLevel==='schema';
+  q('#schema-controls').hidden=!schematic||!schema;
+  const focused=state.roofFocus || (view==='facade'?cp:null);
+  q('#schema-focus').value=focused&&schema?.houses[focused]?focused:'';
+  q('#schema-source').disabled=!q('#schema-focus').value;
   q('#full-surface').hidden=state.houseLevel!=='detail';
   note.hidden=state.surface!=='materials'||view==='city';
   note.textContent=Object.keys(v.textureSwatches||{}).length ? 'Texturované plochy mají v tomto pohledu jeden odstín.' : 'Tato verze domu už používá jen materiály.';
   const front=h.frontModel, massing=front?.variants[layer], full=state.houseLevel==='detail';
   q('#front-measurements').hidden=full||!massing;
+  q('#front-measurements a').href=schematic?'pruceli/schema/domy.json':'pruceli/mereni.json';
   if(full){
     q('#credit strong').textContent=v.maker+' · '+v.revision;
     q('#credit>p').textContent=v.credit;
     q('.scope').textContent=v.scope;
     q('#credit code').textContent='SHA-256 '+v.sha256;
+  }else if(schematic&&schema?.houses[address]){
+    const house=schema.houses[address], rec=house.layers[layer];
+    q('#credit strong').textContent='Schematické průčelí · '+schema.author;
+    q('#credit>p').textContent='Čp. '+address+' · hmota a střecha · '+(layer==='claude'?'Claude · Opus 5.5':'OpenAI · rodina GPT-6')+' · '+rec.roofRevision;
+    q('.scope').textContent=(houses[address]?.frontModel.scope || schema.sources[house.source].note)+' Podklad pro rozmístění otvorů · '+house.openingMeasurementAuthor+'. '+schema.interpretation;
+    q('#credit code').textContent='SHA-256 '+schema.assets[layer].sha256;
   }else{
     q('#credit strong').textContent=massing && state.houseLevel==='pruceli'?'Průčelí podle fotografie · '+front.maker:'Hmota domu';
     q('#credit>p').textContent=massing?'Hmota a střecha · '+massing.roofAuthor+' · '+massing.roofRevision:'Průčelí tohoto domu čeká na zaměření.';
@@ -115,8 +135,15 @@ function update(instant=false,preserve=false) {
   q('#registration').textContent=h.identity+'. '+h.placement+' Azimut průčelí '+h.trueBearing.toLocaleString('cs-CZ')+'° od zeměpisného severu.';
   q('#plan').textContent='Plán parcely '+h.parcel1937;
   q('#address').textContent='Čp. '+cp+' · '+h.address;
+  q('#registration-detail').hidden=schematic;
+  if(schematic&&schema?.houses[address]&&!houses[address]){
+    const house=schema.houses[address], rec=house.layers[layer];
+    q('#address').textContent='Čp. '+address+' · Kulová';
+    q('#plan').textContent='Stavební plány';
+    q('#registration').textContent='Uliční stěna sleduje hranu půdorysu vybrané autorské verze. Šířka stěny v modelu je '+rec.width.toLocaleString('cs-CZ',{maximumFractionDigits:2})+' m. '+schema.sources[house.source].note;
+  }
   q('#place').textContent=view==='city'?'Starý Most':view==='street'?'Kulová a okolí':'Čp. '+cp;
-  q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+(full?v.maker:state.houseLevel==='pruceli'?'Průčelí podle fotografie':'Hmota domu');
+  q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+(full?v.maker:schematic?'Schematické průčelí':state.houseLevel==='pruceli'?'Průčelí podle fotografie':'Hmota domu');
   if(view==='trees' && catalog){
     q('#place').textContent=state.tree?'Strom '+state.tree:(catalog.metadata.areas[state.area]||'Stromy kolem Kulové');
     q('#scale').textContent=state.tree&&!treeUI.get(state.tree)?.city_reading?'Starý Most · letecký snímek z 16. dubna 1964':'Starý Most · ortofoto 1964';
@@ -220,6 +247,13 @@ async function boot(){
       select:cp=>choose({roofFocus:cp,view:'street',street:String(roofData.gpt.buildings.find(b=>b.cp===cp)?.streetId||24)}),
       context:enabled=>{state.roofContext=enabled;writeLink();update(false,true)}
     });
+    const facadeSelect=q('#schema-focus');
+    for(const code of Object.keys(roofData.schema?.houses||{}))facadeSelect.add(new Option('Čp. '+code,code));
+    facadeSelect.onchange=()=>{
+      const code=facadeSelect.value;
+      choose({view:'street',street:'24',roofFocus:code||null,...(houses[code]?{cp:code}:{})});
+    };
+    q('#schema-source').onclick=()=>{if(facadeSelect.value)openHouseSource('photos',facadeSelect.value)};
   }catch(e){q('#roof-controls').hidden=true;console.warn('Střechy nejsou dostupné.',e)}
 
   try{
@@ -316,13 +350,13 @@ async function boot(){
     state.surface=b.dataset.surface;
     writeLink();update(false,true);
   });
-  q('#photo').onclick=()=>openDoc('photos');q('#plan').onclick=()=>openDoc('plans');
+  q('#photo').onclick=()=>openHouseSource('photos');q('#plan').onclick=()=>openHouseSource('plans');
   window.addEventListener('popstate',()=>{
     const oldRoof=state.roofFocus,oldFurniture=state.furnitureFocus,oldDetail=state.detailFocus,oldSector=state.detailSector,oldVehicle=state.vehicleFocus,oldStreet=state.street,oldArea=state.area,oldTree=state.tree,oldZone=state.zone,oldLand=state.landId;
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-podzim'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-schema1'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));
