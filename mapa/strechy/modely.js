@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {roofTones, wallTones, toneFor} from '../vzhled.js';
+import {autumnGround, roofTones, wallTones, toneFor} from '../vzhled.js?v=20261120-podzim';
 export async function loadRoofData(){
  const names=['manifest','gpt-roofs','claude-roofs','mesto-strechy','prameny'];
  const values=await Promise.all(names.map(async n=>{const r=await fetch('strechy/'+n+'.json',{cache:'no-cache'});if(!r.ok)throw Error('Chybí vrstva střech: '+n);return r.json()}));
@@ -18,7 +18,7 @@ export function roofModels(scene,data,city,changed,appearance,ids){
  appearance.tint(materials.walls,0xe8d5af);
  appearance.tint(materials.trim,0x795f4c);
  appearance.tint(courtMats.court,0xd4bf98);
- appearance.tint(courtMats.garden,0x92b765);
+ appearance.tint(courtMats.garden,0x92b765,autumnGround.garden);
  function mesh(pos,material,parent,cp,kind){
   if(!pos?.length)return;const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.computeVertexNormals();
   const m=new T.Mesh(geo,material);m.castShadow=m.receiveShadow=true;

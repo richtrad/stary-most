@@ -1,13 +1,13 @@
-import {roofModels} from './strechy/modely.js?v=20261120-vzhled';
+import {roofModels} from './strechy/modely.js?v=20261120-podzim';
 import {placeFront} from './pruceli/model.js';
 import {buildFurniture} from './mobiliar/modely.js?v=20261120-vzhled';
-import {cityEnvironment} from './mesto/scena.js?v=20261120-vzhled';
+import {cityEnvironment} from './mesto/scena.js?v=20261120-podzim';
 import * as T from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
-import {publicSpace} from './prostor/scena.js?v=20261120-vzhled';
-import {buildTrees} from './stromy/stromy.js?v=20261120-vzhled';
+import {publicSpace} from './prostor/scena.js?v=20261120-podzim';
+import {buildTrees} from './stromy/stromy.js?v=20261120-podzim';
 import {GLTFLoader} from './vendor/GLTFLoader.js';
-import {mapAppearance, roofTones, wallTones, toneFor} from './vzhled.js';
+import {mapAppearance, roofTones, wallTones, toneFor} from './vzhled.js?v=20261120-podzim';
 
 const vec = (a,b,c) => new T.Vector3(a,b,c);
 const rad = T.MathUtils.degToRad;
@@ -58,7 +58,8 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   }
   const vegetation=catalog?buildTrees(scene,city,catalog,appearance):null;
   let treeArea='all',treeFocus=null,treeMode='crowns';
-  function setTrees(mode,quality,area,id) {
+  function setTrees(mode,quality,area,id,autumn) {
+    appearance.setAutumn(autumn);
     vegetation?.configure(mode,quality);environment?.treeStyle(mode,quality);
     treeArea=area;treeFocus=id;treeMode=mode;needsRender=true;
   }

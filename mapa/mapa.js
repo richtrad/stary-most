@@ -1,4 +1,4 @@
-import {loadRoofData} from './strechy/modely.js?v=20261120-vzhled';
+import {loadRoofData} from './strechy/modely.js?v=20261120-podzim';
 import {roofInterface} from './strechy/ovladani.js?v=20261111-blocks2';
 import {furnitureInterface} from './mobiliar/ovladani.js';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
@@ -10,7 +10,7 @@ const q=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
 const canvas=q('#scene'), dialog=q('#archive'), scan=q('#scan');
 const defaultVegetation='crowns';
-const state={roofFocus:null,roofContext:true,furnitureEpoch:"1957-58",furnitureKinds:[],furnitureAuthor:"all",furnitureEnabled:true,furnitureFocus:null,furnitureDoc:null,detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:defaultVegetation,quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
+const state={roofFocus:null,roofContext:true,furnitureEpoch:"1957-58",furnitureKinds:[],furnitureAuthor:"all",furnitureEnabled:true,furnitureFocus:null,furnitureDoc:null,detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:defaultVegetation,autumn:false,quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
 let roofData,roofUI;
 let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData,furnitureUI,furnitureCatalog;
 const status=t=>q('#map-status').textContent=t;
@@ -24,7 +24,8 @@ function parse() {
   const page=type?Math.min(houses[cp][type].length-1,Math.max(0,parseInt(p.get('page'),10)||0)):0;
   const surface=p.get('surface')==='materials'?'materials':'original';
   const houseLevel=['hmota','pruceli','detail'].includes(p.get('domy'))?p.get('domy'):surface==='materials'?'detail':'pruceli';
-  const vegetation=['off','branches','crowns'].includes(p.get('vegetation'))?p.get('vegetation'):defaultVegetation;
+  const vegetation=['off','branches','crowns','autumn'].includes(p.get('vegetation'))?p.get('vegetation'):defaultVegetation;
+  const autumn=vegetation==='autumn' || (vegetation==='off' && p.get('season')==='autumn');
   const quality=p.get('quality')==='distinct'?'distinct':'all';
   let tree=p.get('tree');
   if(!treeUI?.has(tree) || view!=='trees' || (quality==='distinct' && treeUI.get(tree).confidence!=='distinct'))tree=null;
@@ -44,7 +45,7 @@ function parse() {
   const street=detailFocus?String(detail.streetId):sectorStreet&&!p.has('street')?String(sectorStreet):vehicleFocus?String(focus.streetId):cityUI?.streets.has(p.get('street'))?p.get('street'):'24';
   const cityItem=cityUI?.has(p.get('element'))?p.get('element'):null;
   const enabled=p.has('mesto')?p.get('mesto').split(','):cityGroups;
-  return {appearance,houseLevel,roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
+  return {appearance,houseLevel,roofFocus:roofUI?.has(p.get('roof'))?p.get('roof'):null,roofContext:p.get('roofcontext')!=='0',...furnitureUI?.parse(p,view),detailFocus,detailSector,vehicleFocus,street,cityItem,cityPlan:p.get('plan50')!=='0',cityGroups:cityGroups.filter(g=>enabled.includes(g)),landGroups,landId,zone,landDoc:!!landId&&!type&&p.get('pramen')==='1',cp,layer,view,surface,type,page,vegetation,autumn,quality,area,tree,treeDoc:!!tree && !type && p.get('pramen')==='1'};
 }
 function writeLink() {
   const url=new URL(location.href),capture=url.searchParams.get('capture')==='1';
@@ -70,6 +71,7 @@ function writeLink() {
   if(state.cityGroups.length!==cityGroups.length)url.searchParams.set('mesto',state.cityGroups.join(','));
   if(state.surface==='materials')url.searchParams.set('surface','materials');
   if(state.vegetation!==defaultVegetation)url.searchParams.set('vegetation',state.vegetation);
+  if(state.vegetation==='off' && state.autumn)url.searchParams.set('season','autumn');
   if(state.quality!=='all')url.searchParams.set('quality',state.quality);
   if(state.view==='trees' && state.area!=='all')url.searchParams.set('area',state.area);
   if(state.view==='trees' && state.tree)url.searchParams.set('tree',state.tree);
@@ -136,7 +138,7 @@ function update(instant=false,preserve=false) {
   q('[data-shot="corner"]').setAttribute('aria-pressed',String(corner));
   if(corner){q('#place').textContent='Šmeralovo náměstí';q('#scale').textContent='Ústí Kulové · nárožní dům čp. 267'}
   if(fullStreet){q('#place').textContent='Kulová';q('#scale').textContent='Severní fronta a ústí do Šmeralova náměstí'}
-  if(map){map.setRoofs(state.roofFocus,state.roofContext);map.setFurniture({epoch:state.furnitureEpoch,enabled:state.furnitureEnabled,kinds:state.furnitureKinds,author:state.furnitureAuthor},state.furnitureFocus);map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree);map.setHouse(cp,layer,view,instant,preserve,state.houseLevel)}
+  if(map){map.setRoofs(state.roofFocus,state.roofContext);map.setFurniture({epoch:state.furnitureEpoch,enabled:state.furnitureEnabled,kinds:state.furnitureKinds,author:state.furnitureAuthor},state.furnitureFocus);map.setCity(state.street,state.cityGroups,state.cityPlan,state.view,state.vehicleFocus,state.detailFocus,state.detailSector);map.setSpace(state.landGroups,state.zone,state.landId);map.setSurface(state.surface);map.setTrees(state.vegetation,state.quality,state.area,state.tree,state.autumn);map.setHouse(cp,layer,view,instant,preserve,state.houseLevel)}
 }
 function choose(change) {
   const onlyLayer=Object.keys(change).length===1&&'layer' in change;
@@ -272,7 +274,12 @@ async function boot(){
       selectTree:id=>selectTree(id,false), showTree:id=>selectTree(id,true),
       close:()=>{state.treeDoc=false;writeLink();renderDoc()},
       area:area=>choose({view:'trees',area,tree:null}),
-      style:mode=>{state.vegetation=mode;if(mode==='off'){state.tree=null;state.treeDoc=false}writeLink();update(false,true);renderDoc()},
+      style:mode=>{
+        state.vegetation=mode;
+        if(mode==='off'){state.tree=null;state.treeDoc=false}
+        else state.autumn=mode==='autumn';
+        writeLink();update(false,true);renderDoc();
+      },
       quality:quality=>{state.quality=quality;if(state.tree && quality==='distinct' && treeUI.get(state.tree).confidence!=='distinct'){state.tree=null;state.treeDoc=false}writeLink();update(false,true);renderDoc()}
     });
   }catch(e){
@@ -315,7 +322,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-pruceli1'),fetch('strechy/city.json')]);
+  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-podzim'),fetch('strechy/city.json')]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const city=normalizeCity(await resp.json());
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));

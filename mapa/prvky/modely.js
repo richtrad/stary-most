@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {autumnGround} from '../vzhled.js?v=20261120-podzim';
 
 const palette={dvor:0xc5bca7,zahrada:0x9bab7d,zahon:0xa99771,hranice:0x858674,zed:0x969286,stavba:0xb8b09a};
 const level={dvor:.080,zahrada:.075,zahon:.115};
@@ -8,10 +9,11 @@ function shapeOf(rings){
   for(const hole of rings.slice(1))shape.holes.push(new T.Path(points(hole)));
   return shape;
 }
-export function buildSmallFeatures(records){
+export function buildSmallFeatures(records,appearance){
   const root=new T.Group();root.name='Drobné prvky · OpenAI Codex';
   const groups=new Map(),meshes=[];
   const materials=Object.fromEntries(Object.entries(palette).map(([key,color])=>[key,new T.MeshLambertMaterial({color,flatShading:true,side:T.DoubleSide})]));
+  appearance.tint(materials.zahrada,palette.zahrada,autumnGround.garden);
   const roof=new T.MeshLambertMaterial({color:0xa7aa96,flatShading:true,side:T.DoubleSide});
   const unit=new T.BoxGeometry(1,1,1);
   function mesh(geometry,material,group,record){

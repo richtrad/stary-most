@@ -1,16 +1,15 @@
 import * as T from 'three';
+import {hasCrowns} from '../vzhled.js?v=20261120-podzim';
 
 // Crown positions within surveyed stands are illustrative, not individual readings.
 // A click always opens the source polygon and its uncertainty, never a fake tree ID.
 export function buildCanopyStands(records,appearance) {
   const root=new T.Group();root.name='Porosty z ortofota 1964';
   const instances=records.flatMap(record=>(record.canopyPoints||[]).map(p=>({record,p})));
-  const n=instances.length, dummy=new T.Object3D(), color=new T.Color();
+  const n=instances.length, dummy=new T.Object3D();
   const leaf=new T.MeshLambertMaterial({flatShading:true});
   const bark=new T.MeshLambertMaterial({color:0x75694e,flatShading:true});
   const crowns=new T.InstancedMesh(new T.IcosahedronGeometry(1,1),leaf,n);
-  appearance.crowns(crowns);
-  appearance.tint(leaf,0xc0d89d);
   const trunks=new T.InstancedMesh(new T.CylinderGeometry(.65,1,1,5),bark,n);
   const branches=new T.InstancedMesh(new T.CylinderGeometry(.35,1,1,4),bark,n*3);
   for(const mesh of [crowns,trunks,branches]){mesh.frustumCulled=false;root.add(mesh)}
@@ -18,7 +17,7 @@ export function buildCanopyStands(records,appearance) {
   instances.forEach(({p:[x,z,d,h]},i)=>{
     dummy.position.set(x,h*.68,z);dummy.scale.set(d*.49,h*.33,d*.43);
     dummy.rotation.set(.04*Math.sin(i),i*2.399,.06*Math.cos(i));dummy.updateMatrix();
-    crowns.setMatrixAt(i,dummy.matrix);crowns.setColorAt(i,color.setHex([0x7c9954,0x709052,0x87a35d,0x66884e,0x829d58][i%5]));
+    crowns.setMatrixAt(i,dummy.matrix);
     dummy.rotation.set(0,0,0);dummy.position.set(x,h*.3,z);dummy.scale.set(d*.027,h*.6,d*.027);dummy.updateMatrix();trunks.setMatrixAt(i,dummy.matrix);
     for(let b=0;b<3;b++){
       const angle=i*2.399+b*Math.PI*2/3;
@@ -29,11 +28,12 @@ export function buildCanopyStands(records,appearance) {
       dummy.scale.set(d*.018,direction.length(),d*.018);dummy.updateMatrix();branches.setMatrixAt(i*3+b,dummy.matrix);
     }
   });
+  appearance.crowns(crowns,[0x7c9954,0x709052,0x87a35d,0x66884e,0x829d58],0xc0d89d);
   let mode='crowns',quality='all',enabled=true;
   function configure(next,show,nextQuality='all'){
     mode=next;quality=nextQuality;enabled=show;
     root.visible=enabled&&quality!=='distinct'&&mode!=='off';
-    crowns.visible=mode==='crowns';branches.visible=mode==='branches';
+    crowns.visible=hasCrowns(mode);branches.visible=mode==='branches';
   }
   configure(mode,enabled);
   function pick(ray){

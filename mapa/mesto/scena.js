@@ -1,11 +1,13 @@
 import * as T from 'three';
 import {buildVehicles} from '../vozidla/modely.js';
-import {buildSmallFeatures} from '../prvky/modely.js';
-import {buildCanopyStands} from './porosty.js?v=20261120-vzhled';
+import {buildSmallFeatures} from '../prvky/modely.js?v=20261120-podzim';
+import {buildCanopyStands} from './porosty.js?v=20261120-podzim';
+import {autumnGround, hasCrowns} from '../vzhled.js?v=20261120-podzim';
 import {buildBridges} from '../mosty/modely.js?v=20261111-mosty2';
 const colors={ulice:0xb6b3a3,zelen:0x99ad7e,voda:0x739c9d,cesta:0xd7c9a7,porost:0x78926b,kolejiste:0xa29685,otevrena:0xc6b995};
 const painted={ulice:0xc8bcaa,zelen:0x91b969,voda:0x5badae,cesta:0xdbc599,porost:0x719453,kolejiste:0xa69782,otevrena:0xd9c8a5};
 const heights={ulice:.046,zelen:.002,voda:.012,cesta:.032,porost:.003,kolejiste:.01,otevrena:.018};
+const seasonalSurfaces={zelen:autumnGround.lawn,porost:autumnGround.woodland};
 
 function inside(point, ring) {
   const [x,z]=point;
@@ -25,7 +27,7 @@ export function cityEnvironment(scene,data,invalidate,appearance) {
   const bridges=buildBridges(data.surfaces.filter(r=>r.kind==='most'));scene.add(bridges.root);
   const surveyedStands=data.surfaces.filter(r=>r.canopySurvey);
   const stands=buildCanopyStands(surveyedStands,appearance);scene.add(stands.root);
-  const details=buildSmallFeatures(data.details||[]);scene.add(details.root);
+  const details=buildSmallFeatures(data.details||[],appearance);scene.add(details.root);
   const vehicles=buildVehicles(data.vehicles||[]);scene.add(vehicles.root);
   const materials=Object.fromEntries(Object.entries(colors).map(([kind,color])=>[kind,new T.MeshBasicMaterial({color,side:T.DoubleSide,toneMapped:false})]));
   const woods=[];
@@ -38,7 +40,7 @@ export function cityEnvironment(scene,data,invalidate,appearance) {
     const mesh=new T.Mesh(new T.ShapeGeometry(shape).rotateX(-Math.PI/2),materials[record.kind]);
     mesh.position.y=record.canopySurvey ? .067 : heights[record.kind];
     mesh.userData.item=record;
-    appearance.ground(mesh,painted[record.kind]);
+    appearance.ground(mesh,painted[record.kind],seasonalSurfaces[record.kind]);
     scene.add(mesh);meshes.push(mesh);
     if(record.kind!=='porost'||record.canopySurvey)continue;
     const xs=rings[0].map(p=>p[0]),zs=rings[0].map(p=>p[1]);
@@ -53,14 +55,13 @@ export function cityEnvironment(scene,data,invalidate,appearance) {
   }
   const canopy=new T.InstancedMesh(new T.IcosahedronGeometry(1,1),new T.MeshLambertMaterial({flatShading:true}),woods.length);
   canopy.frustumCulled=false;
-  appearance.crowns(canopy);
-  appearance.tint(canopy.material,0xafcf96);
-  const dummy=new T.Object3D(),color=new T.Color();
+  const dummy=new T.Object3D();
   woods.forEach((w,i)=>{
     const f=Math.sin(w.x*.17+w.z*.23);
     dummy.position.set(w.x,5.1+f,w.z);dummy.scale.set(12.5,5.4+f,12.5);dummy.rotation.y=i*1.77;dummy.updateMatrix();
-    canopy.setMatrixAt(i,dummy.matrix);canopy.setColorAt(i,color.setHex(i%3===0?0x688456:i%3===1?0x73905c:0x608055));
+    canopy.setMatrixAt(i,dummy.matrix);
   });
+  appearance.crowns(canopy,[0x688456,0x73905c,0x608055],0xafcf96);
   scene.add(canopy);
   for(const group of [details.root,bridges.root,vehicles.root]){
     group.traverse(object=>{if(object.isMesh)object.castShadow=object.receiveShadow=true});
@@ -87,7 +88,7 @@ export function cityEnvironment(scene,data,invalidate,appearance) {
     vehicles.root.visible=active.has('vozidla');
     bridges.root.visible=active.has('most')&&showPlan;
     details.configure([...active]);
-    canopy.visible=showPlan&&mode==='crowns'&&quality!=='distinct'&&active.has('porost');
+    canopy.visible=showPlan&&hasCrowns(mode)&&quality!=='distinct'&&active.has('porost');
     stands.configure(mode,active.has('porost'),quality);
     invalidate();
   }

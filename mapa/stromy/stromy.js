@@ -1,8 +1,11 @@
 import * as T from 'three';
+import {autumnLeaves, hasCrowns} from '../vzhled.js?v=20261120-podzim';
 
 const Y = new T.Vector3(0,1,0);
-const palettes = ['#658249','#758b50','#59794b','#728849','#68875b','#829454'];
-const paintedLeaves = new Map(palettes.map((tone,i)=>[tone,[0x6c9e47,0x97b945,0x4c874b,0x82a344,0x579259,0xa0b455][i]]));
+const summerLeaves = {
+  atlas: [0x658249,0x758b50,0x59794b,0x728849,0x68875b,0x829454],
+  minimapa: [0x6c9e47,0x97b945,0x4c874b,0x82a344,0x579259,0xa0b455]
+};
 function noise(id) {
   let n=2166136261;
   for(const c of id)n=Math.imul(n ^ c.charCodeAt(0),16777619);
@@ -25,21 +28,22 @@ export function buildTrees(scene,city,catalog,appearance) {
     matrix.compose(start.clone().lerp(end,.5),rot,new T.Vector3(radius,axis.length(),radius));
     out.push({tree,matrix:matrix.clone(),color:'#725a42'});
   }
-  function lump(t,x,y,z,sx,sy,sz,yaw,color) {
+  function lump(t,x,y,z,sx,sy,sz,yaw) {
     rot.setFromEuler(new T.Euler(.1*t.random(),yaw,.09*t.random()));
     matrix.compose(new T.Vector3(x,y,z),rot,new T.Vector3(sx,sy,sz));
-    leaves.push({tree:t,matrix:matrix.clone(),color});
+    leaves.push({tree:t,matrix:matrix.clone()});
   }
   for(const t of trees){
     const {center:c,span:d,height:h,random:r}=t;
-    const angle=r()*Math.PI*2, shade=palettes[Math.floor(r()*palettes.length)];
+    const angle=r()*Math.PI*2;
+    t.shade=Math.floor(r()*summerLeaves.atlas.length);
     const breadth=.85+r()*.25, asymmetry=.06+r()*.09, lobes=3+Math.floor(r()*3);
     const rise=.65+r()*.12, slope=.17+r()*.06;
     const crotch=c.clone().add(new T.Vector3(.09,h*.41,-.04));
     segment(wood,t,c,crotch,.095+.017*d);
     const top=c.clone().add(new T.Vector3(.06*d,h*.88,.03*d));
     segment(tips,t,crotch,top,.07+.009*d);
-    lump(t,c.x+Math.cos(angle)*asymmetry*d,h*rise,c.z+Math.sin(angle)*asymmetry*d,d*.32*breadth,h*(.98-rise),d*.31,angle,shade);
+    lump(t,c.x+Math.cos(angle)*asymmetry*d,h*rise,c.z+Math.sin(angle)*asymmetry*d,d*.32*breadth,h*(.98-rise),d*.31,angle);
     for(let j=0;j<lobes;j++){
       const a=angle+j*Math.PI*2/lobes+(r()-.5)*.58, dir=new T.Vector3(Math.cos(a),0,Math.sin(a));
       const limb=c.clone().addScaledVector(dir,d*(.18+.035*r()));limb.y=h*(.58+.06*r());
@@ -52,7 +56,7 @@ export function buildTrees(scene,city,catalog,appearance) {
         const end=twig.clone().add(new T.Vector3(-sign*dir.z*.12*d,.09*h,sign*dir.x*.12*d));
         segment(tips,t,twig,end,.021+d*.0017);
       }
-      lump(t,limb.x,h*(.59+.12*r()),limb.z,d*(.26+.075*r())*breadth,h*(slope+.055*r()),d*(.25+.065*r()),a,shade);
+      lump(t,limb.x,h*(.59+.12*r()),limb.z,d*(.26+.075*r())*breadth,h*(slope+.055*r()),d*(.25+.065*r()),a);
     }
     matrix.makeRotationX(-Math.PI/2);
     matrix.scale(new T.Vector3(d*.34,d*.27,1));matrix.setPosition(c.x,.008,c.z);
@@ -75,12 +79,12 @@ export function buildTrees(scene,city,catalog,appearance) {
   const shade=instanced(new T.CircleGeometry(1,13),sm,shadows);
   const objects=[crowns,stems,twigs,shade], color=new T.Color();
   stems.castShadow=twigs.castShadow=true;
-  let style,quality,count;
+  let style,quality,count,leafTones=summerLeaves.atlas;
   function fill(obj,filter) {
     let i=0;const ids=[];
     for(const b of obj.userData.records){
       if(filter==='distinct' && b.tree.p.confidence!=='distinct')continue;
-      const tone=obj===crowns && appearance.name==='minimapa' ? paintedLeaves.get(b.color) : b.color;
+      const tone=obj===crowns ? leafTones[b.tree.shade] : b.color;
       obj.setMatrixAt(i,b.matrix);obj.setColorAt(i,color.set(tone));ids.push(b.tree.id);i++;
     }
     obj.count=i;obj.userData.ids=ids;obj.instanceMatrix.needsUpdate=true;
@@ -89,12 +93,13 @@ export function buildTrees(scene,city,catalog,appearance) {
   }
   function configure(mode,filter){
     if(style===mode && quality===filter)return;
+    const filterChanged=filter!==quality;
     style=mode;quality=filter;
     const include=t=>filter!=='distinct'||t.p.confidence==='distinct';
     count=mode==='off'?0:trees.filter(include).length;
     root.visible=mode!=='off';
-    crowns.visible=mode==='crowns';twigs.visible=mode==='branches';shade.visible=mode==='crowns'&&appearance.name==='atlas';
-    for(const obj of objects)fill(obj,filter);
+    crowns.visible=hasCrowns(mode);twigs.visible=mode==='branches';shade.visible=crowns.visible&&appearance.name==='atlas';
+    if(filterChanged)for(const obj of objects)fill(obj,filter);
   }
   function bounds(area,focus) {
     const picked=byId.get(focus);
@@ -106,7 +111,7 @@ export function buildTrees(scene,city,catalog,appearance) {
   }
   function pick(ray) {
     if(!root.visible)return null;
-    const hit=ray.intersectObjects([stems,style==='crowns'?crowns:twigs],false)[0];
+    const hit=ray.intersectObjects([stems,crowns.visible?crowns:twigs],false)[0];
     if(!hit)return null;
     return {id:hit.object.userData.ids[hit.instanceId],distance:hit.distance};
   }
@@ -114,9 +119,12 @@ export function buildTrees(scene,city,catalog,appearance) {
     return {style,quality,count,examples:trees.filter(t=>quality!=='distinct'||t.p.confidence==='distinct').map(t=>({id:t.id,...project(t.center.clone().addScaledVector(Y,t.height*.72))})).filter(p=>p.visible)};
   }
   configure('crowns','all');
-  appearance.onChange(active=>{
-    shade.visible=style==='crowns'&&!active;
-    fill(crowns,quality);
+  appearance.onSeason((painted,autumn)=>{
+    const tones=autumn?autumnLeaves:summerLeaves;
+    leafTones=painted?tones.minimapa:tones.atlas;
+    shade.visible=crowns.visible&&!painted;
+    crowns.userData.ids.forEach((id,i)=>crowns.setColorAt(i,color.setHex(leafTones[byId.get(id).shade])));
+    if(crowns.instanceColor)crowns.instanceColor.needsUpdate=true;
   });
   return {configure,bounds,pick,diagnostic};
 }

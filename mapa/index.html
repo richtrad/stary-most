@@ -106,12 +106,12 @@
 </details>
 <section class="control tree-controls" id="tree-controls" aria-labelledby="tree-label">
 <div class="tree-head"><h2 id="tree-label">Stromy</h2><span id="tree-summary"></span></div>
-<div class="segmented" role="group" aria-labelledby="tree-label"><button data-vegetation="crowns">S korunami</button><button data-vegetation="branches">Bez listí</button><button data-vegetation="off">Skrýt</button></div>
+<div class="segmented" role="group" aria-labelledby="tree-label"><button data-vegetation="crowns">S korunami</button><button data-vegetation="autumn" title="Podzimní koruny, tráva a zahrady">Podzim</button><button data-vegetation="branches">Bez listí</button><button data-vegetation="off">Skrýt</button></div>
 <label class="tree-check"><input type="checkbox" id="tree-known"> Jen zřetelné stromy</label>
 <label class="tree-field" for="tree-area">Přiblížit oblast</label>
 <select id="tree-area"><option value="all">Celé zmapované okolí</option></select>
 <div class="tree-choice"><select id="tree-id" aria-label="Jednotlivý strom"></select><button type="button" id="tree-open" disabled>Pramen ↗</button></div>
-<p class="tree-note">Polohy podle leteckého snímku. Olistění, výšky a větvení modeloval OpenAI · Codex (GPT-6) pro obě vrstvy.</p>
+<p class="tree-note">Polohy podle leteckého snímku. Olistění, podzimní barvy, výšky a větvení modeloval OpenAI · Codex (GPT-6) pro obě vrstvy.</p>
 <p class="tree-note" id="tree-stand-summary"></p>
 <a href="./letecke-snimky/#soupis">Stromy na ortofotu ↗</a> · <a href="./mesto/zelen-1964.json">Soupis doplnění 1964 ↗</a>
 </section>
@@ -167,7 +167,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js?v=20261120-olisteni"></script>
+<script type="module" src="./mapa.js?v=20261120-podzim"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>

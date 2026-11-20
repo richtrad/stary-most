@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {autumnGround} from '../vzhled.js?v=20261120-podzim';
 
 
 export function parts(g) {
@@ -35,7 +36,7 @@ export function publicSpace(scene, catalog, invalidate, appearance) {
     const material=new T.MeshBasicMaterial({color:catalog.metadata.colors[record.group],side:T.DoubleSide,toneMapped:false});
     const height=record.display_thickness ?? (record.group==='prvky'?.18:record.group==='vozovky'?.06:record.group==='pesiny'?.04:.015);
     const mesh=new T.Mesh(new T.ExtrudeGeometry(shapes,{depth:height,bevelEnabled:false}).rotateX(-Math.PI/2),material);
-    appearance.ground(mesh,painted[record.group]);
+    appearance.ground(mesh,painted[record.group],record.group==='travniky'?autumnGround.lawn:undefined);
     if(record.surface_plane){
       const [a,b,c]=record.surface_plane;
       mesh.geometry.applyMatrix4(new T.Matrix4().set(1,0,0,0, a,1,b,c, 0,0,1,0, 0,0,0,1));
