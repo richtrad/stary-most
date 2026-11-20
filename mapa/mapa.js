@@ -9,7 +9,8 @@ import {showArchiveRecord} from './archive-access.js';
 const q=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
 const canvas=q('#scene'), dialog=q('#archive'), scan=q('#scan');
-const state={roofFocus:null,roofContext:true,furnitureEpoch:"1957-58",furnitureKinds:[],furnitureAuthor:"all",furnitureEnabled:true,furnitureFocus:null,furnitureDoc:null,detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:'crowns',quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
+const defaultVegetation='crowns';
+const state={roofFocus:null,roofContext:true,furnitureEpoch:"1957-58",furnitureKinds:[],furnitureAuthor:"all",furnitureEnabled:true,furnitureFocus:null,furnitureDoc:null,detailFocus:null,detailSector:null,vehicleFocus:null,street:'24',cityItem:null,cityPlan:true,cityGroups:[...cityGroups],cp:'262',layer:'claude',view:'city',surface:'original',type:null,page:0,vegetation:defaultVegetation,quality:'all',area:'all',tree:null,treeDoc:false,zone:'P',landGroups:[],landId:null,landDoc:false};
 let roofData,roofUI;
 let houses,map,treeUI,catalog,landUI,landCatalog,cityUI,cityData,furnitureUI,furnitureCatalog;
 const status=t=>q('#map-status').textContent=t;
@@ -23,10 +24,10 @@ function parse() {
   const page=type?Math.min(houses[cp][type].length-1,Math.max(0,parseInt(p.get('page'),10)||0)):0;
   const surface=p.get('surface')==='materials'?'materials':'original';
   const houseLevel=['hmota','pruceli','detail'].includes(p.get('domy'))?p.get('domy'):surface==='materials'?'detail':'pruceli';
-  const vegetation=['off','branches','crowns'].includes(p.get('vegetation'))?p.get('vegetation'):view==='prostor'?'branches':'crowns';
+  const vegetation=['off','branches','crowns'].includes(p.get('vegetation'))?p.get('vegetation'):defaultVegetation;
   const quality=p.get('quality')==='distinct'?'distinct':'all';
   let tree=p.get('tree');
-  if(!treeUI?.has(tree) || vegetation==='off' || view!=='trees' || (quality==='distinct' && treeUI.get(tree).confidence!=='distinct'))tree=null;
+  if(!treeUI?.has(tree) || view!=='trees' || (quality==='distinct' && treeUI.get(tree).confidence!=='distinct'))tree=null;
   const area=tree?treeUI.get(tree).area:Object.hasOwn(catalog?.metadata.areas||{},p.get('area'))?p.get('area'):'all';
   const allGroups=landUI?.groups||[],keys=p.has('plochy')?p.get('plochy').split(','):allGroups;
   const landGroups=allGroups.filter(k=>keys.includes(k));
@@ -68,7 +69,7 @@ function writeLink() {
   if(!state.cityPlan)url.searchParams.set('plan50','0');
   if(state.cityGroups.length!==cityGroups.length)url.searchParams.set('mesto',state.cityGroups.join(','));
   if(state.surface==='materials')url.searchParams.set('surface','materials');
-  if(state.vegetation!==(state.view==='prostor'?'branches':'crowns'))url.searchParams.set('vegetation',state.vegetation);
+  if(state.vegetation!==defaultVegetation)url.searchParams.set('vegetation',state.vegetation);
   if(state.quality!=='all')url.searchParams.set('quality',state.quality);
   if(state.view==='trees' && state.area!=='all')url.searchParams.set('area',state.area);
   if(state.view==='trees' && state.tree)url.searchParams.set('tree',state.tree);
@@ -145,9 +146,7 @@ function choose(change) {
   if(!('detailSector' in change)&&(change.view||change.street))change.detailSector=null;
   if(!('vehicleFocus' in change)&&(change.view||change.street))change.vehicleFocus=null;
   if(change.view && change.view!=='trees'){change.tree=null;change.area='all'}
-  if(change.view==='trees' && state.vegetation==='off')change.vegetation='crowns';
   if(change.view && change.view!=='prostor')change.landId=null;
-  if(change.view==='prostor' && state.view!=='prostor' && !new URL(location.href).searchParams.has('vegetation') && state.vegetation==='crowns')change.vegetation='branches';
   Object.assign(state,change,{type:null,page:0,treeDoc:false,landDoc:false,cityItem:null,furnitureDoc:null});
   writeLink();update(false,onlyLayer);renderDoc();
 }
@@ -182,15 +181,12 @@ dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoun
 function selectTree(id,open=true){
   const p=treeUI?.get(id);if(!p)return;
   Object.assign(state,{detailFocus:null,detailSector:null,vehicleFocus:null,cityItem:null,view:'trees',landId:null,landDoc:false,area:p.area,tree:id,treeDoc:open,type:null,page:0});
-  if(state.vegetation==='off')state.vegetation='crowns';
   writeLink();update();renderDoc();
 }
 function selectLand(id,open){
   const p=landUI?.items.get(id);if(!p)return;
-  const cameFrom=state.view;
   Object.assign(state,{detailFocus:null,detailSector:null,vehicleFocus:null,cityItem:null,view:'prostor',zone:p.zone,landId:id,landDoc:open,type:null,page:0,tree:null,treeDoc:false});
   if(!state.landGroups.includes(p.group))state.landGroups=[...state.landGroups,p.group];
-  if(cameFrom!=='prostor' && state.vegetation==='crowns' && !new URL(location.href).searchParams.has('vegetation'))state.vegetation='branches';
   writeLink();update();renderDoc();
 }
 function selectCity(id){
