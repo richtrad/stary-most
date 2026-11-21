@@ -1,5 +1,5 @@
 import {loadRoofData} from './strechy/modely.js?v=20261120-schema2';
-import {roofInterface} from './strechy/ovladani.js?v=20261120-schema1';
+import {roofInterface} from './strechy/ovladani.js?v=20261121-fronty';
 import {furnitureInterface} from './mobiliar/ovladani.js?v=20261120-stanoviste1';
 import {cityInterface,cityGroups} from './mesto/ovladani.js?v=20261111-mosty2';
 import {normalizeCity} from './public-client.js';
@@ -103,6 +103,7 @@ function update(instant=false,preserve=false) {
   pilotUrl.searchParams.set('layer',state.layer);
   pilotUrl.searchParams.set('street',state.street);
   if(state.roofFocus)pilotUrl.searchParams.set('cp',state.roofFocus);
+  else if(state.street==='24'||state.view==='facade')pilotUrl.searchParams.set('cp',state.cp);
   const pilotLink=q('#front-lod-link');
   if(pilotLink)pilotLink.href=pilotUrl.href;
   const {cp,layer,view}=state, h=houses[cp], v=h.variants[layer];
@@ -365,9 +366,19 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp]=await Promise.all([import('./scena.js?v=20261120-stanoviste1'),fetch('strechy/city.json')]);
+  const [scene,resp,heights]=await Promise.all([import('./scena.js?v=20261121-fronty'),fetch('strechy/city.json'),fetch('front-lod/vysky.json').then(r=>r.ok?r.json():{}).catch(()=>({}))]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
-  const city=normalizeCity(await resp.json());
+  const cityDataGIS=await resp.json(),changes=new Map();
+  for(const building of cityDataGIS.buildings){
+    const eave=heights[building.id];
+    if(!Number.isFinite(eave))continue;
+    changes.set(building.id,eave-building.heightM);building.heightM=eave;
+  }
+  for(const roof of roofData?.context?.buildings||[]){
+    const delta=changes.get(roof.id);
+    if(delta)for(let j=1;j<roof.positions.length;j+=3)roof.positions[j]+=delta;
+  }
+  const city=normalizeCity(cityDataGIS);
   map=scene.buildMap(canvas,city,houses,catalog,(cp,view,street)=>choose({cp,view,...(street?{street}: {})}),(cp)=>openDoc('photos',cp),id=>selectTree(id),status,landCatalog,id=>selectLand(id,true),cityData,selectCity,furnitureCatalog,selectFurniture,roofData,hit=>roofUI?.show(hit));
   q('#zoom-in').onclick=()=>map.zoom(.72);q('#zoom-out').onclick=()=>map.zoom(1.39);
   update(true);

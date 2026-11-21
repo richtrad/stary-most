@@ -10,6 +10,11 @@ const material = {
   shop:paint('#657779'), blind:paint('#958f81'), road:paint('#c8c4b9'),
   trim:paint('#897865')
 };
+const estimatedFills={};
+for(const key of ['window','door','shop','blind'])estimatedFills[key]=material[key].clone();
+export function markEstimatedOpenings(active) {
+  for(const [key,mat] of Object.entries(estimatedFills))mat.color.copy(active?new T.Color('#b46c28'):material[key].color);
+}
 
 function triangleMesh(vertices, mat, group) {
   if (!vertices?.length) return;
@@ -22,15 +27,32 @@ function triangleMesh(vertices, mat, group) {
 }
 
 function quad(vertices,a,b,c,d) { vertices.push(...a,...b,...c,...a,...c,...d); }
-function walls(parts,y,height,edge=null) {
+function walls(parts,y,height,facades=[]) {
   const out=[];
   for (const {outer,holes} of parts) for (const ring of [outer,...holes]) {
     ring.forEach(([x,z],i) => {
       const [u,v]=ring[(i+1)%ring.length];
-      if (edge && edge.every(([a,b])=>Math.hypot(u-x,v-z)>0 &&
-        Math.abs((u-x)*(b-z)-(v-z)*(a-x))/Math.hypot(u-x,v-z)<0.14)
-        && ((x+u)/2-edge[0][0])*((x+u)/2-edge[1][0])+((z+v)/2-edge[0][1])*((z+v)/2-edge[1][1])<=0.1) return;
-      quad(out,[x,y,z],[u,y,v],[u,y+height,v],[x,y+height,z]);
+      const dx=u-x,dz=v-z,len=Math.hypot(dx,dz);
+      if(!len)return;
+      const pieces=[],cuts=new Set([0,1]);
+      for(const {edge,base,height:h} of facades){
+        if(!edge.every(([a,b])=>Math.abs(dx*(b-z)-dz*(a-x))/len<.14))continue;
+        const projections=edge.map(([a,b])=>((a-x)*dx+(b-z)*dz)/(len*len));
+        const left=Math.max(0,Math.min(...projections)),right=Math.min(1,Math.max(...projections));
+        if(right-left<.00001)continue;
+        pieces.push({left,right,low:base,high:base+h});cuts.add(left);cuts.add(right);
+      }
+      const edges=[...cuts].sort((a,b)=>a-b);
+      for(let j=1;j<edges.length;j++){
+        const l=edges[j-1],r=edges[j],mid=(l+r)/2;
+        const spans=pieces.filter(p=>p.left<mid&&mid<p.right).sort((a,b)=>a.low-b.low);
+        const strip=(bottom,top)=>{
+          if(top-bottom>.001)quad(out,[x+dx*l,bottom,z+dz*l],[x+dx*r,bottom,z+dz*r],[x+dx*r,top,z+dz*r],[x+dx*l,top,z+dz*l]);
+        };
+        let floor=y;
+        for(const p of spans){strip(floor,Math.min(y+height,p.low));floor=Math.max(floor,p.high)}
+        strip(floor,y+height);
+      }
     });
   }
   return out;
@@ -71,16 +93,19 @@ export function surrounding(street,detailedIds,layer) {
 }
 
 // A single measured opening controls the outer cut, four reveals and inset infill.
-function facadeRelief(house,width,height,group) {
-  const outer=new T.Shape().moveTo(0,0).lineTo(width,0).lineTo(width,height).lineTo(0,height);
+function facadeRelief(house,width,height,group,outline=null) {
+  const outer=outline?new T.Shape(outline.map(([u,v])=>new T.Vector2(u*width,(1-v)*height))):
+    new T.Shape().moveTo(0,0).lineTo(width,0).lineTo(width,height).lineTo(0,height);
   outer.closePath();
   const batches={reveal:[],window:[],shop:[],door:[],blind:[],sill:[]};
-  for(const {kind,rect,role,head,hood,archFractionOfOpeningHeight,steps} of house.openings) {
+  const estimates={window:[],shop:[],door:[],blind:[]};
+  for(const {kind,rect,role,head,hood,archFractionOfOpeningHeight,steps,evidence,openPassage} of house.openings) {
     const [l,t,r,b]=rect;
     const x0=Math.max(.008,l*width),x1=Math.min(width-.008,r*width);
-    const y0=Math.max(.008,(1-b)*height),y1=Math.min(height-.008,(1-t)*height);
+    const y0=Math.max(outline?height+.012:.008,(1-b)*height);
+    const y1=outline?(1-t)*height:Math.min(height-.008,(1-t)*height);
     if (x1<=x0 || y1<=y0) continue;
-    const depth=kind==='blind'?.035:kind==='door'?.19:.145;
+    const depth=openPassage?.38:kind==='blind'?.035:kind==='door'?.19:.145;
     const arch=archFractionOfOpeningHeight || (head==='segmental'?.13:0);
     const loop=[[x0,y0]];
     if(arch){
@@ -97,7 +122,8 @@ function facadeRelief(house,width,height,group) {
       quad(batches.reveal,[...a,0],[...next,0],[...next,-depth],[...a,-depth]);
     }
     const color=role==='balcony_door'?'window':kind;
-    for(let i=1;i<loop.length-1;i++)batches[color].push(...loop[0],-depth,...loop[i],-depth,...loop[i+1],-depth);
+    const fill=evidence==='estimated'?estimates[color]:batches[color];
+    if(!openPassage)for(let i=1;i<loop.length-1;i++)fill.push(...loop[0],-depth,...loop[i],-depth,...loop[i+1],-depth);
     if ((kind==='window' || kind==='shop') && !['basement','friezeVent'].includes(role)){
       const d=.065;
       quad(batches.sill,[x0,y0,0],[x1,y0,0],[x1,y0,d],[x0,y0,d]);
@@ -115,57 +141,88 @@ function facadeRelief(house,width,height,group) {
       quad(batches.sill,[x0,up,outerDepth],[x1,up,outerDepth],[x1,up,innerDepth],[x0,up,innerDepth]);
     }
   }
-  for(const yNorm of house.cornices){
+  for(const yNorm of house.cornices||[]){
     const y=(1-yNorm)*height,d=.095;
     quad(batches.sill,[0,y,d],[width,y,d],[width,y+.055,d],[0,y+.055,d]);
     quad(batches.sill,[0,y+.055,d],[width,y+.055,d],[width,y+.055,0],[0,y+.055,0]);
   }
+  const wall=new T.Mesh(new T.ShapeGeometry(outer),material.plaster[house.footprintId%4]);
+  group.add(wall);
+  for (const [k,verts] of Object.entries(batches)) triangleMesh(verts,material[k],group);
+  for (const [k,verts] of Object.entries(estimates)) triangleMesh(verts,estimatedFills[k],group);
+}
+
+function balconyDetails(house,width,height){
+  const group=new T.Group(),batches={sill:[],reveal:[]};
   for(const balcony of house.balconies||[]){
     const l=balcony.left*width,r=balcony.right*width,y=(1-balcony.floor)*height;
+    const railL=(balcony.railLeft??balcony.left)*width,railR=(balcony.railRight??balcony.right)*width;
     const rail=(1-balcony.railTop)*height,d=.62,thickness=.13,bar=.038;
     quad(batches.sill,[l,y,0],[r,y,0],[r,y,d],[l,y,d]);
     quad(batches.sill,[l,y,d],[r,y,d],[r,y-thickness,d],[l,y-thickness,d]);
     quad(batches.sill,[l,y-thickness,0],[r,y-thickness,0],[r,y-thickness,d],[l,y-thickness,d]);
     for(const x of [l,r]){
       quad(batches.sill,[x,y,0],[x,y,d],[x,y-thickness,d],[x,y-thickness,0]);
-      quad(batches.reveal,[x,rail,0],[x,rail,d],[x,rail+bar,d],[x,rail+bar,0]);
     }
-    quad(batches.reveal,[l,rail,d],[r,rail,d],[r,rail+bar,d],[l,rail+bar,d]);
+    for(const x of [railL,railR])quad(batches.reveal,[x,rail,0],[x,rail,d],[x,rail+bar,d],[x,rail+bar,0]);
+    quad(batches.reveal,[railL,rail,d],[railR,rail,d],[railR,rail+bar,d],[railL,rail+bar,d]);
     for(let i=0;i<=4;i++){
-      const x=l+(r-l-bar)*i/4;
+      const x=railL+(railR-railL-bar)*i/4;
       quad(batches.reveal,[x,y,d],[x+bar,y,d],[x+bar,rail,d],[x,rail,d]);
     }
   }
-  const wall=new T.Mesh(new T.ShapeGeometry(outer),material.plaster[house.footprintId%4]);
-  group.add(wall);
-  for (const [k,verts] of Object.entries(batches)) triangleMesh(verts,material[k],group);
+  for(const [k,verts] of Object.entries(batches))triangleMesh(verts,material[k],group);
+  return group;
 }
 
-export function buildHouse(house,model,layer) {
-  const v=model.variants[layer]||model.variants.gis, i=house.footprintId%4;
-  const group=new T.Group(), facade=new T.Group(),relief=new T.Group();
+function elevation(house,v,group) {
+  const i=house.footprintId%4,facade=new T.Group(),relief=new T.Group();
   const [a,b]=v.edge,dx=b[0]-a[0],dz=b[1]-a[1],width=Math.hypot(dx,dz);
   const normal=new T.Vector3(-dz/width,0,dx/width);
   const axis=new T.Vector3(dx/width,0,dz/width);
   const height=v.height, base=v.base;
   const center=new T.Vector3((a[0]+b[0])/2,base+height*.48,(a[1]+b[1])/2);
-  triangleMesh(walls(v.parts,base,height,v.edge),material.plaster[i],group);
-  if (v.roof.length) triangleMesh(v.roof,material.tiles[i],group);
-  else cap(v.parts,base+height,material.tiles[i],group);
-  triangleMesh(v.trim,material.trim,group);
-  triangleMesh(v.gables,material.plaster[i],group);
   facade.position.set(a[0],base,a[1]).addScaledVector(normal,.012);
   facade.rotation.y=-Math.atan2(dz,dx);
   group.add(facade);
   const flat=new T.PlaneGeometry(width,height).translate(width/2,height/2,0);
-  const photoMat=new T.MeshBasicMaterial({color:0xffffff,side:T.FrontSide,toneMapped:false});
-  const [top,bottom]=house.coverage,stripHeight=height*(bottom-top);
-  const imageGeo=new T.PlaneGeometry(width,stripHeight).translate(width/2,height*(1-bottom)+stripHeight/2,.004);
-  const photo=new T.Mesh(imageGeo,photoMat);
+  const photoMat=new T.MeshBasicMaterial({color:0xffffff,side:T.FrontSide,toneMapped:false,alphaTest:.05});
+  const [top,bottom]=house.coverage;
+  const photo=new T.Mesh(flat,photoMat);
+  photo.scale.y=bottom-top;
+  photo.position.set(0,height*(1-bottom),.004);
   const plain=new T.Mesh(flat,material.plaster[i]);
   facade.add(plain,photo,relief);
   facadeRelief(house,width,height,relief);
-  return {group,facade,photo,photoMat,plain,relief,center,normal,axis,width,height,variant:v};
+  const balconies=balconyDetails(house,width,height);facade.add(balconies);
+  let upperPhoto=null;
+  if(house.upperFrontPolygon){
+    const upper=new T.Group();facade.add(upper);
+    facadeRelief({footprintId:house.footprintId,openings:house.upperFrontPolygon.openings},width,height,upper,house.upperFrontPolygon.uv);
+    upper.userData.upper=true;
+    if(house.upperTexture){
+      const uv=house.upperFrontPolygon.uv, shape=new T.Shape(uv.map(([x,y])=>new T.Vector2(x*width,(1-y)*height))),geo=new T.ShapeGeometry(shape);
+      const [l,t,r,b]=house.upperTexture.extent,positions=geo.getAttribute('position'),mapping=geo.getAttribute('uv');
+      for(let j=0;j<mapping.count;j++)mapping.setXY(j,(positions.getX(j)/width-l)/(r-l),(b-1+positions.getY(j)/height)/(b-t));
+      upperPhoto=new T.Mesh(geo,photoMat.clone());upperPhoto.position.z=.005;upperPhoto.visible=false;facade.add(upperPhoto);
+    }
+  }
+  facade.traverse(o=>{o.userData.record=house});
+  return {facade,photo,photoMat,plain,relief,balconies,upperPhoto,center,normal,axis,width,height,variant:v,record:house};
+}
+export function buildHouse(house,model,layer) {
+  const v=model.variants[layer]||model.variants.gis,i=house.footprintId%4,group=new T.Group();
+  const sides=house.sides||[];
+  triangleMesh(walls(v.parts,v.base,v.height,[v,...sides]),material.plaster[i],group);
+  if (v.roof.length)triangleMesh(v.roof,material.tiles[i],group);
+  else if(!v.roofAbsent)cap(v.parts,v.base+v.height,material.tiles[i],group);
+  triangleMesh(v.trim,material.trim,group);
+  triangleMesh(v.gables,material.plaster[i],group);
+  for(const shed of v.outbuildings||[]){
+    triangleMesh(walls(shed.parts,0,shed.height),material.plaster[i],group);
+    cap(shed.parts,shed.height,material.tiles[i],group);
+  }
+  return {...elevation(house,v,group),group,sides:sides.map(s=>elevation(s,s,group))};
 }
 
 export function disposeGroup(group) {

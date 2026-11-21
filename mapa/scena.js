@@ -7,6 +7,7 @@ import {OrbitControls} from './vendor/OrbitControls.js';
 import {publicSpace} from './prostor/scena.js?v=20261120-podzim';
 import {buildTrees} from './stromy/stromy.js?v=20261120-podzim';
 import {GLTFLoader} from './vendor/GLTFLoader.js';
+import {cityFacadeLayer,facadeURL} from './front-lod/vrstva.js';
 import {mapAppearance, roofTones, wallTones, toneFor} from './vzhled.js?v=20261120-podzim';
 
 const vec = (a,b,c) => new T.Vector3(a,b,c);
@@ -164,6 +165,8 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
   let injectedStatus='', lastStatus='', needsRender=true;
   const roofs=roofData?roofModels(scene,roofData,city,()=>{needsRender=true},appearance,roofIds):null;
   const schematic=schematicFronts(scene,loader,roofData?.schema,appearance,()=>{dirty=true;needsRender=true;updateLevel()});
+  const streetFronts=cityFacadeLayer(scene,()=>{needsRender=true});
+  let otherFronts=new Set();
   let roofFocus=null,roofContext=true;
   function setRoofs(cp,context){roofFocus=cp;roofContext=context;roofs?.setFocus(cp);dirty=true}
   const furniture=furnitureCatalog?buildFurniture(scene,furnitureCatalog,()=>{needsRender=true;appearance.changed()},landData):null;
@@ -296,6 +299,7 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       if(p.active)hidden.add(code);
     }
     roofs?.configure(layer,hidden,contextMat.clippingPlanes,roofContext);
+    otherFronts=hidden;
     status();
   }
   function pilotDestination(cornerOnly) {
@@ -545,9 +549,14 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     const furnitureHit=furniture?.pick(ray);
     const roof=roofs?.pick(ray), front=schematic.pick(ray);
     const roofHit=front && (!roof || front.distance<roof.distance+.015) ? front : roof;
-    if(!hit && !tree && !item && !cityHit && !furnitureHit && !roofHit)return;
     const clip=contextMat.clippingPlanes;
+    const frontHit=streetFronts.pick(ray,clip);
+    if(!hit && !tree && !item && !cityHit && !furnitureHit && !roofHit && !frontHit)return;
     const block=ray.intersectObject(cityMesh).find(i=>!clip?.length||clip.every(plane=>plane.distanceToPoint(i.point)>=0));
+    if(frontHit && [hit,tree,item,cityHit,furnitureHit,roofHit,block].every(h=>!h||frontHit.distance<=h.distance+.025)){
+      const f=frontHit.object.userData.front;
+      location.assign(facadeURL(f.id,layer,f.side,true));return;
+    }
     if(roofHit && [hit,tree,item,cityHit,furnitureHit,block].every(h=>!h||roofHit.distance<h.distance+.03)){
       if(roofHit.kind==='schematic-front' && pilots[roofHit.cp])onPhoto(roofHit.cp);
       else if(roofHit.kind==='walls' && pilots[roofHit.cp] && hitFace(roofHit.cp,roofHit.intersection))onPhoto(roofHit.cp);
@@ -593,6 +602,9 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       needsRender=false;
       camera.updateMatrixWorld();
       const distance=camera.position.distanceTo(controls.target);
+      const drawFronts=surface!=='materials'&&houseLevel!=='hmota'&&['city','street','facade'].includes(view);
+      const frontMode=drawFronts?(houseLevel==='schema'?'sketch':'photo'):null;
+      streetFronts.frame(camera,distance,layer,frontMode,contextMat.clippingPlanes,otherFronts);
       environment?.frame(controls.target,distance,canvas.clientHeight,camera.fov);
       appearance.frame(controls.target,distance);
       pinLayout();cartography();renderer.render(scene,camera);
@@ -605,5 +617,5 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
     appearance.set(name);
     needsRender = true;
   }
-  return {setAppearance,focusBridge,setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({appearance:appearance.name,schematic:schematic.inspect(),roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,houseLevel,activeHouses:Object.keys(pilots).filter(code=>pilots[code].active),frontReady:Object.fromEntries(Object.entries(pilots).map(([code,p])=>[code,Object.keys(p.fronts)])),surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
+  return {setAppearance,focusBridge,setRoofs,setFurniture,setCity,setHouse,setSurface,setTrees,setSpace,zoom,inspect:()=>({appearance:appearance.name,streetFronts:streetFronts.inspect(),schematic:schematic.inspect(),roofs:roofs?.inspect(),furniture:furniture?.inspect(pointScreen),street:selectedStreet,environment:environment?.inspect(pointScreen),cp,layer,view,houseLevel,activeHouses:Object.keys(pilots).filter(code=>pilots[code].active),frontReady:Object.fromEntries(Object.entries(pilots).map(([code,p])=>[code,Object.keys(p.fronts)])),surface,trees:vegetation?.diagnostic(pointScreen),publicSpace:land?.status(),landFocus,landZone,flying:!!flight,surfaces:surfaceState,detail:usingDetails,ready:Object.fromEntries(Object.entries(pilots).map(([key,p])=>[key,Object.keys(p.models)])),failures:[...failures],draws:renderer.info.render.calls,triangles:renderer.info.render.triangles,cityCount:city.buildings.length,screen:pointScreen(face(houses[cp]).center),camera:camera.position.toArray(),target:controls.target.toArray()})};
 }

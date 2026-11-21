@@ -1,3 +1,4 @@
+import {cityFacades,facadeURL} from '../front-lod/vrstva.js';
 const q=s=>document.querySelector(s);
 export function roofInterface(data,actions){
  const records=new Map(data.gpt.buildings.map(b=>[b.cp,b])),originals=new Map(data.claude.buildings.map(b=>[b.cp,b]));
@@ -47,6 +48,13 @@ export function roofInterface(data,actions){
  q('#roof-import').onchange=e=>importFiles(e.target.files).catch(()=>q('#roof-import-status').textContent='Soubor se nepodařilo ověřit.');
  function show(hit){
   shown=hit;const r=records.get(hit.cp),old=originals.get(hit.cp),isContext=hit.kind==='context';
+  const link=q('#roof-front-lod');link.hidden=true;link.removeAttribute('href');
+  const idsForHouse=hit.id!=null?[hit.id]:(r?.footprintIds||[r?.id]);
+  cityFacades().then(rows=>{
+    if(shown!==hit)return;
+    const matched=rows.find(row=>idsForHouse.includes(row.id));
+    if(matched){link.href=facadeURL(matched.id,state.layer);link.hidden=false}
+  }).catch(()=>{});
   q('#roof-dialog-title').textContent=(r?label(r):hit.cp&&hit.cp!=='None'?'Čp. '+hit.cp:'Stavba GIS '+hit.id)+' · '+(hit.kind==='courtyard'?'dvůr / zahrada':'střechy a dvory');
   q('#roof-dialog-author').textContent=isContext?'Algoritmický kontext města · původní generátor projektu, přesný model autora neevidován.':state.layer==='claude'?(old?'Claude · Opus 5.5 · '+old.revision+'. Neutrální materiály a export: Codex.':'Půdorysný kontext GIS. Model Clauda pro tento dům v této vrstvě není.'):data.manifest.layerNotes.gpt;
   q('#roof-dialog-note').textContent=isContext?'Tato střecha je pouze algoritmický odhad z půdorysu. Individuální porovnání s plánem a leteckým snímkem zatím neproběhlo.':state.layer==='claude'?(old?.note||r?.note):r?.note;

@@ -1,27 +1,32 @@
 <!doctype html>
 <html lang="cs"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Průčelí tří ulic | Starý Most</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
-<link rel="stylesheet" href="pilot.css">
+<title>Průčelí domů | Starý Most</title><meta name="theme-color" content="#253e37"><link rel="icon" href="data:,">
+<link rel="stylesheet" href="pilot.css?v=20261121">
 <script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
 </head><body>
 <header><a href="../" class="brand"><span aria-hidden="true">M</span> Starý Most</a><a href="../" id="atlas">Zpět do atlasu ↗</a></header>
 <main><section id="map" aria-label="Trojrozměrný model ulice">
-<canvas id="scene" tabindex="0" aria-label="3D model. Tažením otočíte scénu, kolečkem přiblížíte průčelí. Kliknutím na zkoumaný dům otevřete původní fotografii."></canvas>
-<div class="placard"><h1 id="place">Průčelí tří ulic</h1><p id="subtitle">Načítám mapu…</p></div>
+<canvas id="scene" tabindex="0" aria-label="3D model. Tažením otočíte scénu, kolečkem přiblížíte průčelí. Kliknutím na dům otevřete fotografii nebo podklad odhadu."></canvas>
+<div class="placard"><h1 id="place">Průčelí domů</h1><p id="subtitle">Načítám mapu…</p></div>
 <div class="mapbar"><div class="shots"><button id="near" type="button">Průčelí</button><button id="streetview" type="button">Ulice</button></div><div class="zoom"><button id="zoomin" type="button" aria-label="Přiblížit">+</button><button id="zoomout" type="button" aria-label="Oddálit">−</button></div></div>
 </section>
 <aside>
-<div class="title"><p class="eyebrow">Fotografický archiv Libuše</p><h2>Průčelí tří ulic</h2><p>Stejný dům s fotografií na stěně a s okny a dveřmi v mělkém reliéfu.</p></div>
+<div class="title"><p class="eyebrow">Historický Most</p><h2>Průčelí domů</h2></div>
 <section class="selection"><label for="street">Ulice</label><select id="street"></select><label for="house">Dům</label><select id="house"></select></section>
+<div class="walk"><button id="prev-house" aria-label="Předchozí dům">←</button><span id="house-position"></span><button id="next-house" aria-label="Další dům">→</button></div>
+<label class="check"><input id="front-only" type="checkbox"> Procházet jen domy s archivním FRONTem</label>
+<label id="face-choice" hidden>Stěna domu <select id="face"></select></label>
+<p id="certainty" aria-live="polite"></p>
 <fieldset><legend>Podrobnost průčelí</legend><div class="modes" id="modes">
 <button data-mode="auto" aria-pressed="true">Podle vzdálenosti</button><button data-mode="foto" aria-pressed="false">Fotografická stěna</button><button data-mode="relief" aria-pressed="false">Prostorová okna a dveře</button></div>
-<p id="lod-status" role="status"></p></fieldset>
+<p id="lod-status" role="status"></p><label id="estimate-control" hidden><input type="checkbox" id="mark-estimates"> Zvýraznit odhadnuté otvory v reliéfu</label></fieldset>
 <fieldset><legend>Vrstva modelu domu</legend><div class="segments"><button data-layer="gpt" aria-pressed="true">GPT · Codex</button><button data-layer="claude" aria-pressed="false">Claude</button></div><p id="author"></p></fieldset>
-<section><h3>Prameny domu</h3><button class="primary" id="source" type="button">Otevřít původní fotografii ↗</button>
+<section><h3>Prameny domu</h3><div class="source-actions"><button class="primary" id="source" type="button">Původní fotografie ↗</button><button id="parcel" type="button">Půdorys</button></div>
 <p id="evidence"></p><details><summary>Registrace a původ dat</summary><dl id="records"></dl></details></section>
-<section id="archive"><label for="pack">Místní archivní balíček</label><input id="pack" type="file" accept=".mostfront,application/json"><p id="pack-notice" role="status">Balíček zpřístupní celé původní fotografie v tomto prohlížeči.</p></section>
+<section id="archive"><label for="pack">Místní archivní balíček</label><input id="pack" type="file" accept=".mostfront,application/json"><label for="media-folder">Složka fotografií celého města</label><input id="media-folder" type="file" webkitdirectory multiple><p id="pack-notice" role="status">Soubory se otevírají přímo ve vašem prohlížeči.</p></section>
+<details id="unassigned" hidden><summary>FRONTy s nejasným přiřazením</summary><label for="unassigned-file">Archivní popis</label><select id="unassigned-file"></select><button id="unassigned-open">Otevřít podklad</button></details>
 </aside></main>
-<dialog id="viewer" aria-labelledby="dialog-title"><div class="dialog-head"><div><p class="eyebrow" id="dialog-type"></p><h2 id="dialog-title"></h2></div><button id="close" aria-label="Zavřít">×</button></div><div class="media"><img id="original-image" alt="Archivní fotografie domu" hidden><p id="unavailable" hidden></p></div><div class="dialog-foot"><p id="photo-info"></p><a id="full-image" target="_blank" rel="noopener" hidden>Celý originál ↗</a><button id="choose-pack" hidden>Načíst místní balíček</button></div></dialog>
-<script type="module" src="pilot.js"></script>
+<dialog id="viewer" aria-labelledby="dialog-title"><div class="dialog-head"><div><p class="eyebrow" id="dialog-type"></p><h2 id="dialog-title"></h2></div><button id="close" aria-label="Zavřít">×</button></div><div class="media"><img id="original-image" alt="Archivní fotografie domu" hidden><canvas id="parcel-map" width="900" height="485" aria-label="Situační výřez GIS s vyznačeným domem a modelovanou stěnou" hidden></canvas><p id="unavailable" hidden></p></div><div class="dialog-foot"><p id="photo-info"></p><a id="full-image" target="_blank" rel="noopener" hidden>Celý originál ↗</a><button id="choose-pack" hidden>Načíst místní balíček</button></div></dialog>
+<script type="module" src="pilot.js?v=20261121"></script>
 </body></html>
