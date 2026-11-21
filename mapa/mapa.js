@@ -370,11 +370,14 @@ async function boot(){
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const cityDataGIS=await resp.json(),changes=new Map();
   for(const building of cityDataGIS.buildings){
-    const eave=heights[building.id];
+    const registration=heights[building.id];
+    const eave=typeof registration==='number'?registration:registration?.eave;
     if(!Number.isFinite(eave))continue;
     changes.set(building.id,eave-building.heightM);building.heightM=eave;
   }
   for(const roof of roofData?.context?.buildings||[]){
+    const replacement=heights[roof.id]?.roof;
+    if(Array.isArray(replacement)&&replacement.length){roof.positions=replacement;continue}
     const delta=changes.get(roof.id);
     if(delta)for(let j=1;j<roof.positions.length;j+=3)roof.positions[j]+=delta;
   }
