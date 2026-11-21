@@ -7,7 +7,7 @@ import {OrbitControls} from './vendor/OrbitControls.js';
 import {publicSpace} from './prostor/scena.js?v=20261120-podzim';
 import {buildTrees} from './stromy/stromy.js?v=20261120-podzim';
 import {GLTFLoader} from './vendor/GLTFLoader.js';
-import {cityFacadeLayer,facadeURL} from './front-lod/vrstva.js';
+import {cityFacadeLayer,facadeURL} from './front-lod/vrstva.js?v=20261121-barevne';
 import {mapAppearance, roofTones, wallTones, toneFor} from './vzhled.js?v=20261120-podzim';
 
 const vec = (a,b,c) => new T.Vector3(a,b,c);
@@ -192,6 +192,11 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       if(text!==lastStatus){message(text);lastStatus=text}
       return;
     }
+    if(view==='facade' && houseLevel==='pruceli'){
+      const text='Kliknutím na fotografické průčelí otevřete jeho archivní předlohu.';
+      if(text!==lastStatus){message(text);lastStatus=text}
+      return;
+    }
     if(view==='facade' && houseLevel!=='detail' && !houses[cp].frontModel?.variants[layer]){
       const s='Průčelí tohoto domu čeká na zaměření. Kliknutím otevřete dostupný pramen.';
       if(s!==lastStatus){message(s);lastStatus=s}
@@ -292,14 +297,14 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       for(const model of Object.values(p.models))model.visible=model===p.active;
       for(const front of Object.values(p.fronts)){
         front.group.visible=front.group===p.active;
-        if(front.group.visible)front.setLevel(houseLevel);
+        if(front.group.visible)front.setLevel(houseLevel==='relief'?'pruceli':'hmota');
       }
       p.plinth.visible=!!p.active;
       p.proxy.visible=!p.active && !roofs?.has(code);
       if(p.active)hidden.add(code);
     }
     roofs?.configure(layer,hidden,contextMat.clippingPlanes,roofContext);
-    otherFronts=hidden;
+    otherFronts=houseLevel==='pruceli'?new Set([...hidden].filter(code=>!pilots[code])):hidden;
     status();
   }
   function pilotDestination(cornerOnly) {
@@ -602,8 +607,8 @@ export function buildMap(canvas, city, houses, catalog, onHouse, onPhoto, onTree
       needsRender=false;
       camera.updateMatrixWorld();
       const distance=camera.position.distanceTo(controls.target);
-      const drawFronts=surface!=='materials'&&houseLevel!=='hmota'&&['city','street','facade'].includes(view);
-      const frontMode=drawFronts?(houseLevel==='schema'?'sketch':'photo'):null;
+      const drawFronts=(houseLevel==='pruceli'||surface!=='materials')&&houseLevel!=='hmota'&&['city','street','facade'].includes(view);
+      const frontMode=drawFronts?(['schema','relief'].includes(houseLevel)?'sketch':'photo'):null;
       streetFronts.frame(camera,distance,layer,frontMode,contextMat.clippingPlanes,otherFronts);
       environment?.frame(controls.target,distance,canvas.clientHeight,camera.fov);
       appearance.frame(controls.target,distance);

@@ -23,8 +23,8 @@ function parse() {
   const type=['photos','plans'].includes(p.get('doc'))?p.get('doc'):null;
   const page=type?Math.min(houses[cp][type].length-1,Math.max(0,parseInt(p.get('page'),10)||0)):0;
   const surface=p.get('surface')==='materials'?'materials':'original';
-  const levels=roofData?.schema?['hmota','schema','pruceli','detail']:['hmota','pruceli','detail'];
-  const defaultLevel=surface==='materials'?'detail':roofData?.schema?'schema':'pruceli';
+  const levels=roofData?.schema?['hmota','schema','pruceli','relief','detail']:['hmota','pruceli','relief','detail'];
+  const defaultLevel=surface==='materials'?'detail':'pruceli';
   const houseLevel=levels.includes(p.get('domy'))?p.get('domy'):defaultLevel;
   const vegetation=['off','branches','crowns','autumn'].includes(p.get('vegetation'))?p.get('vegetation'):defaultVegetation;
   const autumn=vegetation==='autumn' || (vegetation==='off' && p.get('season')==='autumn');
@@ -101,6 +101,7 @@ function update(instant=false,preserve=false) {
   updateAppearance();
   const pilotUrl=new URL('front-lod/',location.href);
   pilotUrl.searchParams.set('layer',state.layer);
+  pilotUrl.searchParams.set('lod',state.houseLevel==='schema'||state.houseLevel==='relief'?'relief':'foto');
   pilotUrl.searchParams.set('street',state.street);
   if(state.roofFocus)pilotUrl.searchParams.set('cp',state.roofFocus);
   else if(state.street==='24'||state.view==='facade')pilotUrl.searchParams.set('cp',state.cp);
@@ -120,7 +121,7 @@ function update(instant=false,preserve=false) {
   q('#schema-focus').value=focused&&schema?.houses[focused]?focused:'';
   q('#schema-source').disabled=!q('#schema-focus').value;
   q('#full-surface').hidden=state.houseLevel!=='detail';
-  note.hidden=state.surface!=='materials'||view==='city';
+  note.hidden=state.houseLevel!=='detail'||state.surface!=='materials'||view==='city';
   note.textContent=Object.keys(v.textureSwatches||{}).length ? 'Texturované plochy mají v tomto pohledu jeden odstín.' : 'Tato verze domu už používá jen materiály.';
   const front=h.frontModel, massing=front?.variants[layer], full=state.houseLevel==='detail';
   q('#front-measurements').hidden=full||!massing;
@@ -137,7 +138,7 @@ function update(instant=false,preserve=false) {
     q('.scope').textContent=(houses[address]?.frontModel.scope || schema.sources[house.source].note)+' Podklad pro rozmístění otvorů · '+house.openingMeasurementAuthor+'. '+schema.interpretation;
     q('#credit code').textContent='SHA-256 '+schema.assets[layer].sha256;
   }else{
-    q('#credit strong').textContent=massing && state.houseLevel==='pruceli'?'Průčelí podle fotografie · '+front.maker:'Hmota domu';
+    q('#credit strong').textContent=state.houseLevel==='pruceli'?'Fotografický FRONT':massing&&state.houseLevel==='relief'?'Prostorové průčelí · '+front.maker:'Hmota domu';
     q('#credit>p').textContent=massing?'Hmota a střecha · '+massing.roofAuthor+' · '+massing.roofRevision:'Průčelí tohoto domu čeká na zaměření.';
     q('.scope').textContent=massing?front.scope+' Odstíny materiálů a hloubky profilu jsou odhady.':h.placement;
     q('#credit code').textContent=massing?'SHA-256 '+massing.sha256:'';
@@ -153,7 +154,7 @@ function update(instant=false,preserve=false) {
     q('#registration').textContent='Uliční stěna sleduje hranu půdorysu vybrané autorské verze. Šířka stěny v modelu je '+rec.width.toLocaleString('cs-CZ',{maximumFractionDigits:2})+' m. '+schema.sources[house.source].note;
   }
   q('#place').textContent=view==='city'?'Starý Most':view==='street'?'Kulová a okolí':'Čp. '+cp;
-  q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+(full?v.maker:schematic?'Schematické průčelí':state.houseLevel==='pruceli'?'Průčelí podle fotografie':'Hmota domu');
+  q('#scale').textContent=view==='city'?'Městský půdorys · 1 400 domů':view==='street'?'Severní fronta a nároží náměstí':h.address+' · '+(full?v.maker:schematic?'Schematické průčelí':state.houseLevel==='pruceli'?'Fotografický FRONT':state.houseLevel==='relief'?'Prostorové průčelí':'Hmota domu');
   if(view==='trees' && catalog){
     q('#place').textContent=state.tree?'Strom '+state.tree:(catalog.metadata.areas[state.area]||'Stromy kolem Kulové');
     q('#scale').textContent=state.tree&&!treeUI.get(state.tree)?.city_reading?'Starý Most · letecký snímek z 16. dubna 1964':'Starý Most · ortofoto 1964';
@@ -366,7 +367,7 @@ async function boot(){
     Object.assign(state,parse());update(false,oldRoof===state.roofFocus && oldFurniture===state.furnitureFocus && oldDetail===state.detailFocus && oldSector===state.detailSector && oldVehicle===state.vehicleFocus && oldStreet===state.street && oldArea===state.area && oldTree===state.tree && oldZone===state.zone && oldLand===state.landId);renderDoc();
   });
   update(true);renderDoc();
-  const [scene,resp,heights]=await Promise.all([import('./scena.js?v=20261121-fronty'),fetch('strechy/city.json'),fetch('front-lod/vysky.json').then(r=>r.ok?r.json():{}).catch(()=>({}))]);
+  const [scene,resp,heights]=await Promise.all([import('./scena.js?v=20261121-barevne'),fetch('strechy/city.json'),fetch('front-lod/vysky.json').then(r=>r.ok?r.json():{}).catch(()=>({}))]);
   if(!resp.ok)throw Error('Chybí městský půdorys.');
   const cityDataGIS=await resp.json(),changes=new Map();
   for(const building of cityDataGIS.buildings){

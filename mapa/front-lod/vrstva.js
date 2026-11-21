@@ -1,9 +1,19 @@
 import * as T from 'three';
 
 const base = new URL('./', import.meta.url);
+const loopback=['localhost','127.0.0.1','[::1]'].includes(location.hostname);
+let localArchive=false;
+if(loopback){
+  const archiv=new URLSearchParams(location.search).get('archiv');
+  localArchive=archiv==='mistni';
+  try{
+    if(archiv!==null)sessionStorage.setItem('most-mistni-archiv',localArchive?'1':'0');
+    else localArchive=sessionStorage.getItem('most-mistni-archiv')==='1';
+  }catch{}
+}
 let catalogue;
 export function cityFacades() {
-  catalogue ??= fetch(new URL('mestska-pruceli.json', base)).then(r => {
+  catalogue ??= fetch(new URL('mestska-pruceli.json?v=20261121-barevne', base)).then(r => {
     if (!r.ok) throw Error('Nepodařilo se načíst polohy průčelí.');
     return r.json();
   });
@@ -16,6 +26,8 @@ export function facadeURL(id, layer, side = '', source = false) {
   url.searchParams.set('layer', layer);
   if (side) url.searchParams.set('stena', side);
   if (source) url.searchParams.set('pramen', '1');
+  url.searchParams.set('lod','foto');
+  if(localArchive)url.searchParams.set('archiv','mistni');
   return url;
 }
 
@@ -39,7 +51,12 @@ export function cityFacadeLayer(scene, changed) {
         }
         placements[layer] = {photo:placement(face.coverage),sketch:placement([0,1])};
       }
-      faces.push({id:house.id, cp:house.cp, side:face.side, asset:face.asset, sketch:face.sketch, placements});
+      const sketch={url:face.sketch,geometry:'sketch',kind:'sketch'};
+      const photo=[];
+      if(localArchive&&face.localAsset)photo.push({url:'mistni/'+face.localAsset,geometry:'photo',kind:face.localTreatment||'photo'});
+      if(face.photo)photo.push({url:face.asset,geometry:'photo',kind:face.treatment||'photo'});
+      photo.push(sketch);
+      faces.push({id:house.id,cp:house.cp,side:face.side,choices:{photo,sketch:[sketch]},placements});
     }
     changed();
   }
@@ -68,11 +85,15 @@ export function cityFacadeLayer(scene, changed) {
       frustum.setFromProjectionMatrix(projection.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));
       for (const face of faces) {
         if (existing.has(face.cp)) continue;
-        const v = (face.placements[layer] || face.placements.gis)?.[mode];
+        const geometry=face.placements[layer]||face.placements.gis;
+        if(!geometry)continue;
+        const image=face.choices[mode].find(o=>!textures.get(o.url)?.failed);
+        if(!image)continue;
+        const v=geometry[image.geometry];
         if (!v || !frustum.intersectsSphere(v.bounds)) continue;
         const d = camera.position.distanceToSquared(v.center);
         if (d > 245 * 245 || v.normal.dot(camera.position) <= v.normal.dot(v.center)) continue;
-        nearby.push({face,v,d});
+        nearby.push({face,v,d,image});
       }
       nearby.sort((a,b) => a.d - b.d);
     }
@@ -80,9 +101,9 @@ export function cityFacadeLayer(scene, changed) {
     for (const [face,mesh] of visible) if (!keep.has(face)) {
       mesh.removeFromParent();mesh.material.dispose();visible.delete(face);
     }
-    for (const {face,v} of nearest) {
+    for (const {face,v,image:choice} of nearest) {
       let mesh = visible.get(face);
-      const image = textureFor(mode==='sketch'?face.sketch:face.asset);
+      const image = textureFor(choice.url);
       if (!image.loaded) {if(mesh)mesh.visible=false;continue;}
       if (!mesh) {
         const mat = new T.MeshBasicMaterial({map:image.texture,toneMapped:false,side:T.FrontSide,alphaTest:.05,polygonOffset:true,polygonOffsetFactor:-1});
@@ -91,6 +112,7 @@ export function cityFacadeLayer(scene, changed) {
         visible.set(face,mesh);scene.add(mesh);
       }
       mesh.visible = true;
+      mesh.userData.surface=choice;
       if(mesh.material.map!==image.texture){mesh.material.map=image.texture;mesh.material.needsUpdate=true;}
       mesh.material.clippingPlanes = planes;
       mesh.position.copy(v.center);mesh.rotation.y = v.angle;mesh.scale.set(v.width,v.height,1);
@@ -103,5 +125,9 @@ export function cityFacadeLayer(scene, changed) {
   function pick(ray,planes) {
     return ray.intersectObjects([...visible.values()].filter(m=>m.visible),false).find(h => !planes?.some(p => p.distanceToPoint(h.point)<0));
   }
-  return {frame,pick,inspect:() => ({loaded:faces.length,visible:[...visible].filter(([,m])=>m.visible).map(([f])=>f.id)})};
+  function inspect(){
+    const showing=[...visible].filter(([,mesh])=>mesh.visible);
+    return {loaded:faces.length,visible:showing.map(([f])=>f.id),surfaces:showing.map(([f,mesh])=>({id:f.id,cp:f.cp,side:f.side,kind:mesh.userData.surface.kind,url:mesh.userData.surface.url}))};
+  }
+  return {frame,pick,inspect};
 }

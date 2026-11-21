@@ -9,10 +9,13 @@ const geoCache=new Map(), textures=new Map(), clipped=new T.Plane();
 const canvas=$('#scene'), scene=new T.Scene();
 let catalog,house,street,active,neighbors,camera,renderer,controls,request=0;
 let streetHouses=[],streetContext=null,renderedLayer=null,dialogIsPlan=false,focusFace=null;
-let pickedMode=['auto','relief','foto'].includes(query.get('lod'))?query.get('lod'):'auto';
+let pickedMode=['auto','relief','foto'].includes(query.get('lod'))?query.get('lod'):'foto';
+let referenceFace=null;
+const failedPhotos=new Set();
+const treatmentNames={inpainted:'Barevný FRONT s doplněnými místy',enhanced:'Vylepšený barevný FRONT',color:'Barevný FRONT',monochrome:'Černobílý FRONT',enhancedBW:'Vylepšený černobílý FRONT'};
 let layer=query.get('layer')==='claude'?'claude':'gpt',wide=false,frame=0;
 let currentDialog=null, reopenAfterPack=null, sourceGeneration=0;
-let onlyFront=query.get('fronty')==='1';
+let frontFilter=['1','barevne','vylepsene','doplnene'].includes(query.get('fronty'))?query.get('fronty'):'vse';
 const localHost=['127.0.0.1','localhost','[::1]'].includes(location.hostname);
 let useLocal=localHost&&query.get('archiv')==='mistni';
 if(localHost)try{
@@ -21,7 +24,7 @@ if(localHost)try{
 }catch{/* The URL also works when session storage is unavailable. */}
 
 async function json(url) {
-  const r=await fetch(url+'?v=20261121'); if(!r.ok)throw Error('Soubor se nepodařilo načíst ('+r.status+').');
+  const r=await fetch(url+'?v=20261121-barevne'); if(!r.ok)throw Error('Soubor se nepodařilo načíst ('+r.status+').');
   return r.json();
 }
 function modelData(cp) {
@@ -33,7 +36,12 @@ const keyOf=h=>h.key||h.cp;
 const address=h=>h.cp?'Čp. '+h.cp:h.detached?'Archivní studie bez čp.':'Stavba GIS '+h.footprintId+' · bez čp.';
 const faceName=h=>h.faceName||({chamfer:'Zkosené nároží',alley:'Boční stěna do uličky',rear:'Dvorní stěna'}[h.faceId])||'Hlavní průčelí';
 const evidenceOf=h=>h.evidenceLevel||'photo';
-const walkHouses=()=>onlyFront?catalog.houses.filter(h=>h.sourceFronts?.length):catalog.houses;
+const filterKinds={barevne:['color','enhanced','inpainted'],vylepsene:['enhanced','inpainted','enhancedBW'],doplnene:['inpainted']};
+function walkHouses(){
+  if(frontFilter==='vse')return catalog.houses;
+  if(frontFilter==='1')return catalog.houses.filter(h=>h.sourceFronts?.length);
+  return catalog.houses.filter(h=>[h,...(h.sides||[])].some(f=>filterKinds[frontFilter].includes(f.texture?.processing?.kind)));
+}
 const evidenceName={photo:'Podle fotografie',plan:'Podle plánu',mixed:'Část průčelí je odhadnutá',estimated:'Odhad průčelí',partial:'Částečně zachycené průčelí',courtyard:'Dílna ve dvoře'};
 function setPressed(attr,value) {all('button['+attr+']').forEach(b=>b.setAttribute('aria-pressed',String(b.getAttribute(attr)===value)))}
 function stateUrl(){
@@ -43,12 +51,15 @@ function stateUrl(){
   if(house.detached)url.searchParams.set('studie',house.structureId);
   else url.searchParams.set(byParcel?'gis':'cp',byParcel?house.footprintId:house.cp);
   url.searchParams.set('lod',pickedMode);url.searchParams.set('layer',layer);
-  if(onlyFront)url.searchParams.set('fronty','1');else url.searchParams.delete('fronty');
+  if(frontFilter==='vse')url.searchParams.delete('fronty');else url.searchParams.set('fronty',frontFilter);
   if(focusFace?.record.faceId)url.searchParams.set('stena',focusFace.record.faceId);
   else url.searchParams.delete('stena');
   history.replaceState(null,'',url);
   const back=new URL('../',location.href);if(house.streetId)back.searchParams.set('street',house.streetId);
   back.searchParams.set('layer',layer);back.searchParams.set('view','street');
+  back.searchParams.set('domy',pickedMode==='relief'?'schema':'pruceli');
+  if(house.cp)back.searchParams.set('cp',house.cp);
+  if(useLocal)back.searchParams.set('archiv','mistni');
   $('#atlas').href=back.href;
 }
 function invalidate() {
@@ -65,6 +76,9 @@ function listEvidence() {
     ['Původní fotografie',h.original&&[h.photoAuthor,h.original.filename,h.original.id].filter(Boolean).join(' · ')],
     ['Odhadnuté části',house.estimateNote],['Podobné domy',house.analogues?.map(cp=>'čp. '+cp).join(', ')],
     ['Průčelní předloha',h.frontCredit],
+    ['Zpracování fotografie na stěně',h.texture?.processing?.credit],
+    ['Předloha zpracované fotografie',h.texture?.processing?.filename],
+    ['Otisk předlohy zpracované fotografie',h.texture?.processing?.sourceSha256],
     ['Předchozí registrace modelu',h.registrationModel&&[h.registrationModel.side,h.registrationModel.modelSha256].filter(Boolean).join(' · ')],
     ['Plány a letecký snímek',house.plans.join(' · ')],
     ['Rozměry modelu',focusFace.width.toLocaleString('cs-CZ',{maximumFractionDigits:2})+' × '+focusFace.height.toLocaleString('cs-CZ',{maximumFractionDigits:2})+' m. '+house.heightNote],
@@ -161,16 +175,41 @@ function updateFace(){
   $('#certainty').textContent=openings.length?evidenceName[level]+' · doložené prvky '+(openings.length-estimated)+' · odhadnuté '+estimated:evidenceName[level]+' · hmota stavby';
   $('#certainty').classList.toggle('inferred',level==='estimated'||level==='mixed');
   $('#estimate-control').hidden=!estimated;
-  $('#source').textContent=h.original?(h.contextPhoto?'Dobová fotografie okolí ↗':'Původní fotografie ↗'):h.frontMedia?'Archivní FRONT ↗':'Půdorys a podklad odhadu';
+  $('#source').textContent=h.courtyardStudy?'Původní fotografie dvora ↗':h.original?(h.contextPhoto?'Dobová fotografie okolí ↗':'Původní fotografie ↗'):h.frontMedia?'Archivní FRONT ↗':'Půdorys a podklad odhadu';
+  $('#courtyard').hidden=!h.courtyardStudy;
   $('#parcel').hidden=!h.original&&!h.frontMedia;
-  $('[data-mode=foto]').textContent=h.texture?'Fotografická stěna':'Schematická textura';
+  $('[data-mode=foto]').textContent=h.texture?'Fotografický FRONT':'Schematická textura';
   $('#evidence').textContent=h.shortNote||house.shortNote;
   stateUrl();listEvidence();
 }
 
 function localUrl(id){return localFiles.get(id)?.url}
 function mediaURL(m){return m&&(localUrl(m.sha256)||(useLocal&&m.localMedia?'mistni/'+m.sha256:null)||m.publicUrl)}
-function pictureURL(h){return mediaURL(h.texture)||h.sketch?.url}
+function photoOptions(h){
+  const list=[];
+  if(h.courtyardStudy)return list;
+  for(const item of [h.texture,h.referenceTexture]){
+    if(!item)continue;
+    for(const url of [localUrl(item.sha256),useLocal&&item.localMedia?'mistni/'+item.sha256:null,item.publicUrl]){
+      if(url&&!failedPhotos.has(url)&&!list.some(o=>o.url===url))list.push({url,item});
+    }
+  }
+  return list;
+}
+function currentPhoto(h){
+  const options=photoOptions(h);
+  return (referenceFace===h&&options.find(o=>o.item===h.referenceTexture))||options[0]||{url:h.sketch?.url,item:null};
+}
+function describePhoto(h,level,loaded){
+  const options=photoOptions(h),current=currentPhoto(h),t=current.item?.processing;
+  const compare=options.some(o=>o.item===h.referenceTexture)&&options.some(o=>o.item===h.texture);
+  $('#edition-choice').hidden=level!=='foto'||!compare;
+  $('#edition').value=referenceFace===h&&compare?'reference':'processed';
+  const description=$('#photo-treatment');
+  const note=level==='foto'&&loaded&&current.item&&t?.note||'';
+  description.hidden=!note;
+  if(description.textContent!==note)description.textContent=note;
+}
 function fetchTexture(url){
   if(!textures.has(url)){
     const entry=new T.TextureLoader().loadAsync(url).then(tex=>{
@@ -181,7 +220,7 @@ function fetchTexture(url){
   return textures.get(url);
 }
 function loadPhoto(target){
-  const url=pictureURL(target.record);
+  const url=currentPhoto(target.record).url;
   if(!url||target.requestedURL===url)return;
   target.requestedURL=url;target.photoMat.userData.failed=false;
   const upperURL=mediaURL(target.record.upperTexture);
@@ -195,7 +234,7 @@ function loadPhoto(target){
       target.photo.scale.y=bottom-top;target.photo.position.y=target.height*(1-bottom);
       target.photoMat.map=tex;target.photoMat.needsUpdate=true;target.sketchShown=sketch;invalidate();
     }
-  }).catch(()=>{if(!target.disposed&&target.requestedURL===url){target.photoMat.userData.failed=true;invalidate()}});
+  }).catch(()=>{if(!target.disposed&&target.requestedURL===url){failedPhotos.add(url);target.photoMat.userData.failed=true;target.photoMat.map=null;invalidate()}});
 }
 function appearance(target) {
   const distance=camera.position.distanceTo(target.center);
@@ -211,11 +250,15 @@ function appearance(target) {
     if(target.photoMat.map&&target.sketchShown){
       message=target.record.texture?'Jedna plocha se schematickou kresbou. Fotografii zpřístupní místní balíček.':'Schéma otvorů je na jedné ploše ze dvou trojúhelníků.';
     }else if(!target.photoMat.map){
-      if(pictureURL(target.record)&&!target.photoMat.userData.failed)message='Načítám fotografickou texturu…';
+      if(currentPhoto(target.record).url&&!target.photoMat.userData.failed)message='Načítám fotografickou texturu…';
       else message='Zobrazuji reliéf. Fotografickou stěnu zpřístupní místní archivní balíček.';
     }
   }
   target.photo.visible=level==='foto'&&!!target.photoMat.map;
+  if(target.photo.visible&&!target.sketchShown){
+    const kind=currentPhoto(target.record).item?.processing?.kind;
+    if(treatmentNames[kind])message=treatmentNames[kind]+' na uliční stěně.';
+  }
   if(target.photo.visible&&!target.sketchShown&&target.record.modelBasedFront)message='Registrovaný modelový pohled podle plánu je na jedné ploše.';
   target.relief.visible=level==='relief'||(level==='foto'&&!target.photo.visible);
   target.plain.visible=level==='hmota'||target.photo.visible;
@@ -225,7 +268,10 @@ function appearance(target) {
     if(target.upperPhoto.visible)message='Samostatná fotografická plocha pokrývá i zdobený štít.';
   }
   target.lastLevel=level;
-  if(target===focusFace && $('#lod-status').textContent!==message)$('#lod-status').textContent=message;
+  if(target===focusFace){
+    if($('#lod-status').textContent!==message)$('#lod-status').textContent=message;
+    describePhoto(target.record,level,target.photo.visible&&!target.sketchShown);
+  }
 }
 function updateLOD() {
   if(!active)return;
@@ -255,7 +301,7 @@ async function showOriginal(h=focusFace?.record){
   dialogIsPlan=false;$('#parcel-map').hidden=true;
   const version=++sourceGeneration,dlg=$('#viewer');currentDialog=h;
   if(!dlg.open)dlg.showModal();
-  $('#dialog-type').textContent=!h.original?(h.modelBasedFront?'Modelový FRONT podle plánu':'Archivní FRONT'):h.contextPhoto?'Kontextový archivní snímek':'Původní fotografie · Libuše';
+  $('#dialog-type').textContent=h.courtyardPreview?'Vylepšený FRONT dvora':!h.original?(h.modelBasedFront?'Modelový FRONT podle plánu':'Archivní FRONT'):h.contextPhoto?'Kontextový archivní snímek':'Původní fotografie · Libuše';
   $('#dialog-title').textContent=h.street+' · '+address(h)+(h.faceId?' · '+faceName(h):'');
   const img=$('#original-image'),full=$('#full-image'),notice=$('#unavailable');
   img.removeAttribute('src');img.hidden=true;full.hidden=true;full.removeAttribute('href');
@@ -273,7 +319,7 @@ async function showOriginal(h=focusFace?.record){
     const preload=new Image();preload.src=url;await preload.decode();
     if(version!==sourceGeneration || !dlg.open)return;
     img.src=url;img.alt='Dochovaná fotografie, '+h.street+', '+address(h);img.hidden=false;
-    full.href=url;full.textContent='Celý originál ↗';full.hidden=false;notice.hidden=true;
+    full.href=url;full.textContent=h.courtyardPreview?'Otevřít celý FRONT ↗':'Celý originál ↗';full.hidden=false;notice.hidden=true;
   }catch{if(version===sourceGeneration){notice.textContent='Fotografii se nepodařilo otevřít. Lze načíst ověřenou kopii z balíčku.';$('#choose-pack').hidden=false}}
 }
 function showPlan(h=focusFace?.record){
@@ -386,23 +432,25 @@ async function main(){
     $('#unassigned-open').onclick=()=>{const r=catalog.unassigned[Number($('#unassigned-file').value)];showOriginal({street:'Nepřiřazený FRONT · '+r.street,cp:r.cp,frontMedia:r.media})};
     for(const r of catalog.unassigned)for(const file of [r.media,r.media.original])if(file?.sha256)officialFiles.set(file.sha256,file);
   }
-  for(const h of catalog.houses)for(const f of [h,...(h.sides||[])])for(const rec of [f.original,f.frontMedia,f.texture,f.upperTexture,...(f.sourceFronts||[]).flatMap(r=>[r,r.original])])if(rec?.sha256)officialFiles.set(rec.sha256,rec);
+  for(const h of catalog.houses)for(const f of [h,...(h.sides||[])])for(const rec of [f.original,f.frontMedia,f.texture,f.referenceTexture,f.upperTexture,...(f.sourceFronts||[]).flatMap(r=>[r,r.original])])if(rec?.sha256)officialFiles.set(rec.sha256,rec);
   const syncStreets=()=>$('#street').replaceChildren(...catalog.streets.filter(s=>walkHouses().some(h=>h.slug===s.slug)).map(s=>option(s.slug,s.name)));
-  syncStreets();$('#front-only').checked=onlyFront;
+  syncStreets();$('#front-filter').value=frontFilter;
   initScene();
   $('#street').onchange=()=>selectHouse(keyOf(walkHouses().find(h=>h.slug===$('#street').value))).catch(report);
-  $('#front-only').onchange=e=>{onlyFront=e.target.checked;syncStreets();const w=walkHouses();selectHouse(keyOf(w.includes(house)?house:w.find(h=>h.slug===house.slug)||w[0])).catch(report)};
+  $('#front-filter').onchange=e=>{frontFilter=e.target.value;syncStreets();const w=walkHouses();selectHouse(keyOf(w.includes(house)?house:w.find(h=>h.slug===house.slug)||w[0])).catch(report)};
   $('#house').onchange=()=>selectHouse($('#house').value).catch(report);
   $('#face').onchange=()=>{focusFace=active.sides.find(f=>f.record.faceId===$('#face').value)||active;updateFace();home()};
   for(const [id,step] of [['#prev-house',-1],['#next-house',1]])$(id).onclick=()=>{
     const walk=walkHouses(),next=walk[walk.indexOf(house)+step];if(next)selectHouse(keyOf(next)).catch(report);
   };
   $('#mark-estimates').onchange=e=>{markEstimatedOpenings(e.target.checked);invalidate()};
+  $('#edition').onchange=e=>{referenceFace=e.target.value==='reference'?focusFace.record:null;invalidate()};
   all('[data-mode]').forEach(b=>b.onclick=()=>{pickedMode=b.dataset.mode;setPressed('data-mode',pickedMode);stateUrl();invalidate()});
   all('[data-layer]').forEach(b=>b.onclick=()=>{layer=b.dataset.layer;selectHouse(keyOf(house),false).catch(report)});
   $('#near').onclick=()=>home();$('#streetview').onclick=()=>home(true);
   $('#zoomin').onclick=()=>zoom(.74);$('#zoomout').onclick=()=>zoom(1/.74);
   $('#source').onclick=()=>showOriginal();
+  $('#courtyard').onclick=()=>{const h=focusFace.record;showOriginal({...h,original:null,frontMedia:h.courtyardStudy,courtyardPreview:true})};
   $('#parcel').onclick=()=>showPlan();
   $('#close').onclick=()=>{currentDialog=null;sourceGeneration++;$('#viewer').close()};
   $('#viewer').addEventListener('close',()=>{

@@ -29,7 +29,7 @@
   <p class="tree-note" id="appearance-note" hidden>Barvy diorámatu jsou výtvarnou interpretací.</p>
   <div class="pilot-row"><span id="shot-label">Záběr</span><div class="segmented" role="group" aria-labelledby="shot-label"><button type="button" data-shot="street">Celá Kulová</button><button type="button" data-shot="corner">Ústí do náměstí</button></div></div>
   <div class="pilot-row"><span id="maker-label">Modely</span><div class="segmented" role="group" aria-labelledby="maker-label"><button type="button" data-layer="claude">Claude</button><button type="button" data-layer="gpt">GPT · Codex</button></div></div>
-  <div class="pilot-row"><label for="house-level">Domy</label><select id="house-level"><option value="hmota">Jen hmota domu</option><option value="schema" selected>Schematická průčelí</option><option value="pruceli">Propracovaná průčelí podle fotografií</option><option value="detail">Podrobný model</option></select></div>
+  <div class="pilot-row"><label for="house-level">Domy</label><select id="house-level"><option value="pruceli" selected>Barevné fotografické FRONTy</option><option value="schema">Schematická průčelí</option><option value="relief">Prostorová průčelí Kulové</option><option value="hmota">Jen hmota domu</option><option value="detail">Podrobný model</option></select></div>
   <p class="tree-note"><a id="front-lod-link" href="front-lod/">Průčelí domů · archivní FRONTy a prostorová okna ↗</a></p>
   <div class="pilot-row" id="schema-controls" hidden><label for="schema-focus">Průčelí</label><div class="tree-row"><select id="schema-focus"><option value="">Vybrat dům v Kulové…</option></select><button id="schema-source" type="button" disabled>Fotografie ↗</button></div></div>
 </section>
@@ -169,7 +169,7 @@
 <div class="photo-surface"><img id="scan" alt=""></div><section id="locked-archive" hidden><strong>Archivní sken v Libuši</strong><p>Tento sken je přístupný v projektové databázi po přihlášení. Pokud jej máte uložený, můžete ho otevřít na tomto zařízení. Prohlížeč zkontroluje jeho SHA-256.</p><label>Vybrat místní sken <input id="choose-local-scan" type="file" accept="image/*"></label><p id="scan-notice" role="status"></p></section>
 <div class="doc-foot"><p id="doc-note"></p><div id="doc-switch"></div><a id="original" target="_blank" rel="noopener">Otevřít celý originál ↗</a><details><summary>Identita pramene</summary><p id="doc-id"></p></details></div>
 </dialog>
-<script type="module" src="./mapa.js?v=20261121-fronty"></script>
+<script type="module" src="./mapa.js?v=20261121-barevne"></script>
 <dialog id="roof-dialog" aria-labelledby="roof-dialog-title">
 <button id="roof-dialog-close" aria-label="Zavřít pramen střechy">Zavřít ×</button>
 <p class="kicker">STAVEBNÍ PRAMENY A LETECKÉ SNÍMKY</p><h2 id="roof-dialog-title"></h2>
